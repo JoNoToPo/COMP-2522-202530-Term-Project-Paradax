@@ -1,5 +1,4 @@
 import javafx.scene.Node;
-import javafx.scene.paint.Color;
 import javafx.scene.control.Button;
 
 public class ParaButton extends ParaShape {
@@ -7,9 +6,9 @@ public class ParaButton extends ParaShape {
     private final Button button;
 
     public ParaButton(final int zIndex, final double initX, final double initY,
-                      final double initAngle, final double width, final double height, final Color color) {
+                      final double initAngle, final double width, final double height, final String label) {
         super(zIndex, initX, initY, initAngle);
-        button = new Button();
+        button = new Button(label);
         button.setMaxHeight(height);
         button.setMinHeight(height);
         button.setMaxWidth(width);

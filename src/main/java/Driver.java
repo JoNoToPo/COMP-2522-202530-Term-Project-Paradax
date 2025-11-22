@@ -3,7 +3,6 @@ import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
@@ -19,11 +18,7 @@ public class Driver extends Application {
     private static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
     private static final double SCREEN_WIDTH = BOUNDS.getWidth();
     private static final double SCREEN_HEIGHT = BOUNDS.getHeight();
-    private static final int FONT_SIZE = 14;
 
-
-    private Label label;
-    private Canvas canvas;
     private Level currLevel = new Level();
     private final ArrayList<Level> levels = new ArrayList<>();
 
@@ -32,9 +27,9 @@ public class Driver extends Application {
      * @param stage the stage used by javafx to represent what is seen on screen
      */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
 
-        label = new Label("");
+        Label label = new Label("");
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
 
@@ -67,9 +62,8 @@ public class Driver extends Application {
                 double windowX = stage.getX();
                 double windowY = stage.getY();
 
-                for (ParaShape paraShape : currLevel.getShapes()) {
-                    paraShape.update(windowHeight, windowWidth, windowX, windowY);
-                }
+                currLevel.update(windowHeight, windowWidth, windowX, windowY);
+                currLevel.sortByZ();
             }
         }.start();
 
@@ -94,6 +88,9 @@ public class Driver extends Application {
         spinWithWidth.addTransform(sinT);
         spinWithWidth.addTransform(cosT);
         level1.addShape(spinWithWidth);
+
+        ParaShape button = new ParaButton(0, 25, 35, 20, 50, 50, "  This\nIs cool");
+        level1.addShape(button);
 
         return level1;
     }
