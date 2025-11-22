@@ -11,7 +11,7 @@ public class ParaRectangle extends ParaShape {
         super(zIndex, initX, initY, initAngle);
         rectangle = new Rectangle(width, height, color);
         rectangle.setX(initX);
-        rectangle.setY(initX);
+        rectangle.setY(initY);
         rectangle.setRotate(initAngle);
     }
 

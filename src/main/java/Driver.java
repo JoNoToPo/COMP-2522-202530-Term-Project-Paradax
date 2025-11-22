@@ -4,6 +4,7 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -43,12 +44,20 @@ public class Driver extends Application {
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
 
+        Button nextLevel = new Button("Next Level");
+        nextLevel.setOnAction(_ -> {
+            System.out.println("clicked");
+            root.getChildren().clear();
+        });
+        root.getChildren().add(nextLevel);
+
         Level level1 = levelOne();
         levels.add(level1);
         currLevel = levels.getFirst();
         for (ParaShape shape : currLevel.getShapes()) {
             root.getChildren().add(shape.getNode());
         }
+
 
         new AnimationTimer() {
             @Override
@@ -79,7 +88,7 @@ public class Driver extends Application {
         move_against.addTransform(horz);
         level1.addShape(move_against);
 
-        ParaShape spinWithWidth = new ParaRectangle(0, 300, 300, 0, 30, 30, Color.FIREBRICK);
+        ParaShape spinWithWidth = new ParaRectangle(0, 300, 300, 45, 50, 50, Color.FIREBRICK);
         Transform sinT = new Transform(TransformType.VERTICAL, TransformSource.WIDTH, TransformPath.SINUSOIDAL, .5);
         Transform cosT = new Transform(TransformType.HORIZONTAL, TransformSource.WIDTH, TransformPath.COSINUSOIDAL, .5);
         spinWithWidth.addTransform(sinT);
