@@ -2,6 +2,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 public final class ParaText extends ParaShape {
 
@@ -15,6 +16,7 @@ public final class ParaText extends ParaShape {
         text.setX(initX);
         text.setY(initY);
         text.setRotate(initAngle);
+        text.setTextAlignment(TextAlignment.CENTER);
     }
 
     @Override

@@ -2,6 +2,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 public class LevelOne {
+    static final double TEXT_HEIGHT = 200;
+    static final double TEXT_WIDTH = 200;
 
     LevelOne() {
     }
@@ -39,6 +41,12 @@ public class LevelOne {
         shape3.addTransform(s3t1);
         shape3.addTransform(cosT);
         level.addShape(shape3);
+
+        ParaText welcome = new ParaText(0, Driver.SCREEN_WIDTH / 2 - TEXT_WIDTH / 2,
+                Driver.SCREEN_HEIGHT / 2 - Driver.INIT_HEIGHT / 2,
+                TEXT_WIDTH, TEXT_HEIGHT, 0,
+                "Welcome to Paralax!\nTo play move your window around\n and widen and shorten it to find\n the next level buttons.");
+        level.addShape(welcome);
 
         return level;
     }
