@@ -13,11 +13,11 @@ import javafx.stage.StageStyle;
 
 import java.util.LinkedList;
 
-public class Driver extends Application {
+public final class Driver extends Application {
 
-    private static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
-    private static final double SCREEN_WIDTH = BOUNDS.getWidth();
-    private static final double SCREEN_HEIGHT = BOUNDS.getHeight();
+    static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
+    static final double SCREEN_WIDTH = BOUNDS.getWidth();
+    static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
     private Level currLevel = new Level();
     private final LinkedList<Level> levels = new LinkedList<>();
@@ -33,14 +33,14 @@ public class Driver extends Application {
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
 
-        Scene scene = new Scene(root, SCREEN_WIDTH - 300, SCREEN_HEIGHT - 300, Color.BLACK);
+        Scene scene = new Scene(root, SCREEN_WIDTH - 500, SCREEN_HEIGHT - 400, Color.BLACK);
         stage.initStyle(StageStyle.UNIFIED);
 
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
 
-        levels.add(levelOne());
-        levels.add(levelTwo());
+        levels.add(LevelOne.levelOne(root));
+        levels.add(LevelTwo.levelTwo(root));
         root.getChildren().clear();
 
         new AnimationTimer() {
@@ -57,21 +57,11 @@ public class Driver extends Application {
                         for (ParaShape shape : currLevel.getShapes()) {
                             root.getChildren().add(shape.getNode());
                         }
-                        Button nextLevel = new Button("Next Level");
-                        nextLevel.setOnAction(_ -> {
-                            System.out.println("clicked");
-                            root.getChildren().clear();
-                        });
-                        root.getChildren().add(nextLevel);
                     } else {
-                        Button nextLevel = new Button("The end of all things");
-                        nextLevel.setOnAction(_ -> {
-                            System.out.println("clicked");
-                            root.getChildren().clear();
-                        });
+                        Button contingency = new Button("This shouldn't happen");
+                        root.getChildren().add(contingency);
                     }
                 }
-
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
             }
@@ -80,42 +70,5 @@ public class Driver extends Application {
         stage.setTitle("Paradax");
         stage.setScene(scene);
         stage.show();
-    }
-
-    private Level levelOne() {
-        Level level = new Level();
-
-        ParaShape move_against = new ParaRectangle(3, SCREEN_WIDTH / 2,
-                SCREEN_HEIGHT / 2, 0, 50, 50, Color.BLUE);
-        Transform vert = new Transform(TransformType.VERTICAL,
-                TransformSource.Y_POS, TransformPath.LINEAR, -1);
-        Transform horizontalTransform = new Transform(TransformType.HORIZONTAL,
-                TransformSource.X_POS, TransformPath.LINEAR, -1);
-        move_against.addTransform(vert);
-        move_against.addTransform(horizontalTransform);
-        level.addShape(move_against);
-
-        ParaShape spinWithWidth = new ParaRectangle(2, 300, 300, 45, 50, 50, Color.FIREBRICK);
-        Transform sinT = new Transform(TransformType.VERTICAL,
-                TransformSource.WIDTH, TransformPath.SINUSOIDAL, .5);
-        Transform cosT = new Transform(TransformType.HORIZONTAL,
-                TransformSource.WIDTH, TransformPath.COSINUSOIDAL, -.5);
-        spinWithWidth.addTransform(sinT);
-        spinWithWidth.addTransform(cosT);
-        level.addShape(spinWithWidth);
-
-        ParaShape button = new ParaButton(5, 25, 35, 20, 50, 50, "  This\nIs cool");
-        level.addShape(button);
-
-        return level;
-    }
-
-    private Level levelTwo() {
-        Level level = new Level();
-
-        ParaShape button = new ParaButton(5, 300, 300, 0, 200, 50, "You Win!");
-        level.addShape(button);
-
-        return level;
     }
 }

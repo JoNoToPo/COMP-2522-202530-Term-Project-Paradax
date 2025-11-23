@@ -1,12 +1,15 @@
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 
-public class ParaButton extends ParaShape {
+public final class ParaButton extends ParaShape {
 
     private final Button button;
+    private final ParaButtonType buttonType;
 
-    public ParaButton(final int zIndex, final double initX, final double initY,
-                      final double initAngle, final double width, final double height, final String label) {
+    public ParaButton(final int zIndex, final double initX, final double initY, final double initAngle,
+                      final double width, final double height, final String label,
+                      final ParaButtonType buttonType, final Pane root) {
         super(zIndex, initX, initY, initAngle);
         button = new Button(label);
         button.setMaxHeight(height);
@@ -16,6 +19,8 @@ public class ParaButton extends ParaShape {
         button.setTranslateX(initX);
         button.setTranslateY(initY);
         button.setRotate(initAngle);
+        this.buttonType = buttonType;
+        applyButtonType(root);
     }
 
     @Override
@@ -33,7 +38,17 @@ public class ParaButton extends ParaShape {
         button.setRotate(super.getInitAngle() + delta);
     }
 
+    @Override
     Node getNode() {
         return button;
+    }
+
+    public void applyButtonType(final Pane root) {
+        if (buttonType == ParaButtonType.NEXT_LEVEL) {
+            button.setOnAction(_ -> {
+                System.out.println("clicked");
+                root.getChildren().clear();
+            });
+        }
     }
 }

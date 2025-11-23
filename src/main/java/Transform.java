@@ -1,4 +1,4 @@
-public class Transform {
+public final class Transform {
     private TransformType type;
     private TransformSource source;
     private double multiplier;

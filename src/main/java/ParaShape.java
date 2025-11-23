@@ -19,8 +19,8 @@ public abstract class ParaShape {
         this.initAngle = initAngle;
     }
 
-    public void update(final double windowHeight, final double windowWidth,
-                       final double windowX, final double windowY) {
+    public final void update(final double windowHeight, final double windowWidth,
+                             final double windowX, final double windowY) {
         double xDifference = 0;
         double yDifference = 0;
         double angleDifference = 0;
@@ -87,27 +87,27 @@ public abstract class ParaShape {
         return zIndex;
     }
 
-    public void setZ(int zIndex) {
+    public final void setZ(int zIndex) {
         this.zIndex = zIndex;
     }
 
-    public void addTransform(Transform transform) {
+    public final void addTransform(Transform transform) {
         transforms.add(transform);
     }
 
-    public void removeTransform(Transform transform) {
+    public final void removeTransform(Transform transform) {
         this.transforms.remove(transform);
     }
 
-    public double getInitX() {
+    public final double getInitX() {
         return initX;
     }
 
-    public double getInitY() {
+    public final double getInitY() {
         return initY;
     }
 
-    public double getInitAngle() {
+    public final double getInitAngle() {
         return initAngle;
     }
 }

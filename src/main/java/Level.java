@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Comparator;
 
-public class Level {
+public final class Level {
     private final ArrayList<ParaShape> paraShapes;
 
     public Level() {

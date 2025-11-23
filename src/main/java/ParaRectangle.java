@@ -2,7 +2,7 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class ParaRectangle extends ParaShape {
+public final class ParaRectangle extends ParaShape {
 
     private final Rectangle rectangle;
 
@@ -30,6 +30,7 @@ public class ParaRectangle extends ParaShape {
         rectangle.setRotate(super.getInitAngle() + delta);
     }
 
+    @Override
     Node getNode() {
         return rectangle;
     }
