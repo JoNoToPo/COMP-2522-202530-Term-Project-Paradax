@@ -11,7 +11,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Driver extends Application {
 
@@ -20,7 +20,7 @@ public class Driver extends Application {
     private static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
     private Level currLevel = new Level();
-    private final ArrayList<Level> levels = new ArrayList<>();
+    private final LinkedList<Level> levels = new LinkedList<>();
 
     /**
      * Starts the animation.
@@ -39,20 +39,9 @@ public class Driver extends Application {
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
 
-        Button nextLevel = new Button("Next Level");
-        nextLevel.setOnAction(_ -> {
-            System.out.println("clicked");
-            root.getChildren().clear();
-        });
-        root.getChildren().add(nextLevel);
-
-        Level level1 = levelOne();
-        levels.add(level1);
-        currLevel = levels.getFirst();
-        for (ParaShape shape : currLevel.getShapes()) {
-            root.getChildren().add(shape.getNode());
-        }
-
+        levels.add(levelOne());
+        levels.add(levelTwo());
+        root.getChildren().clear();
 
         new AnimationTimer() {
             @Override
@@ -61,6 +50,27 @@ public class Driver extends Application {
                 double windowWidth = canvas.getWidth();
                 double windowX = stage.getX();
                 double windowY = stage.getY();
+
+                if (root.getChildren().isEmpty()) {
+                    if (!levels.isEmpty()) {
+                        currLevel = levels.pop();
+                        for (ParaShape shape : currLevel.getShapes()) {
+                            root.getChildren().add(shape.getNode());
+                        }
+                        Button nextLevel = new Button("Next Level");
+                        nextLevel.setOnAction(_ -> {
+                            System.out.println("clicked");
+                            root.getChildren().clear();
+                        });
+                        root.getChildren().add(nextLevel);
+                    } else {
+                        Button nextLevel = new Button("The end of all things");
+                        nextLevel.setOnAction(_ -> {
+                            System.out.println("clicked");
+                            root.getChildren().clear();
+                        });
+                    }
+                }
 
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
@@ -73,25 +83,39 @@ public class Driver extends Application {
     }
 
     private Level levelOne() {
-        Level level1 = new Level();
+        Level level = new Level();
 
-        ParaShape move_against = new ParaRectangle(0, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0, 30, 30, Color.BLUE);
-        Transform vert = new Transform(TransformType.VERTICAL, TransformSource.Y_POS, TransformPath.LINEAR, -1);
-        Transform horz = new Transform(TransformType.HORIZONTAL, TransformSource.X_POS, TransformPath.LINEAR, -1);
+        ParaShape move_against = new ParaRectangle(3, SCREEN_WIDTH / 2,
+                SCREEN_HEIGHT / 2, 0, 50, 50, Color.BLUE);
+        Transform vert = new Transform(TransformType.VERTICAL,
+                TransformSource.Y_POS, TransformPath.LINEAR, -1);
+        Transform horizontalTransform = new Transform(TransformType.HORIZONTAL,
+                TransformSource.X_POS, TransformPath.LINEAR, -1);
         move_against.addTransform(vert);
-        move_against.addTransform(horz);
-        level1.addShape(move_against);
+        move_against.addTransform(horizontalTransform);
+        level.addShape(move_against);
 
-        ParaShape spinWithWidth = new ParaRectangle(0, 300, 300, 45, 50, 50, Color.FIREBRICK);
-        Transform sinT = new Transform(TransformType.VERTICAL, TransformSource.WIDTH, TransformPath.SINUSOIDAL, .5);
-        Transform cosT = new Transform(TransformType.HORIZONTAL, TransformSource.WIDTH, TransformPath.COSINUSOIDAL, .5);
+        ParaShape spinWithWidth = new ParaRectangle(2, 300, 300, 45, 50, 50, Color.FIREBRICK);
+        Transform sinT = new Transform(TransformType.VERTICAL,
+                TransformSource.WIDTH, TransformPath.SINUSOIDAL, .5);
+        Transform cosT = new Transform(TransformType.HORIZONTAL,
+                TransformSource.WIDTH, TransformPath.COSINUSOIDAL, -.5);
         spinWithWidth.addTransform(sinT);
         spinWithWidth.addTransform(cosT);
-        level1.addShape(spinWithWidth);
+        level.addShape(spinWithWidth);
 
-        ParaShape button = new ParaButton(0, 25, 35, 20, 50, 50, "  This\nIs cool");
-        level1.addShape(button);
+        ParaShape button = new ParaButton(5, 25, 35, 20, 50, 50, "  This\nIs cool");
+        level.addShape(button);
 
-        return level1;
+        return level;
+    }
+
+    private Level levelTwo() {
+        Level level = new Level();
+
+        ParaShape button = new ParaButton(5, 300, 300, 0, 200, 50, "You Win!");
+        level.addShape(button);
+
+        return level;
     }
 }
