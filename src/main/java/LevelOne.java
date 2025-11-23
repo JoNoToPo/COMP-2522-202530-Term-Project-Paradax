@@ -28,16 +28,17 @@ public class LevelOne {
         spinWithWidth.addTransform(cosT);
         level.addShape(spinWithWidth);
 
-        ParaShape shape3 = new ParaRectangle(2, 400, 600, 45, 100, 50, Color.FIREBRICK);
+        ParaButton button = new ParaButton(1, 400, 600, 0,
+                50, 50, "  Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+        button.addTransform(cosT);
+        level.addShape(button);
+
+        ParaShape shape3 = new ParaRectangle(2, 400, 600, 0, 150, 50, Color.FIREBRICK);
         Transform s3t1 = new Transform(TransformType.ROTATE,
-                TransformSource.HEIGHT, TransformPath.LINEAR, 150);
+                TransformSource.HEIGHT, TransformPath.LINEAR, 1);
         shape3.addTransform(s3t1);
         shape3.addTransform(cosT);
         level.addShape(shape3);
-
-        ParaButton button = new ParaButton(5, 25, 35, 20,
-                50, 50, "  Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
-        level.addShape(button);
 
         return level;
     }

@@ -18,6 +18,8 @@ public final class Driver extends Application {
     static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
     static final double SCREEN_WIDTH = BOUNDS.getWidth();
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
+    static final double INIT_WIDTH = 500;
+    static final double INIT_HEIGHT = 300;
 
     private Level currLevel = new Level();
     private final LinkedList<Level> levels = new LinkedList<>();
@@ -33,7 +35,7 @@ public final class Driver extends Application {
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
 
-        Scene scene = new Scene(root, SCREEN_WIDTH - 500, SCREEN_HEIGHT - 400, Color.BLACK);
+        Scene scene = new Scene(root, INIT_WIDTH, INIT_HEIGHT, Color.BLACK);
         stage.initStyle(StageStyle.UNIFIED);
 
         canvas.widthProperty().bind(root.widthProperty());

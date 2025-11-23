@@ -4,18 +4,24 @@ import java.util.ArrayList;
 
 public abstract class ParaShape {
     private static final int SCALE_CONSTANT = 150;
+    private static final int ONE_HUNDRED_EIGHTY_DEGREES = 180;
 
     private int zIndex;
     private final ArrayList<Transform> transforms;
     private final double initX;
     private final double initY;
+    private final double initWidth;
+    private final double initHeight;
     private final double initAngle;
 
-    public ParaShape(final int zIndex, final double initX, final double initY, final double initAngle) {
+    public ParaShape(final int zIndex, final double initX, final double initY,
+                     final double width, final double height, final double initAngle) {
         this.zIndex = zIndex;
         this.transforms = new ArrayList<>();
         this.initX = initX;
         this.initY = initY;
+        this.initWidth = width;
+        this.initHeight = height;
         this.initAngle = initAngle;
     }
 
@@ -33,7 +39,7 @@ public abstract class ParaShape {
             } else if (type == TransformType.VERTICAL) {
                 yDifference += difference;
             } else if (type == TransformType.ROTATE) {
-                angleDifference += difference;
+                angleDifference += difference * ONE_HUNDRED_EIGHTY_DEGREES;
             }
         }
         transform(windowX, windowY, xDifference, yDifference, angleDifference);
@@ -81,6 +87,10 @@ public abstract class ParaShape {
 
     abstract void rotate(final double delta);
 
+    abstract void widen(final double delta);
+
+    abstract void lengthen(final double delta);
+
     abstract Node getNode();
 
     public int getZ() {
@@ -105,6 +115,14 @@ public abstract class ParaShape {
 
     public final double getInitY() {
         return initY;
+    }
+
+    public double getInitHeight() {
+        return initHeight;
+    }
+
+    public double getInitWidth() {
+        return initWidth;
     }
 
     public final double getInitAngle() {
