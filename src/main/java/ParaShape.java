@@ -3,8 +3,8 @@ import javafx.scene.Node;
 import java.util.ArrayList;
 
 public abstract class ParaShape {
-    private static final int SCALE_CONSTANT = 150;
-    private static final int ONE_HUNDRED_EIGHTY_DEGREES = 180;
+    private static final int ONE_HUNDRED_PIXELS = 100;
+    private static final int TEN_PIXELS = 10;
 
     private int zIndex;
     private final ArrayList<Transform> transforms;
@@ -41,7 +41,7 @@ public abstract class ParaShape {
             } else if (type == TransformType.VERTICAL) {
                 yDifference += difference;
             } else if (type == TransformType.ROTATE) {
-                angleDifference += difference * ONE_HUNDRED_EIGHTY_DEGREES;
+                angleDifference += Math.floor(difference);
             } else if (type == TransformType.WIDEN) {
                 widthDifference += difference;
             } else if (type == TransformType.LENGTHEN) {
@@ -54,22 +54,22 @@ public abstract class ParaShape {
     private double parseSource(final double windowHeight, final double windowWidth,
                                final double windowX, final double windowY, final TransformSource source) {
         if (source == TransformSource.X_POS) {
-            return windowX / SCALE_CONSTANT;
+            return windowX;
         } else if (source == TransformSource.Y_POS) {
-            return windowY / SCALE_CONSTANT;
+            return windowY;
         } else if (source == TransformSource.HEIGHT) {
-            return windowHeight / SCALE_CONSTANT;
+            return windowHeight;
         } else if (source == TransformSource.WIDTH) {
-            return windowWidth / SCALE_CONSTANT;
+            return windowWidth;
         }
         return 0;
     }
 
     private double parsePath(final double source, final double multiplier, final TransformPath path) {
         if (path == TransformPath.SINUSOIDAL) {
-            return Math.sin(source) * SCALE_CONSTANT * multiplier;
+            return Math.sin(source / Math.TAU / TEN_PIXELS) * multiplier * ONE_HUNDRED_PIXELS;
         } else if (path == TransformPath.COSINUSOIDAL) {
-            return Math.cos(source) * SCALE_CONSTANT * multiplier;
+            return Math.cos(source / Math.TAU / TEN_PIXELS) * multiplier * ONE_HUNDRED_PIXELS;
         } else if (path == TransformPath.EXPONENTIAL) {
             return source * source * multiplier;
         }
