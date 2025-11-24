@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,7 +20,7 @@ public final class Driver extends Application {
     static final double SCREEN_WIDTH = BOUNDS.getWidth();
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
-    private Level currLevel = new Level(0, 0, 0, 0);
+    private Level currLevel = new Level(50, 50, 50, 50);
     private final LinkedList<Level> levels = new LinkedList<>();
 
     /**
@@ -44,15 +45,21 @@ public final class Driver extends Application {
         levels.add(LevelThree.levelThree(root));
         root.getChildren().clear();
 
+        ParaText debug = new ParaText(0, 50,
+                50,
+                50, 50, 0,
+                "", Color.BLACK);
+
         new AnimationTimer() {
             @Override
             public void handle(long l) {
-                double windowHeight = canvas.getHeight();
-                double windowWidth = canvas.getWidth();
+                double windowHeight = stage.getHeight();
+                double windowWidth = stage.getWidth();
                 double windowX = stage.getX();
                 double windowY = stage.getY();
 
                 if (root.getChildren().isEmpty()) {
+                    root.getChildren().add(debug.getNode());
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
                         stage.setHeight(currLevel.getInitHeight());
@@ -67,6 +74,7 @@ public final class Driver extends Application {
                         root.getChildren().add(contingency);
                     }
                 }
+                debug.changeMessage(Double.toString(windowWidth));
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
             }

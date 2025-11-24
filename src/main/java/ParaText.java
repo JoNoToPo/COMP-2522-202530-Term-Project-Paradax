@@ -13,6 +13,13 @@ public final class ParaText extends ParaShape {
 
     public ParaText(final int zIndex, final double initX, final double initY,
                     final double width, final double height,
+                    final double initAngle, final String message, Color color) {
+        this(zIndex, initX, initY, width, height, initAngle, message);
+        text.setFill(color);
+    }
+
+    public ParaText(final int zIndex, final double initX, final double initY,
+                    final double width, final double height,
                     final double initAngle, final String message) {
         super(zIndex, initX, initY, width, height, initAngle);
         text = new Text(initX, initY, message);
@@ -24,6 +31,10 @@ public final class ParaText extends ParaShape {
         text.setRotate(initAngle);
         text.setTextAlignment(TextAlignment.CENTER);
         text.setWrappingWidth(width);
+    }
+
+    void changeMessage(String message) {
+        text.setText(message);
     }
 
     @Override

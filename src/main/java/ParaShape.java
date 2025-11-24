@@ -70,6 +70,8 @@ public abstract class ParaShape {
             return Math.sin(source) * SCALE_CONSTANT * multiplier;
         } else if (path == TransformPath.COSINUSOIDAL) {
             return Math.cos(source) * SCALE_CONSTANT * multiplier;
+        } else if (path == TransformPath.EXPONENTIAL) {
+            return source * source * multiplier;
         }
         return source * multiplier;
     }

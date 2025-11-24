@@ -11,9 +11,8 @@ public final class ParaRectangle extends ParaShape {
                          final double initAngle, final Color color) {
         super(zIndex, initX, initY, width, height, initAngle);
         rectangle = new Rectangle(width, height, color);
-        rectangle.setX(initX);
-        rectangle.setY(initY);
-        rectangle.setRotate(initAngle);
+        rectangle.setArcWidth(10);
+        rectangle.setArcHeight(10);
     }
 
     @Override
