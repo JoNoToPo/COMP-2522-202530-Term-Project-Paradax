@@ -1,10 +1,14 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -32,7 +36,16 @@ public final class Driver extends Application {
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
 
-        Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.BLACK);
+        BackgroundFill backgroundFill = new BackgroundFill(
+                Color.LIGHTGRAY,
+                new CornerRadii(10), // Rounded corners with a radius of 10
+                new Insets(10)     // Insets (padding) of 10 on all sides
+        );
+
+        Background background = new Background(backgroundFill);
+
+        root.setBackground(background);
+        Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
         stage.initStyle(StageStyle.UNIFIED);
 
         canvas.widthProperty().bind(root.widthProperty());
@@ -41,8 +54,8 @@ public final class Driver extends Application {
         LinkedList<Level> levels = Levels.levels(root);
         root.getChildren().clear();
 
-        ParaText debug = new ParaText(0, 50, 50, 50, 50, 0,
-                "", Color.BLACK);
+//        ParaText debug = new ParaText(0, 50, 50, 50, 50, 0,
+//                "", Color.BLACK);
 
         new AnimationTimer() {
             @Override
@@ -53,7 +66,7 @@ public final class Driver extends Application {
                 double windowY = stage.getY();
 
                 if (root.getChildren().isEmpty()) {
-                    root.getChildren().add(debug.getNode());
+//                    root.getChildren().add(debug.getNode());
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
                         stage.setHeight(currLevel.getInitHeight());
@@ -64,7 +77,7 @@ public final class Driver extends Application {
                             root.getChildren().add(shape.getNode());
                         }
                     } else {
-                        Button contingency = new Button("This shouldn't happen");
+                        Button contingency = new Button("You Win!");
                         root.getChildren().add(contingency);
                     }
                 }
@@ -79,7 +92,7 @@ public final class Driver extends Application {
                         stage.setY(currLevel.getInitY());
                     }
                 }
-                debug.changeMessage(Double.toString(windowX));
+//                debug.changeMessage(Double.toString(windowX));
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
             }
