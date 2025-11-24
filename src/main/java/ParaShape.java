@@ -30,6 +30,8 @@ public abstract class ParaShape {
         double xDifference = 0;
         double yDifference = 0;
         double angleDifference = 0;
+        double widthDifference = 0;
+        double heightDifference = 0;
 
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
@@ -40,17 +42,21 @@ public abstract class ParaShape {
                 yDifference += difference;
             } else if (type == TransformType.ROTATE) {
                 angleDifference += difference * ONE_HUNDRED_EIGHTY_DEGREES;
+            } else if (type == TransformType.WIDEN) {
+                widthDifference += difference;
+            } else if (type == TransformType.LENGTHEN) {
+                heightDifference += difference;
             }
         }
-        transform(windowX, windowY, xDifference, yDifference, angleDifference);
+        transform(windowX, windowY, xDifference, yDifference, widthDifference, heightDifference, angleDifference);
     }
 
     private double parseSource(final double windowHeight, final double windowWidth,
                                final double windowX, final double windowY, final TransformSource source) {
         if (source == TransformSource.X_POS) {
-            return windowX;
+            return windowX / SCALE_CONSTANT;
         } else if (source == TransformSource.Y_POS) {
-            return windowY;
+            return windowY / SCALE_CONSTANT;
         } else if (source == TransformSource.HEIGHT) {
             return windowHeight / SCALE_CONSTANT;
         } else if (source == TransformSource.WIDTH) {
@@ -75,10 +81,12 @@ public abstract class ParaShape {
     }
 
     private void transform(final double windowX, final double windowY, final double xDifference,
-                           double yDifference, double angleDifference) {
+                           final double yDifference, final double widthDifference, final double heightDifference, final double angleDifference) {
         transformHorizontal(windowX, xDifference);
         transformVertical(windowY, yDifference);
         rotate(angleDifference);
+        widen(widthDifference);
+        lengthen(heightDifference);
     }
 
     abstract void transformHorizontal(final double windowX, final double delta);

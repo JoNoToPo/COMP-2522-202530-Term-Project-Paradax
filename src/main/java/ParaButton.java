@@ -1,6 +1,10 @@
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
+
+import java.awt.*;
 
 public final class ParaButton extends ParaShape {
 
@@ -13,13 +17,7 @@ public final class ParaButton extends ParaShape {
                       final ParaButtonType buttonType, final Pane root) {
         super(zIndex, initX, initY, width, height, initAngle);
         button = new Button(label);
-        button.setMaxHeight(height);
-        button.setMinHeight(height);
-        button.setMaxWidth(width);
-        button.setMinWidth(width);
-        button.setTranslateX(initX);
-        button.setTranslateY(initY);
-        button.setRotate(initAngle);
+        button.setTextAlignment(TextAlignment.CENTER);
         this.buttonType = buttonType;
         applyButtonType(root);
     }

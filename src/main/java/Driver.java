@@ -18,10 +18,8 @@ public final class Driver extends Application {
     static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
     static final double SCREEN_WIDTH = BOUNDS.getWidth();
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
-    static final double INIT_WIDTH = 500;
-    static final double INIT_HEIGHT = 300;
 
-    private Level currLevel = new Level();
+    private Level currLevel = new Level(0, 0, 0, 0);
     private final LinkedList<Level> levels = new LinkedList<>();
 
     /**
@@ -35,7 +33,7 @@ public final class Driver extends Application {
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
 
-        Scene scene = new Scene(root, INIT_WIDTH, INIT_HEIGHT, Color.BLACK);
+        Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.BLACK);
         stage.initStyle(StageStyle.UNIFIED);
 
         canvas.widthProperty().bind(root.widthProperty());
@@ -43,6 +41,7 @@ public final class Driver extends Application {
 
         levels.add(LevelOne.levelOne(root));
         levels.add(LevelTwo.levelTwo(root));
+        levels.add(LevelThree.levelThree(root));
         root.getChildren().clear();
 
         new AnimationTimer() {
@@ -56,6 +55,10 @@ public final class Driver extends Application {
                 if (root.getChildren().isEmpty()) {
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
+                        stage.setHeight(currLevel.getInitHeight());
+                        stage.setWidth(currLevel.getInitWidth());
+                        stage.setX(currLevel.getInitX());
+                        stage.setY(currLevel.getInitY());
                         for (ParaShape shape : currLevel.getShapes()) {
                             root.getChildren().add(shape.getNode());
                         }
