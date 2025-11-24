@@ -12,7 +12,6 @@ public class Levels {
     private static final double TEXT_WIDTH = 250;
     private static final double TEXT_OFFSET = 15;
     private static final double BUTTON_DIMENSION = 50;
-    private static final int DEGREES = 90;
 
     private static final Transform spinY = new Transform(TransformType.ROTATE,
             TransformSource.Y_POS, TransformPath.LINEAR, 1);
@@ -54,6 +53,7 @@ public class Levels {
         final double INIT_HEIGHT = 300;
         final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
         final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
+
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
 
         ParaButton button = new ParaButton(1, INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + 2.5,
@@ -86,6 +86,7 @@ public class Levels {
         final double INIT_HEIGHT = 300;
         final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
         final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
+
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.WIDTH);
 
@@ -118,6 +119,7 @@ public class Levels {
         final double INIT_HEIGHT = 300;
         final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
         final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
+
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
@@ -148,6 +150,7 @@ public class Levels {
         final double INIT_HEIGHT = 300;
         final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
         final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
+
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         ParaButton button = new ParaButton(1, INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + 2.5,
