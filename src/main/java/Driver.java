@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,7 +20,6 @@ public final class Driver extends Application {
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
     private Level currLevel = new Level(50, 50, 50, 50);
-    private final LinkedList<Level> levels = new LinkedList<>();
 
     /**
      * Starts the animation.
@@ -40,14 +38,10 @@ public final class Driver extends Application {
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
 
-        levels.add(LevelOne.levelOne(root));
-        levels.add(LevelTwo.levelTwo(root));
-        levels.add(LevelThree.levelThree(root));
+        LinkedList<Level> levels = Levels.levels(root);
         root.getChildren().clear();
 
-        ParaText debug = new ParaText(0, 50,
-                50,
-                50, 50, 0,
+        ParaText debug = new ParaText(0, 50, 50, 50, 50, 0,
                 "", Color.BLACK);
 
         new AnimationTimer() {
@@ -74,7 +68,18 @@ public final class Driver extends Application {
                         root.getChildren().add(contingency);
                     }
                 }
-                debug.changeMessage(Double.toString(windowWidth));
+                for (FixedLevelType type : currLevel.getFixedLevelTypes()) {
+                    if (type == FixedLevelType.HEIGHT) {
+                        stage.setHeight(currLevel.getInitHeight());
+                    } else if (type == FixedLevelType.WIDTH) {
+                        stage.setWidth(currLevel.getInitWidth());
+                    } else if (type == FixedLevelType.X_POSITION) {
+                        stage.setX(currLevel.getInitX());
+                    } else if (type == FixedLevelType.Y_POSITION) {
+                        stage.setY(currLevel.getInitY());
+                    }
+                }
+                debug.changeMessage(Double.toString(windowX));
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
             }
@@ -84,4 +89,6 @@ public final class Driver extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+
 }
