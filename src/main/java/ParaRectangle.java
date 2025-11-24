@@ -4,6 +4,7 @@ import javafx.scene.shape.Rectangle;
 
 public final class ParaRectangle extends ParaShape {
 
+    private static final double TEN_PIXELS = 10;
     private final Rectangle rectangle;
 
     public ParaRectangle(final int zIndex, final double initX, final double initY,
@@ -11,8 +12,8 @@ public final class ParaRectangle extends ParaShape {
                          final double initAngle, final Color color) {
         super(zIndex, initX, initY, width, height, initAngle);
         rectangle = new Rectangle(width, height, color);
-        rectangle.setArcWidth(10);
-        rectangle.setArcHeight(10);
+        rectangle.setArcWidth(TEN_PIXELS);
+        rectangle.setArcHeight(TEN_PIXELS);
     }
 
     @Override

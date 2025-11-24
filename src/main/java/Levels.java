@@ -43,11 +43,11 @@ public class Levels {
 
     static LinkedList<Level> levels(final Pane root) {
         LinkedList<Level> levels = new LinkedList<>();
-//        levels.add(levelOne(root));
-//        levels.add(levelTwo(root));
-//        levels.add(levelThree(root));
-//        levels.add(levelFour(root));
-//        levels.add(levelFive(root));
+        levels.add(levelOne(root));
+        levels.add(levelTwo(root));
+        levels.add(levelThree(root));
+        levels.add(levelFour(root));
+        levels.add(levelFive(root));
         levels.add(levelSix(root));
         return levels;
     }
