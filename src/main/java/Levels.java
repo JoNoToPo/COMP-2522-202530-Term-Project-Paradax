@@ -96,6 +96,7 @@ public final class Levels {
         levels.add(levelFour(root));
         levels.add(levelFive(root));
         levels.add(levelSix(root));
+        levels.add(finish(root));
         return levels;
     }
 
@@ -227,8 +228,6 @@ public final class Levels {
         return level;
     }
 
-
-
     private static Level levelFive(final Pane root) {
         final double initWidth = 500;
         final double initHeight = 600;
@@ -237,6 +236,7 @@ public final class Levels {
 
         Level level = new Level(initX, initY, initWidth, initHeight);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
 
         double textBoxX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
         double textBoxY = initY + (initHeight - Y_CENTERING_HEIGHT) / THIRD - TEXT_HEIGHT / 2;
@@ -258,15 +258,15 @@ public final class Levels {
                 ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
-        ParaRectangle red = new ParaRectangle(0, buttonX - TEXT_WIDTH / 2 + initX, buttonY,
+        ParaRectangle red = new ParaRectangle(0, buttonX - TEXT_WIDTH / 2 - initX, buttonY,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
-        red.addTransform(AGAINST_WIDEN);
+        red.addTransform(WITH_WIDEN);
         level.addShape(red);
 
         ParaRectangle blue = new ParaRectangle(0, buttonX
-                - BUTTON_DIMENSION - initX, buttonY - TEXT_HEIGHT,
+                - BUTTON_DIMENSION + initX, buttonY - TEXT_HEIGHT,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
-        blue.addTransform(WITH_WIDEN);
+        blue.addTransform(AGAINST_WIDEN);
         level.addShape(blue);
 
         return level;
@@ -318,6 +318,32 @@ public final class Levels {
         level.addShape(red);
 
         addBlueLevelSix(buttonX, buttonY, initHeight, level);
+
+        return level;
+    }
+
+    private static Level finish(final Pane root) {
+        final double initWidth = 300;
+        final double initHeight = 300;
+        final double initY = Driver.SCREEN_HEIGHT / 2 - initHeight / 2;
+        final double initX = Driver.SCREEN_WIDTH / 2 - initWidth / 2;
+
+        Level level = new Level(initX, initY, initWidth, initHeight);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+        level.addFixedLevelType(FixedLevelType.X_POSITION);
+        level.addFixedLevelType(FixedLevelType.WIDTH);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+
+        double textBoxX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
+        double textBoxY = initY + (initHeight - Y_CENTERING_HEIGHT) / 2 - TEXT_HEIGHT / 2;
+
+        ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
+                TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
+        level.addShape(textBG);
+
+        ParaText welcome = new ParaText(0, textBoxX, textBoxY + TEXT_OFFSET + TWO_LINE,
+                TEXT_WIDTH, TEXT_HEIGHT, 0, "You Win!\nThank you for playing!");
+        level.addShape(welcome);
 
         return level;
     }
