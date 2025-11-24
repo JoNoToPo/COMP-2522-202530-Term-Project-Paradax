@@ -17,27 +17,27 @@ public final class ParaRectangle extends ParaShape {
     }
 
     @Override
-    void transformHorizontal(double windowX, double delta) {
+    void transformHorizontal(final double windowX, final double delta) {
         rectangle.setX(super.getInitX() - windowX + delta);
     }
 
     @Override
-    void transformVertical(double windowY, double delta) {
+    void transformVertical(final double windowY, final double delta) {
         rectangle.setY(super.getInitY() - windowY + delta);
     }
 
     @Override
-    void rotate(double delta) {
+    void rotate(final double delta) {
         rectangle.setRotate(super.getInitAngle() + delta);
     }
 
     @Override
-    void widen(double delta) {
+    void widen(final double delta) {
         rectangle.setWidth(super.getInitWidth() + delta);
     }
 
     @Override
-    void lengthen(double delta) {
+    void lengthen(final double delta) {
         rectangle.setHeight(super.getInitHeight() + delta);
     }
 

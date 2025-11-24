@@ -3,7 +3,17 @@ import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
 
+/**
+ * The levels of the game.
+ *
+ * @author jenge
+ * @version 2025
+ */
 public class Levels {
+    private static final double INIT_WIDTH = 300;
+    private static final double INIT_HEIGHT = 300;
+    private static final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
+    private static final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
     static final double Y_CENTERING_HEIGHT = 60;
     static final double HEADER_HEIGHT = 40;
     static final double WIDTH_DIFFERENCE = 17;
@@ -13,29 +23,29 @@ public class Levels {
     private static final double TEXT_OFFSET = 15;
     private static final double BUTTON_DIMENSION = 50;
 
-    private static final Transform spinY = new Transform(TransformType.ROTATE,
+    private static final Transform SPIN_Y = new Transform(TransformType.ROTATE,
             TransformSource.Y_POS, TransformPath.LINEAR, 1);
-    private static final Transform spinX = new Transform(TransformType.ROTATE,
+    private static final Transform SPIN_X = new Transform(TransformType.ROTATE,
             TransformSource.X_POS, TransformPath.LINEAR, 1);
-    static final Transform withWiden = new Transform(TransformType.HORIZONTAL,
+    static final Transform WITH_WIDEN = new Transform(TransformType.HORIZONTAL,
             TransformSource.WIDTH, TransformPath.LINEAR, 1);
-    static final Transform againstWiden = new Transform(TransformType.HORIZONTAL,
+    static final Transform AGAINST_WIDEN = new Transform(TransformType.HORIZONTAL,
             TransformSource.WIDTH, TransformPath.LINEAR, -1);
-    static final Transform withShorten = new Transform(TransformType.VERTICAL,
+    static final Transform WITH_SHORTEN = new Transform(TransformType.VERTICAL,
             TransformSource.HEIGHT, TransformPath.LINEAR, 1);
-    static final Transform withX = new Transform(TransformType.HORIZONTAL,
+    static final Transform WITH_X = new Transform(TransformType.HORIZONTAL,
             TransformSource.X_POS, TransformPath.LINEAR, 1);
-    static final Transform withY = new Transform(TransformType.VERTICAL,
+    static final Transform WITH_Y = new Transform(TransformType.VERTICAL,
             TransformSource.Y_POS, TransformPath.LINEAR, 1);
-    private static final Transform horizontalHeight = new Transform(TransformType.HORIZONTAL,
+    private static final Transform HORIZONTAL_HEIGHT = new Transform(TransformType.HORIZONTAL,
             TransformSource.HEIGHT, TransformPath.LINEAR, 1);
-    private static final Transform againstMoveY = new Transform(TransformType.VERTICAL,
+    private static final Transform AGAINST_MOVE_Y = new Transform(TransformType.VERTICAL,
             TransformSource.Y_POS, TransformPath.LINEAR, -1);
-    private static final Transform againstMoveX = new Transform(TransformType.HORIZONTAL,
+    private static final Transform AGAINST_MOVE_X = new Transform(TransformType.HORIZONTAL,
             TransformSource.X_POS, TransformPath.LINEAR, -1);
-    private static final Transform sinT = new Transform(TransformType.VERTICAL,
+    private static final Transform SIN_T = new Transform(TransformType.VERTICAL,
             TransformSource.WIDTH, TransformPath.SINUSOIDAL, 1);
-    private static final Transform cosT = new Transform(TransformType.HORIZONTAL,
+    private static final Transform COS_T = new Transform(TransformType.HORIZONTAL,
             TransformSource.WIDTH, TransformPath.COSINUSOIDAL, -1);
 
     Levels() {
@@ -53,10 +63,6 @@ public class Levels {
     }
 
     private static Level levelOne(final Pane root) {
-        final double INIT_WIDTH = 300;
-        final double INIT_HEIGHT = 300;
-        final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-        final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
 
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
 
@@ -71,26 +77,21 @@ public class Levels {
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, -OFFSET_ANGLE, Color.BLACK);
-        textBG.addTransform(spinY);
-        textBG.addTransform(spinX);
+        textBG.addTransform(SPIN_Y);
+        textBG.addTransform(SPIN_X);
         level.addShape(textBG);
 
         ParaText welcome = new ParaText(0, textBoxX, textBoxY + TEXT_OFFSET,
                 TEXT_WIDTH, TEXT_HEIGHT, -OFFSET_ANGLE,
                 "\nFind the \"Next Level\" button.");
-        welcome.addTransform(spinY);
-        welcome.addTransform(spinX);
+        welcome.addTransform(SPIN_Y);
+        welcome.addTransform(SPIN_X);
         level.addShape(welcome);
 
         return level;
     }
 
     static Level levelTwo(final Pane root) {
-        final double INIT_WIDTH = 300;
-        final double INIT_HEIGHT = 300;
-        final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-        final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
-
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.WIDTH);
 
@@ -104,26 +105,21 @@ public class Levels {
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
-        textBG.addTransform(againstMoveY);
-        textBG.addTransform(againstMoveX);
+        textBG.addTransform(AGAINST_MOVE_Y);
+        textBG.addTransform(AGAINST_MOVE_X);
         level.addShape(textBG);
 
         ParaText welcome = new ParaText(0, textBoxX, textBoxY + TEXT_OFFSET + TWO_LINE,
                 TEXT_WIDTH, TEXT_HEIGHT, 0,
                 "These Red lines indicate that you cannot WIDEN your window");
-        welcome.addTransform(againstMoveY);
-        welcome.addTransform(againstMoveX);
+        welcome.addTransform(AGAINST_MOVE_Y);
+        welcome.addTransform(AGAINST_MOVE_X);
         level.addShape(welcome);
 
         return level;
     }
 
     static Level levelThree(final Pane root) {
-        final double INIT_WIDTH = 300;
-        final double INIT_HEIGHT = 300;
-        final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-        final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
-
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
@@ -138,24 +134,19 @@ public class Levels {
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
-        textBG.addTransform(horizontalHeight);
+        textBG.addTransform(HORIZONTAL_HEIGHT);
         level.addShape(textBG);
 
         ParaText welcome = new ParaText(0, textBoxX, textBoxY + TEXT_OFFSET,
                 TEXT_WIDTH, TEXT_HEIGHT, 0,
                 "\nWhat does this black line do?");
-        welcome.addTransform(horizontalHeight);
+        welcome.addTransform(HORIZONTAL_HEIGHT);
         level.addShape(welcome);
 
         return level;
     }
 
     static Level levelFour(final Pane root) {
-        final double INIT_WIDTH = 300;
-        final double INIT_HEIGHT = 300;
-        final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-        final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
-
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
@@ -172,29 +163,30 @@ public class Levels {
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
-        textBG.addTransform(sinT);
-        textBG.addTransform(cosT);
+        textBG.addTransform(SIN_T);
+        textBG.addTransform(COS_T);
         level.addShape(textBG);
 
         ParaText welcome = new ParaText(0, textBoxX, textBoxY + TEXT_OFFSET,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, "\nSpinny!");
-        welcome.addTransform(sinT);
-        welcome.addTransform(cosT);
+        welcome.addTransform(SIN_T);
+        welcome.addTransform(COS_T);
         level.addShape(welcome);
 
         return level;
     }
 
     static Level levelFive(final Pane root) {
-        final double INIT_WIDTH = 500;
-        final double INIT_HEIGHT = 600;
-        final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-        final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
-        Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
-//        level.addFixedLevelType(FixedLevelType.HEIGHT);
+        final double initWidth = 500;
+        final double initHeight = 600;
+        final double initY = Driver.SCREEN_HEIGHT / 2 - initHeight / 2;
+        final double initX = Driver.SCREEN_WIDTH / 2 - initWidth / 2;
 
-        double textBoxX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
-        double textBoxY = INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 3 - TEXT_HEIGHT / 2;
+        Level level = new Level(initX, initY, initWidth, initHeight);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+
+        double textBoxX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
+        double textBoxY = initY + (initHeight - Y_CENTERING_HEIGHT) / 3 - TEXT_HEIGHT / 2;
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
@@ -204,36 +196,36 @@ public class Levels {
                 TEXT_WIDTH, TEXT_HEIGHT, 0, "It's definitely behind those boxes down there");
         level.addShape(welcome);
 
-        double buttonX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION / 2;
-        double buttonY = INIT_Y + 2 * (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 3 - BUTTON_DIMENSION / 2;
+        double buttonX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION / 2;
+        double buttonY = initY + 2 * (initHeight - Y_CENTERING_HEIGHT) / 3 - BUTTON_DIMENSION / 2;
 
         ParaButton button = new ParaButton(1, buttonX, buttonY,
                 BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
-        ParaRectangle red = new ParaRectangle(0, buttonX - TEXT_WIDTH / 2 + INIT_X, buttonY,
+        ParaRectangle red = new ParaRectangle(0, buttonX - TEXT_WIDTH / 2 + initX, buttonY,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
-        red.addTransform(againstWiden);
+        red.addTransform(AGAINST_WIDEN);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION - INIT_X, buttonY - TEXT_HEIGHT,
+        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION - initX, buttonY - TEXT_HEIGHT,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
-        blue.addTransform(withWiden);
+        blue.addTransform(WITH_WIDEN);
         level.addShape(blue);
 
         return level;
     }
 
     static Level levelSix(final Pane root) {
-        final double INIT_WIDTH = 500;
-        final double INIT_HEIGHT = 600;
-        final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-        final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
-        Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
+        final double initWidth = 500;
+        final double initHeight = 600;
+        final double initY = Driver.SCREEN_HEIGHT / 2 - initHeight / 2;
+        final double initX = Driver.SCREEN_WIDTH / 2 - initWidth / 2;
+        Level level = new Level(initX, initY, initWidth, initHeight);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
 
-        double textBoxX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
-        double textBoxY = INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 3 - TEXT_HEIGHT / 2;
+        double textBoxX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
+        double textBoxY = initY + (initHeight - Y_CENTERING_HEIGHT) / 3 - TEXT_HEIGHT / 2;
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
@@ -243,21 +235,21 @@ public class Levels {
                 TEXT_WIDTH, TEXT_HEIGHT, 0, "I can smell it, it's 100% still below two boxes.");
         level.addShape(welcome);
 
-        double buttonX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION / 2;
-        double buttonY = INIT_Y + 2 * (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 3 - BUTTON_DIMENSION / 2;
+        double buttonX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION / 2;
+        double buttonY = initY + 2 * (initHeight - Y_CENTERING_HEIGHT) / 3 - BUTTON_DIMENSION / 2;
 
         ParaButton button = new ParaButton(1, buttonX, buttonY,
                 BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
-        ParaRectangle red = new ParaRectangle(0, INIT_Y / 2 + BUTTON_DIMENSION, buttonY,
+        ParaRectangle red = new ParaRectangle(0, initY / 2 + BUTTON_DIMENSION, buttonY,
                 Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
                 TransformSource.Y_POS, TransformPath.LINEAR, -.5);
         red.addTransform(slowDescent);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION - INIT_HEIGHT / 2, buttonY - TEXT_HEIGHT,
+        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION - initHeight / 2, buttonY - TEXT_HEIGHT,
                 Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
         Transform slowHeight = new Transform(TransformType.HORIZONTAL,
                 TransformSource.HEIGHT, TransformPath.LINEAR, .5);

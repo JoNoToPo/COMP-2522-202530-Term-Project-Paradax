@@ -17,20 +17,27 @@ import javafx.stage.StageStyle;
 
 import java.util.LinkedList;
 
+/**
+ * Drives Paradax the game.
+ *
+ * @author jenge
+ * @version 2025
+ */
 public final class Driver extends Application {
 
     static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
     static final double SCREEN_WIDTH = BOUNDS.getWidth();
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
+    static final int RADIUS = 10;
 
-    private Level currLevel = new Level(50, 50, 50, 50);
+    private Level currLevel = new Level(0, 0, 0, 0);
 
     /**
      * Starts the animation.
      * @param stage the stage used by javafx to represent what is seen on screen
      */
     @Override
-    public void start(Stage stage) {
+    public void start(final Stage stage) {
 
         Label label = new Label("");
         Canvas canvas = new Canvas();
@@ -38,8 +45,8 @@ public final class Driver extends Application {
 
         BackgroundFill backgroundFill = new BackgroundFill(
                 Color.LIGHTGRAY,
-                new CornerRadii(10), // Rounded corners with a radius of 10
-                new Insets(10)     // Insets (padding) of 10 on all sides
+                new CornerRadii(RADIUS), // Rounded corners with a radius of 10
+                new Insets(RADIUS)     // Insets (padding) of 10 on all sides
         );
 
         Background background = new Background(backgroundFill);
@@ -59,7 +66,7 @@ public final class Driver extends Application {
 
         new AnimationTimer() {
             @Override
-            public void handle(long l) {
+            public void handle(final long longParam) {
                 double windowHeight = stage.getHeight();
                 double windowWidth = stage.getWidth();
                 double windowX = stage.getX();

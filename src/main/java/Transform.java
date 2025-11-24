@@ -16,7 +16,7 @@ public final class Transform {
         return type;
     }
 
-    public void setType(TransformType type) {
+    public void setType(final TransformType type) {
         this.type = type;
     }
 
@@ -24,7 +24,7 @@ public final class Transform {
         return source;
     }
 
-    public void setSource(TransformSource source) {
+    public void setSource(final TransformSource source) {
         this.source = source;
     }
 
@@ -32,7 +32,7 @@ public final class Transform {
         return multiplier;
     }
 
-    public void setMultiplier(double multiplier) {
+    public void setMultiplier(final double multiplier) {
         this.multiplier = multiplier;
     }
 
@@ -40,7 +40,7 @@ public final class Transform {
         return path;
     }
 
-    public void setPath(TransformPath path) {
+    public void setPath(final TransformPath path) {
         this.path = path;
     }
 }

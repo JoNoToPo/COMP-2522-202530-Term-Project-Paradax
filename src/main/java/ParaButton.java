@@ -1,10 +1,7 @@
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-
-import java.awt.*;
 
 public final class ParaButton extends ParaShape {
 
@@ -23,28 +20,28 @@ public final class ParaButton extends ParaShape {
     }
 
     @Override
-    void transformHorizontal(double windowX, double delta) {
+    void transformHorizontal(final double windowX, final double delta) {
         button.setTranslateX(super.getInitX() - windowX + delta);
     }
 
     @Override
-    void transformVertical(double windowY, double delta) {
+    void transformVertical(final double windowY, final double delta) {
         button.setTranslateY(super.getInitY() - windowY + delta);
     }
 
     @Override
-    void rotate(double delta) {
+    void rotate(final double delta) {
         button.setRotate(super.getInitAngle() + delta);
     }
 
     @Override
-    void widen(double delta) {
+    void widen(final double delta) {
         button.setMaxWidth(super.getInitWidth() + delta);
         button.setMinWidth(super.getInitWidth() + delta);
     }
 
     @Override
-    void lengthen(double delta) {
+    void lengthen(final double delta) {
         button.setMaxHeight(super.getInitHeight() + delta);
         button.setMinHeight(super.getInitHeight() + delta);
     }

@@ -5,6 +5,7 @@ import java.util.Comparator;
 
 public final class Level {
     private static final int FIVE_PIXELS = 5;
+    private static final int THREE_PIXELS = 5;
     private final ArrayList<ParaShape> paraShapes;
     private final ArrayList<FixedLevelType> fixedLevelTypes;
     private final double initX;
@@ -12,7 +13,8 @@ public final class Level {
     private final double initWidth;
     private final double initHeight;
 
-    public Level(final double initX, final double initY, final double initWidth, final double initHeight) {
+    public Level(final double initX, final double initY,
+                 final double initWidth, final double initHeight) {
         this.paraShapes = new ArrayList<>();
         this.fixedLevelTypes = new ArrayList<>();
         this.initX = initX;
@@ -59,42 +61,46 @@ public final class Level {
     }
 
     private void fixWidth() {
-        ParaRectangle leftRedLine = new ParaRectangle(0, 0, -FIVE_PIXELS, 3, Driver.SCREEN_HEIGHT, 0, Color.RED);
-        leftRedLine.addTransform(Levels.withX);
-        leftRedLine.addTransform(Levels.withY);
+        ParaRectangle leftRedLine = new ParaRectangle(0, 0,
+                -FIVE_PIXELS, THREE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.RED);
+        leftRedLine.addTransform(Levels.WITH_X);
+        leftRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftRedLine);
 
         ParaRectangle rightRedLine = new ParaRectangle(0, 0 + initWidth
-                - Levels.WIDTH_DIFFERENCE, -FIVE_PIXELS, 3, Driver.SCREEN_HEIGHT, 0, Color.RED);
-        rightRedLine.addTransform(Levels.withX);
-        rightRedLine.addTransform(Levels.withY);
+                - Levels.WIDTH_DIFFERENCE, -FIVE_PIXELS, THREE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.RED);
+        rightRedLine.addTransform(Levels.WITH_X);
+        rightRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(rightRedLine);
     }
 
     private void fixHeight() {
-        ParaRectangle topRedLine = new ParaRectangle(0, -FIVE_PIXELS, 0, Driver.SCREEN_WIDTH, 3, 0, Color.RED);
-        topRedLine.addTransform(Levels.withX);
-        topRedLine.addTransform(Levels.withY);
+        ParaRectangle topRedLine = new ParaRectangle(0, -FIVE_PIXELS,
+                0, Driver.SCREEN_WIDTH, THREE_PIXELS, 0, Color.RED);
+        topRedLine.addTransform(Levels.WITH_X);
+        topRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topRedLine);
 
-        ParaRectangle bottomRedLine = new ParaRectangle(0, -FIVE_PIXELS, initHeight - Levels.HEADER_HEIGHT, Driver.SCREEN_WIDTH, 3, 0, Color.RED);
-        bottomRedLine.addTransform(Levels.withX);
-        bottomRedLine.addTransform(Levels.withY);
+        ParaRectangle bottomRedLine = new ParaRectangle(0, -FIVE_PIXELS,
+                initHeight - Levels.HEADER_HEIGHT, Driver.SCREEN_WIDTH, THREE_PIXELS, 0, Color.RED);
+        bottomRedLine.addTransform(Levels.WITH_X);
+        bottomRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(bottomRedLine);
     }
 
     private void fixX() {
-        ParaRectangle leftBlackLine = new ParaRectangle(0, FIVE_PIXELS, -FIVE_PIXELS, FIVE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.BLACK);
-        leftBlackLine.addTransform(Levels.withX);
-        leftBlackLine.addTransform(Levels.withY);
+        ParaRectangle leftBlackLine = new ParaRectangle(0, FIVE_PIXELS,
+                -FIVE_PIXELS, FIVE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.BLACK);
+        leftBlackLine.addTransform(Levels.WITH_X);
+        leftBlackLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftBlackLine);
     }
 
     private void fixY() {
         ParaRectangle topBlackLine = new ParaRectangle(0, -FIVE_PIXELS, FIVE_PIXELS,
                 Driver.SCREEN_WIDTH, FIVE_PIXELS, 0, Color.BLACK);
-        topBlackLine.addTransform(Levels.withX);
-        topBlackLine.addTransform(Levels.withY);
+        topBlackLine.addTransform(Levels.WITH_X);
+        topBlackLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topBlackLine);
     }
 

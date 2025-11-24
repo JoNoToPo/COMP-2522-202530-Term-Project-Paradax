@@ -1,7 +1,5 @@
-import com.sun.prism.paint.Paint;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
@@ -11,10 +9,10 @@ public final class ParaText extends ParaShape {
 
     private final Text text;
 
-    public ParaText(final int zIndex, final double initX, final double initY,
+    public ParaText(final double initX, final double initY,
                     final double width, final double height,
                     final double initAngle, final String message, Color color) {
-        this(zIndex, initX, initY, width, height, initAngle, message);
+        this(0, initX, initY, width, height, initAngle, message);
         text.setFill(color);
     }
 
@@ -38,29 +36,29 @@ public final class ParaText extends ParaShape {
     }
 
     @Override
-    void transformHorizontal(double windowX, double delta) {
+    void transformHorizontal(final double windowX, final double delta) {
         text.setX(super.getInitX() - windowX + delta);
     }
 
     @Override
-    void transformVertical(double windowY, double delta) {
+    void transformVertical(final double windowY, final double delta) {
         text.setY(super.getInitY() - windowY + delta);
     }
 
     @Override
-    void rotate(double delta) {
+    void rotate(final double delta) {
         text.setRotate(super.getInitAngle() + delta);
     }
 
     @Override
-    void widen(double delta) {
+    void widen(final double delta) {
         text.maxWidth(super.getInitWidth() + delta);
         text.minWidth(super.getInitWidth() + delta);
         text.setWrappingWidth(super.getInitWidth() + delta);
     }
 
     @Override
-    void lengthen(double delta) {
+    void lengthen(final double delta) {
         text.maxWidth(super.getInitHeight() + delta);
         text.minWidth(super.getInitHeight() + delta);
     }

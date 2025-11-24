@@ -2,6 +2,12 @@ import javafx.scene.Node;
 
 import java.util.ArrayList;
 
+/**
+ * A shape in the game.
+ *
+ * @author jenge
+ * @version 2025
+ */
 public abstract class ParaShape {
     private static final int ONE_HUNDRED_PIXELS = 100;
     private static final int TEN_PIXELS = 10;
@@ -35,7 +41,8 @@ public abstract class ParaShape {
 
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
-            double difference = calculateDifference(windowHeight, windowWidth, windowX, windowY, transform);
+            double difference = calculateDifference(windowHeight,
+                    windowWidth, windowX, windowY, transform);
             if (type == TransformType.HORIZONTAL) {
                 xDifference += difference;
             } else if (type == TransformType.VERTICAL) {
@@ -48,7 +55,8 @@ public abstract class ParaShape {
                 heightDifference += difference;
             }
         }
-        transform(windowX, windowY, xDifference, yDifference, widthDifference, heightDifference, angleDifference);
+        transform(windowX, windowY, xDifference, yDifference,
+                widthDifference, heightDifference, angleDifference);
     }
 
     private double parseSource(final double windowHeight, final double windowWidth,
@@ -83,7 +91,8 @@ public abstract class ParaShape {
     }
 
     private void transform(final double windowX, final double windowY, final double xDifference,
-                           final double yDifference, final double widthDifference, final double heightDifference, final double angleDifference) {
+                           final double yDifference, final double widthDifference,
+                           final double heightDifference, final double angleDifference) {
         transformHorizontal(windowX, xDifference);
         transformVertical(windowY, yDifference);
         rotate(angleDifference);
@@ -91,31 +100,31 @@ public abstract class ParaShape {
         lengthen(heightDifference);
     }
 
-    abstract void transformHorizontal(final double windowX, final double delta);
+    abstract void transformHorizontal(double windowX, double delta);
 
-    abstract void transformVertical(final double windowY, final double delta);
+    abstract void transformVertical(double windowY, double delta);
 
-    abstract void rotate(final double delta);
+    abstract void rotate(double delta);
 
-    abstract void widen(final double delta);
+    abstract void widen(double delta);
 
-    abstract void lengthen(final double delta);
+    abstract void lengthen(double delta);
 
     abstract Node getNode();
 
-    public int getZ() {
+    public final int getZ() {
         return zIndex;
     }
 
-    public final void setZ(int zIndex) {
+    public final void setZ(final int zIndex) {
         this.zIndex = zIndex;
     }
 
-    public final void addTransform(Transform transform) {
+    public final void addTransform(final Transform transform) {
         transforms.add(transform);
     }
 
-    public final void removeTransform(Transform transform) {
+    public final void removeTransform(final Transform transform) {
         this.transforms.remove(transform);
     }
 
@@ -127,11 +136,11 @@ public abstract class ParaShape {
         return initY;
     }
 
-    public double getInitHeight() {
+    public final double getInitHeight() {
         return initHeight;
     }
 
-    public double getInitWidth() {
+    public final double getInitWidth() {
         return initWidth;
     }
 
