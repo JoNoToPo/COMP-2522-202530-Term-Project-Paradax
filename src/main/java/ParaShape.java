@@ -112,11 +112,11 @@ public abstract class ParaShape {
 
     abstract Node getNode();
 
-    public final int getZ() {
+    public final int getzIndex() {
         return zIndex;
     }
 
-    public final void setZ(final int zIndex) {
+    public final void setzIndex(final int zIndex) {
         this.zIndex = zIndex;
     }
 

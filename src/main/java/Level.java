@@ -43,7 +43,7 @@ public final class Level {
         return paraShapes;
     }
 
-    public void addShape(ParaShape paraShape) {
+    public void addShape(final ParaShape paraShape) {
         this.paraShapes.add(paraShape);
     }
 
@@ -68,7 +68,8 @@ public final class Level {
         paraShapes.add(leftRedLine);
 
         ParaRectangle rightRedLine = new ParaRectangle(0, 0 + initWidth
-                - Levels.WIDTH_DIFFERENCE, -FIVE_PIXELS, THREE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.RED);
+                - Levels.WIDTH_DIFFERENCE, -FIVE_PIXELS, THREE_PIXELS,
+                Driver.SCREEN_HEIGHT, 0, Color.RED);
         rightRedLine.addTransform(Levels.WITH_X);
         rightRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(rightRedLine);
@@ -109,7 +110,7 @@ public final class Level {
     }
 
     public void sortByZ() {
-        paraShapes.sort(Comparator.comparing(ParaShape::getZ));
+        paraShapes.sort(Comparator.comparing(ParaShape::getzIndex));
     }
 
     public void update(final double windowHeight, final double windowWidth,
