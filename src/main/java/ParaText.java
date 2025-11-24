@@ -6,12 +6,13 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
 public final class ParaText extends ParaShape {
+    private static final int FONT_SIZE = 14;
 
     private final Text text;
 
     public ParaText(final double initX, final double initY,
                     final double width, final double height,
-                    final double initAngle, final String message, Color color) {
+                    final double initAngle, final String message, final Color color) {
         this(0, initX, initY, width, height, initAngle, message);
         text.setFill(color);
     }
@@ -21,7 +22,7 @@ public final class ParaText extends ParaShape {
                     final double initAngle, final String message) {
         super(zIndex, initX, initY, width, height, initAngle);
         text = new Text(initX, initY, message);
-        text.setFont(Font.font("Calibri", FontWeight.BOLD, 14));
+        text.setFont(Font.font("Calibri", FontWeight.BOLD, FONT_SIZE));
         text.maxWidth(initX);
         text.minWidth(initX);
         text.minHeight(initY);
@@ -31,7 +32,7 @@ public final class ParaText extends ParaShape {
         text.setWrappingWidth(width);
     }
 
-    void changeMessage(String message) {
+    void changeMessage(final String message) {
         text.setText(message);
     }
 

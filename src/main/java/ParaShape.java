@@ -60,7 +60,8 @@ public abstract class ParaShape {
     }
 
     private double parseSource(final double windowHeight, final double windowWidth,
-                               final double windowX, final double windowY, final TransformSource source) {
+                               final double windowX, final double windowY,
+                               final TransformSource source) {
         if (source == TransformSource.X_POS) {
             return windowX;
         } else if (source == TransformSource.Y_POS) {
@@ -73,7 +74,8 @@ public abstract class ParaShape {
         return 0;
     }
 
-    private double parsePath(final double source, final double multiplier, final TransformPath path) {
+    private double parsePath(final double source, final double multiplier,
+                             final TransformPath path) {
         if (path == TransformPath.SINUSOIDAL) {
             return Math.sin(source / Math.TAU / TEN_PIXELS) * multiplier * ONE_HUNDRED_PIXELS;
         } else if (path == TransformPath.COSINUSOIDAL) {
@@ -85,8 +87,10 @@ public abstract class ParaShape {
     }
 
     private double calculateDifference(final double windowHeight, final double windowWidth,
-                                       final double windowX, final double windowY, final Transform transform) {
-        double source = parseSource(windowHeight, windowWidth, windowX, windowY, transform.getSource());
+                                       final double windowX, final double windowY,
+                                       final Transform transform) {
+        double source = parseSource(windowHeight, windowWidth,
+                windowX, windowY, transform.getSource());
         return parsePath(source, transform.getMultiplier(), transform.getPath());
     }
 

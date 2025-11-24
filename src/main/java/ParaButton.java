@@ -8,12 +8,12 @@ public final class ParaButton extends ParaShape {
     private final Button button;
     private final ParaButtonType buttonType;
 
-    public ParaButton(final int zIndex, final double initX, final double initY,
+    public ParaButton(final double initX, final double initY,
                       final double width, final double height,
-                      final double initAngle, final String label,
+                      final double initAngle,
                       final ParaButtonType buttonType, final Pane root) {
-        super(zIndex, initX, initY, width, height, initAngle);
-        button = new Button(label);
+        super(0, initX, initY, width, height, initAngle);
+        button = new Button("Next\nLevel");
         button.setTextAlignment(TextAlignment.CENTER);
         this.buttonType = buttonType;
         applyButtonType(root);

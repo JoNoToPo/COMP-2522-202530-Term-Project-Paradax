@@ -9,21 +9,45 @@ import java.util.LinkedList;
  * @author jenge
  * @version 2025
  */
-public class Levels {
+public final class Levels {
 
+    /**
+     * Horizontally transforms linearly with window width.
+     */
     static final Transform WITH_WIDEN = new Transform(TransformType.HORIZONTAL,
             TransformSource.WIDTH, TransformPath.LINEAR, 1);
+
+    /**
+     * Horizontally transforms linearly against window width.
+     */
     static final Transform AGAINST_WIDEN = new Transform(TransformType.HORIZONTAL,
             TransformSource.WIDTH, TransformPath.LINEAR, -1);
-    static final Transform WITH_SHORTEN = new Transform(TransformType.VERTICAL,
-            TransformSource.HEIGHT, TransformPath.LINEAR, 1);
+
+    /**
+     * Horizontally transforms linearly with window X position.
+     */
     static final Transform WITH_X = new Transform(TransformType.HORIZONTAL,
             TransformSource.X_POS, TransformPath.LINEAR, 1);
+
+    /**
+     * Vertically transforms linearly with window Y position.
+     */
     static final Transform WITH_Y = new Transform(TransformType.VERTICAL,
             TransformSource.Y_POS, TransformPath.LINEAR, 1);
 
+    /**
+     * Defines the centering height to apply to ParaShapes to be centered to the screen.
+     */
     static final double Y_CENTERING_HEIGHT = 60;
+
+    /**
+     * Defines the height to apply to ParaShapes to appear at the bottom of the screen.
+     */
     static final double HEADER_HEIGHT = 40;
+
+    /**
+     * Defines the width to apply to ParaShapes to appear on the right side of the screen.
+     */
     static final double WIDTH_DIFFERENCE = 17;
 
     private static final int ONE_HUNDRED_PIXELS = 100;
@@ -59,6 +83,11 @@ public class Levels {
     private Levels() {
     }
 
+    /**
+     * Initializes the levels as a linked list.
+     * @param root the root as a Pane Object
+     * @return the levels as a Linked List containing Level
+     */
     static LinkedList<Level> levels(final Pane root) {
         LinkedList<Level> levels = new LinkedList<>();
         levels.add(levelOne(root));
@@ -74,12 +103,12 @@ public class Levels {
 
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
 
-        ParaButton button = new ParaButton(1,
+        ParaButton button = new ParaButton(
                 INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
                 INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2
                         - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
                 BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
-                "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+                ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
         double textBoxX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
@@ -106,9 +135,12 @@ public class Levels {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.WIDTH);
 
-        ParaButton button = new ParaButton(1, INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
-                INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2 - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+        ParaButton button = new ParaButton(INIT_X + INIT_WIDTH / 2
+                - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
+                INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2
+                        - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
+                BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
+                ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
         double textBoxX = 2 * INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2;
@@ -135,12 +167,16 @@ public class Levels {
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
 
-        ParaButton button = new ParaButton(1, INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
-                INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2 - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+        ParaButton button = new ParaButton(INIT_X + INIT_WIDTH / 2
+                - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
+                INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2
+                        - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
+                BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
+                ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
-        double textBoxX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2 - INIT_WIDTH;
+        double textBoxX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2
+                - TEXT_WIDTH / 2 - INIT_WIDTH;
         double textBoxY = INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2 - TEXT_HEIGHT / 2;
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
@@ -162,15 +198,19 @@ public class Levels {
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
 
-        ParaButton button = new ParaButton(1, INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
-                INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2 - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+        ParaButton button = new ParaButton(INIT_X + INIT_WIDTH / 2
+                - TEXT_WIDTH / 2 + TEXT_BUTTON_DIFFERENCE,
+                INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2
+                        - TEXT_HEIGHT / 2 + TEXT_BUTTON_DIFFERENCE,
+                BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
+                ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
         double offsetX = Math.cos(INIT_WIDTH / Math.TAU / TEN_PIXELS) * ONE_HUNDRED_PIXELS;
         double offsetY = Math.sin(INIT_WIDTH / Math.TAU / TEN_PIXELS) * ONE_HUNDRED_PIXELS;
         double textBoxX = INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - TEXT_WIDTH / 2 + offsetX;
-        double textBoxY = INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2 - TEXT_HEIGHT / 2 - offsetY;
+        double textBoxY = INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2
+                - TEXT_HEIGHT / 2 - offsetY;
 
         ParaShape textBG = new ParaRectangle(2, textBoxX, textBoxY,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
@@ -186,6 +226,8 @@ public class Levels {
 
         return level;
     }
+
+
 
     private static Level levelFive(final Pane root) {
         final double initWidth = 500;
@@ -208,10 +250,12 @@ public class Levels {
         level.addShape(welcome);
 
         double buttonX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION / 2;
-        double buttonY = initY + 2 * (initHeight - Y_CENTERING_HEIGHT) / THIRD - BUTTON_DIMENSION / 2;
+        double buttonY = initY + 2 * (initHeight - Y_CENTERING_HEIGHT) / THIRD
+                - BUTTON_DIMENSION / 2;
 
-        ParaButton button = new ParaButton(1, buttonX, buttonY,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+        ParaButton button = new ParaButton(buttonX, buttonY,
+                BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
+                ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
         ParaRectangle red = new ParaRectangle(0, buttonX - TEXT_WIDTH / 2 + initX, buttonY,
@@ -219,12 +263,23 @@ public class Levels {
         red.addTransform(AGAINST_WIDEN);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION - initX, buttonY - TEXT_HEIGHT,
+        ParaRectangle blue = new ParaRectangle(0, buttonX
+                - BUTTON_DIMENSION - initX, buttonY - TEXT_HEIGHT,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
         blue.addTransform(WITH_WIDEN);
         level.addShape(blue);
 
         return level;
+    }
+
+    private static void addBlueLevelSix(double buttonX, double buttonY, double initHeight, Level level) {
+        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION
+                - initHeight / 2, buttonY - TEXT_HEIGHT,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
+                TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
+        blue.addTransform(slowHeight);
+        level.addShape(blue);
     }
 
     private static Level levelSix(final Pane root) {
@@ -247,10 +302,12 @@ public class Levels {
         level.addShape(welcome);
 
         double buttonX = initX + (initWidth - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION / 2;
-        double buttonY = initY + 2 * (initHeight - Y_CENTERING_HEIGHT) / THIRD - BUTTON_DIMENSION / 2;
+        double buttonY = initY
+                + 2 * (initHeight - Y_CENTERING_HEIGHT) / THIRD - BUTTON_DIMENSION / 2;
 
-        ParaButton button = new ParaButton(1, buttonX, buttonY,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 0, "Next\nLevel", ParaButtonType.NEXT_LEVEL, root);
+        ParaButton button = new ParaButton(buttonX, buttonY,
+                BUTTON_DIMENSION, BUTTON_DIMENSION,
+                0, ParaButtonType.NEXT_LEVEL, root);
         level.addShape(button);
 
         ParaRectangle red = new ParaRectangle(0, initY / 2 + BUTTON_DIMENSION, buttonY,
@@ -260,12 +317,7 @@ public class Levels {
         red.addTransform(slowDescent);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0, buttonX - BUTTON_DIMENSION - initHeight / 2, buttonY - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
-        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
-                TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
-        blue.addTransform(slowHeight);
-        level.addShape(blue);
+        addBlueLevelSix(buttonX, buttonY, initHeight, level);
 
         return level;
     }
