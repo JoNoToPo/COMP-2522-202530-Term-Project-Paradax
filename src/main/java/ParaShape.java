@@ -12,13 +12,14 @@ public abstract class ParaShape {
     private static final int ONE_HUNDRED_PIXELS = 100;
     private static final int TEN_PIXELS = 10;
 
-    private int zIndex;
+    private double initX;
+    private double initY;
+    private double initWidth;
+    private double initHeight;
+    private double initAngle;
+
     private final ArrayList<Transform> transforms;
-    private final double initX;
-    private final double initY;
-    private final double initWidth;
-    private final double initHeight;
-    private final double initAngle;
+    private final int zIndex;
 
     public ParaShape(final int zIndex, final double initX, final double initY,
                      final double width, final double height, final double initAngle) {
@@ -120,16 +121,23 @@ public abstract class ParaShape {
         return zIndex;
     }
 
-    public final void setzIndex(final int zIndex) {
-        this.zIndex = zIndex;
-    }
-
-    public final void addTransform(final Transform transform) {
+    public final void addTransform(final double initHeight, final double initWidth,
+                                   final double initX, final double initY, final Transform transform) {
         transforms.add(transform);
-    }
-
-    public final void removeTransform(final Transform transform) {
-        this.transforms.remove(transform);
+        TransformType type = transform.getType();
+        double difference = calculateDifference(initHeight,
+                initWidth, initX, initY, transform);
+        if (type == TransformType.HORIZONTAL) {
+            this.initX -= difference;
+        } else if (type == TransformType.VERTICAL) {
+            this.initY -= difference;
+        } else if (type == TransformType.ROTATE) {
+            this.initAngle -= Math.floor(difference);
+        } else if (type == TransformType.WIDEN) {
+            this.initWidth -= difference;
+        } else if (type == TransformType.LENGTHEN) {
+            this.initHeight -= difference;
+        }
     }
 
     public final double getInitX() {
