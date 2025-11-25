@@ -2,6 +2,12 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * Represents a rectangle in Paralax.
+ *
+ * @author JoNoToPo
+ * @version 2025
+ */
 public final class ParaRectangle extends ParaShape {
 
     private static final double TEN_PIXELS = 10;

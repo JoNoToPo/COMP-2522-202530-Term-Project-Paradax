@@ -5,6 +5,12 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Represents text in Paradax.
+ *
+ * @author JoNoToPo
+ * @version 2025
+ */
 public final class ParaText extends ParaShape {
     private static final int FONT_SIZE = 14;
 

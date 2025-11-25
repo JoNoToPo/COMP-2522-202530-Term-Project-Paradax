@@ -1,3 +1,9 @@
+/**
+ * Represents a transform in Paralax.
+ *
+ * @author JoNoToPo
+ * @version 2025
+ */
 public final class Transform {
     private TransformType type;
     private TransformSource source;

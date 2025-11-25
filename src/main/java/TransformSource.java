@@ -1,7 +1,7 @@
 /**
  * Enumeration defining where the transformation is coming from.
  *
- * @author jenge
+ * @author JoNoToPo
  * @version 2025
  */
 public enum TransformSource {

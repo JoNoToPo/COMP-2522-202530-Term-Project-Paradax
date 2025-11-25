@@ -1,7 +1,7 @@
 /**
  * Enumeration what dimension the transform applies to.
  *
- * @author jenge
+ * @author JoNoToPo
  * @version 2025
  */
 public enum TransformType {

@@ -1,7 +1,7 @@
 /**
  * Enumeration defining the path of a transforming shape.
  *
- * @author jenge
+ * @author JoNoToPo
  * @version 2025
  */
 public enum TransformPath {

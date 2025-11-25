@@ -3,6 +3,12 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+/**
+ * Represents a level in Paralax.
+ *
+ * @author JoNoToPo
+ * @version 2025
+ */
 public final class Level {
     private static final int FIVE_PIXELS = 5;
     private static final int THREE_PIXELS = 5;

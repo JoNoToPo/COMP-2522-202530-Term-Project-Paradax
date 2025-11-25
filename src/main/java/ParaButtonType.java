@@ -1,7 +1,7 @@
 /**
  * Enumeration defining a button's type.
  *
- * @author jenge
+ * @author JoNoToPo
  * @version 2025
  */
 public enum ParaButtonType {

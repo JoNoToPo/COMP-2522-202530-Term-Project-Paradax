@@ -3,7 +3,7 @@ import javafx.scene.Node;
 import java.util.ArrayList;
 
 /**
- * A shape in the game.
+ * Represents a shape in Paradax.
  *
  * @author jenge
  * @version 2025
