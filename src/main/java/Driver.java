@@ -25,11 +25,24 @@ import java.util.LinkedList;
  */
 public final class Driver extends Application {
 
-    static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
-    static final double SCREEN_WIDTH = BOUNDS.getWidth();
-    static final double SCREEN_HEIGHT = BOUNDS.getHeight();
-    static final int RADIUS = 10;
+    private static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
 
+    /**
+     * The width of the screen as a double.
+     */
+    static final double SCREEN_WIDTH = BOUNDS.getWidth();
+
+    /**
+     * The height of the screen as a double.
+     */
+    static final double SCREEN_HEIGHT = BOUNDS.getHeight();
+
+    private static final int RADIUS = 10;
+    private static final BackgroundFill backgroundFill = new BackgroundFill(
+            Color.LIGHTGRAY,
+            new CornerRadii(RADIUS),
+            new Insets(RADIUS)
+    );
     private Level currLevel = new Level(0, 0, 0, 0);
 
     /**
@@ -42,12 +55,6 @@ public final class Driver extends Application {
         Label label = new Label("");
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
-
-        BackgroundFill backgroundFill = new BackgroundFill(
-                Color.LIGHTGRAY,
-                new CornerRadii(RADIUS), // Rounded corners with a radius of 10
-                new Insets(RADIUS)     // Insets (padding) of 10 on all sides
-        );
 
         Background background = new Background(backgroundFill);
 
@@ -76,10 +83,7 @@ public final class Driver extends Application {
 //                    root.getChildren().add(debug.getNode());
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
-                        stage.setHeight(currLevel.getInitHeight());
-                        stage.setWidth(currLevel.getInitWidth());
-                        stage.setX(currLevel.getInitX());
-                        stage.setY(currLevel.getInitY());
+                        initializeStagePosition(stage);
                         for (ParaShape shape : currLevel.getShapes()) {
                             root.getChildren().add(shape.getNode());
                         }
@@ -88,17 +92,7 @@ public final class Driver extends Application {
                         root.getChildren().add(contingency);
                     }
                 }
-                for (FixedLevelType type : currLevel.getFixedLevelTypes()) {
-                    if (type == FixedLevelType.HEIGHT) {
-                        stage.setHeight(currLevel.getInitHeight());
-                    } else if (type == FixedLevelType.WIDTH) {
-                        stage.setWidth(currLevel.getInitWidth());
-                    } else if (type == FixedLevelType.X_POSITION) {
-                        stage.setX(currLevel.getInitX());
-                    } else if (type == FixedLevelType.Y_POSITION) {
-                        stage.setY(currLevel.getInitY());
-                    }
-                }
+                fixStage(stage);
 //                debug.changeMessage(Double.toString(windowX));
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
@@ -110,5 +104,24 @@ public final class Driver extends Application {
         stage.show();
     }
 
+    private void initializeStagePosition(Stage stage) {
+        stage.setHeight(currLevel.getInitHeight());
+        stage.setWidth(currLevel.getInitWidth());
+        stage.setX(currLevel.getInitX());
+        stage.setY(currLevel.getInitY());
+    }
 
+    private void fixStage(Stage stage) {
+        for (FixedLevelType type : currLevel.getFixedLevelTypes()) {
+            if (type == FixedLevelType.HEIGHT) {
+                stage.setHeight(currLevel.getInitHeight());
+            } else if (type == FixedLevelType.WIDTH) {
+                stage.setWidth(currLevel.getInitWidth());
+            } else if (type == FixedLevelType.X_POSITION) {
+                stage.setX(currLevel.getInitX());
+            } else if (type == FixedLevelType.Y_POSITION) {
+                stage.setY(currLevel.getInitY());
+            }
+        }
+    }
 }
