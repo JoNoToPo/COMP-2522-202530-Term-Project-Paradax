@@ -38,11 +38,14 @@ public final class Driver extends Application {
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
     private static final int RADIUS = 10;
-    private static final BackgroundFill backgroundFill = new BackgroundFill(
+    private static final BackgroundFill BACKGROUND_FILL = new BackgroundFill(
             Color.LIGHTGRAY,
             new CornerRadii(RADIUS),
             new Insets(RADIUS)
     );
+    private static final Background BACKGROUND = new Background(BACKGROUND_FILL);
+    private static final ParaText DEBUG = new ParaText(50, 50,
+            50, 50, 0, "", Color.BLACK);
     private Level currLevel = new Level(0, 0, 0, 0);
 
     /**
@@ -55,10 +58,8 @@ public final class Driver extends Application {
         Label label = new Label("");
         Canvas canvas = new Canvas();
         Pane root = new Pane(canvas, label);
+        root.setBackground(BACKGROUND);
 
-        Background background = new Background(backgroundFill);
-
-        root.setBackground(background);
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
         stage.initStyle(StageStyle.UNIFIED);
 
@@ -67,9 +68,6 @@ public final class Driver extends Application {
 
         LinkedList<Level> levels = Levels.levels(root);
         root.getChildren().clear();
-
-//        ParaText debug = new ParaText(50, 50, 50, 50, 0,
-//                "", Color.BLACK);
 
         new AnimationTimer() {
             @Override
@@ -80,7 +78,7 @@ public final class Driver extends Application {
                 double windowY = stage.getY();
 
                 if (root.getChildren().isEmpty()) {
-//                    root.getChildren().add(debug.getNode());
+//                    root.getChildren().add(DEBUG.getNode());
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
                         initializeStagePosition(stage);
@@ -93,7 +91,7 @@ public final class Driver extends Application {
                     }
                 }
                 fixStage(stage);
-//                debug.changeMessage(Double.toString(windowX));
+//                DEBUG.changeMessage(Double.toString(windowX));
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
             }
@@ -104,14 +102,14 @@ public final class Driver extends Application {
         stage.show();
     }
 
-    private void initializeStagePosition(Stage stage) {
+    private void initializeStagePosition(final Stage stage) {
         stage.setHeight(currLevel.getInitHeight());
         stage.setWidth(currLevel.getInitWidth());
         stage.setX(currLevel.getInitX());
         stage.setY(currLevel.getInitY());
     }
 
-    private void fixStage(Stage stage) {
+    private void fixStage(final Stage stage) {
         for (FixedLevelType type : currLevel.getFixedLevelTypes()) {
             if (type == FixedLevelType.HEIGHT) {
                 stage.setHeight(currLevel.getInitHeight());
