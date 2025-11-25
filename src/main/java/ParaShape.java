@@ -148,6 +148,11 @@ public abstract class ParaShape {
         return initY;
     }
 
+    public void changePosition(final double initX, final double initY) {
+        this.initY = initY;
+        this.initX = initX;
+    }
+
     public final double getInitHeight() {
         return initHeight;
     }

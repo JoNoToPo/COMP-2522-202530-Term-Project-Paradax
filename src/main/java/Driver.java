@@ -61,7 +61,7 @@ public final class Driver extends Application {
         LinkedList<Level> levels = Levels.levels(root);
         root.getChildren().clear();
 
-//        ParaText debug = new ParaText(0, 50, 50, 50, 50, 0,
+//        ParaText debug = new ParaText(50, 50, 50, 50, 0,
 //                "", Color.BLACK);
 
         new AnimationTimer() {

@@ -80,6 +80,10 @@ public final class Levels {
     private static final double BUTTON_Y_MAIN = INIT_Y_MAIN
             + 2 * (INIT_HEIGHT_MAIN - Y_CENTERING_HEIGHT) / THIRD - BUTTON_DIMENSION / 2;
 
+    private static final Transform WITH_LENGTHEN = new Transform(TransformType.VERTICAL,
+            TransformSource.HEIGHT, TransformPath.LINEAR, 1);
+    private static final Transform AGAINST_LENGTHEN = new Transform(TransformType.VERTICAL,
+            TransformSource.HEIGHT, TransformPath.LINEAR, -1);
     private static final Transform SPIN_Y = new Transform(TransformType.ROTATE,
             TransformSource.Y_POS, TransformPath.LINEAR, 1);
     private static final Transform SPIN_X = new Transform(TransformType.ROTATE,
@@ -106,11 +110,17 @@ public final class Levels {
     static LinkedList<Level> levels(final Pane root) {
         LinkedList<Level> levels = new LinkedList<>();
         levels.add(levelOne(root));
+        levels.add(tutorialWiden(root));
+        levels.add(tutorialLengthen(root));
         levels.add(levelTwo(root));
+        levels.add(tutorialYFixed(root));
+        levels.add(tutorialXFixed(root));
         levels.add(levelThree(root));
         levels.add(levelFour(root));
         levels.add(levelFive(root));
-        levels.add(levelSix(root));
+        levels.add(levelSeven(root));
+        levels.add(levelEight(root));
+        levels.add(finalLevel(root));
         levels.add(finish());
         return levels;
     }
@@ -125,6 +135,11 @@ public final class Levels {
 
     private static ParaText tutorialText(final String text) {
         return new ParaText(0, TEXT_BOX_X, TEXT_BOX_Y + TEXT_OFFSET,
+                TEXT_WIDTH, TEXT_HEIGHT, 0, text);
+    }
+
+    private static ParaText tutorialTextTwoLine(final String text) {
+        return new ParaText(0, TEXT_BOX_X, TEXT_BOX_Y + TEXT_OFFSET + TWO_LINE,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, text);
     }
 
@@ -151,9 +166,26 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelTwo(final Pane root) {
+    private static Level tutorialWiden(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.WIDTH);
+
+        level.addShape(tutorialButton(root));
+
+        ParaShape textBG = tutorialTextBox();
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, WITH_LENGTHEN);
+        level.addShape(textBG);
+
+        ParaText welcome = tutorialTextTwoLine("These Red lines indicate that you cannot WIDEN your window");
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, WITH_LENGTHEN);
+        level.addShape(welcome);
+
+        return level;
+    }
+
+    private static Level tutorialLengthen(final Pane root) {
+        Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
 
         level.addShape(tutorialButton(root));
 
@@ -162,7 +194,7 @@ public final class Levels {
         textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_X);
         level.addShape(textBG);
 
-        ParaText welcome = tutorialText("These Red lines indicate that you cannot WIDEN your window");
+        ParaText welcome = tutorialTextTwoLine("These Red lines indicate that you cannot LENGTHEN your window");
         welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_Y);
         welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_X);
         level.addShape(welcome);
@@ -170,7 +202,53 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelThree(final Pane root) {
+    private static Level levelTwo(final Pane root) {
+        Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
+        level.addFixedLevelType(FixedLevelType.WIDTH);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+
+        ParaButton button = tutorialButton(root);
+        button.changePosition(INIT_X_MAIN + INIT_WIDTH_MAIN, INIT_Y_MAIN + INIT_Y_MAIN);
+        Transform buttonExpoSpin = new Transform(TransformType.ROTATE, TransformSource.X_POS,
+                TransformPath.EXPONENTIAL, 1);
+        button.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, buttonExpoSpin);
+        level.addShape(button);
+
+        ParaShape textBG = tutorialTextBox();
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_Y);
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_X);
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, SIN_T);
+        level.addShape(textBG);
+
+        ParaText welcome = tutorialText("Where is it?");
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_Y);
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_MOVE_X);
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, COS_T);
+        level.addShape(welcome);
+
+        return level;
+    }
+
+    private static Level tutorialYFixed(final Pane root) {
+        Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+        level.addFixedLevelType(FixedLevelType.WIDTH);
+
+        level.addShape(tutorialButton(root));
+
+        ParaShape textBG = tutorialTextBox();
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, WITH_X);
+        level.addShape(textBG);
+
+        ParaText welcome = tutorialTextTwoLine("This black line fixes your window to the Y position of your screen");
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, WITH_X);
+        level.addShape(welcome);
+
+        return level;
+    }
+
+    private static Level tutorialXFixed(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
@@ -188,21 +266,26 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelFour(final Pane root) {
+    private static Level levelThree(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
-        level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
+        level.addFixedLevelType(FixedLevelType.X_POSITION);
 
-        level.addShape(tutorialButton(root));
+        ParaButton button = tutorialButton(root);
+        button.changePosition(INIT_X + INIT_WIDTH / 2, Driver.SCREEN_HEIGHT);
+        Transform buttonExpoSpin = new Transform(TransformType.VERTICAL, TransformSource.WIDTH,
+                TransformPath.LINEAR, 1);
+        button.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, buttonExpoSpin);
+        level.addShape(button);
 
         ParaShape textBG = tutorialTextBox();
-        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, SIN_T);
-        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, COS_T);
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_WIDEN);
+        textBG.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_LENGTHEN);
         level.addShape(textBG);
 
-        ParaText welcome = tutorialText("\nSpinny!");
-        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, SIN_T);
-        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, COS_T);
+        ParaText welcome = tutorialText("\nWhere is it?");
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_WIDEN);
+        welcome.addTransform(INIT_HEIGHT, INIT_WIDTH, INIT_X, INIT_Y, AGAINST_LENGTHEN);
         level.addShape(welcome);
 
         return level;
@@ -222,6 +305,33 @@ public final class Levels {
     private static ParaRectangle mainTextBox() {
         return new ParaRectangle(2, TEXT_BOX_X_MAIN, TEXT_BOX_Y_MAIN,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
+    }
+
+    private static Level levelFour(final Pane root) {
+        Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+
+        ParaButton button = mainButton(root);
+        button.changePosition(TEXT_BOX_X_MAIN + TEXT_WIDTH / 2 - BUTTON_DIMENSION / 2 + TEXT_BUTTON_DIFFERENCE,
+                TEXT_BOX_Y_MAIN + TEXT_BUTTON_DIFFERENCE);
+        level.addShape(button);
+
+        ParaShape textBG = new ParaRectangle(2, TEXT_BOX_X_MAIN, TEXT_BOX_Y_MAIN - TEXT_HEIGHT / 2,
+                TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.BLACK);
+        textBG.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, SIN_T);
+        textBG.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, COS_T);
+        textBG.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, SPIN_X);
+        level.addShape(textBG);
+
+        ParaText welcome = mainText("Spinny!");
+        welcome.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, SIN_T);
+        welcome.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, COS_T);
+        welcome.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, SPIN_X);
+
+        level.addShape(welcome);
+
+        return level;
     }
 
     private static Level levelFive(final Pane root) {
@@ -248,7 +358,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelSix(final Pane root) {
+    private static Level levelSeven(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
 
@@ -256,7 +366,7 @@ public final class Levels {
         level.addShape(mainTextBox());
         level.addShape(mainText("I can smell it, it's 100% still below those two boxes."));
 
-        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN,
+        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_BUTTON_DIFFERENCE,
                 Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
                 TransformSource.Y_POS, TransformPath.LINEAR, -HALF);
@@ -270,6 +380,59 @@ public final class Levels {
                 TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
         blue.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, slowHeight);
         level.addShape(blue);
+
+        return level;
+    }
+
+    private static Level levelEight(final Pane root) {
+        Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+        level.addFixedLevelType(FixedLevelType.X_POSITION);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+
+        level.addShape(mainButton(root));
+        level.addShape(mainTextBox());
+        level.addShape(mainText("I can promise you this level is possible"));
+
+        ParaRectangle red = new ParaRectangle(0, THIRD * BUTTON_DIMENSION + TEXT_WIDTH / 2,
+                BUTTON_Y_MAIN - BUTTON_DIMENSION / 2,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        Transform width = new Transform(TransformType.HORIZONTAL,
+                TransformSource.WIDTH, TransformPath.LINEAR, HALF);
+        red.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, width);
+        level.addShape(red);
+
+        return level;
+    }
+
+    private static Level finalLevel(final Pane root) {
+        Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+
+        level.addShape(mainButton(root));
+        level.addShape(mainTextBox());
+        level.addShape(mainText("It's time for your final text... THREE BOXES."));
+
+        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION - Driver.SCREEN_WIDTH / 2, BUTTON_Y_MAIN - TEXT_BUTTON_DIFFERENCE,
+                Driver.SCREEN_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        red.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, WITH_WIDEN);
+        level.addShape(red);
+
+        ParaRectangle blue = new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
+                TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
+        blue.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, slowHeight);
+        level.addShape(blue);
+
+        ParaRectangle green = new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                TEXT_WIDTH, Driver.SCREEN_HEIGHT, 0, Color.GREEN);
+        Transform slow = new Transform(TransformType.VERTICAL,
+                TransformSource.X_POS, TransformPath.LINEAR, -HALF);
+        green.addTransform(INIT_HEIGHT_MAIN, INIT_WIDTH_MAIN, INIT_X_MAIN, INIT_Y_MAIN, slow);
+        level.addShape(green);
 
         return level;
     }
