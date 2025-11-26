@@ -11,6 +11,18 @@ import java.util.List;
  * @version 2025
  */
 public final class Level {
+    /**
+     * Widens linearly with window width.
+     */
+    static final Transform GROW_WIDTH = new Transform(TransformType.WIDEN,
+            TransformSource.WIDTH, TransformPath.LINEAR, 1);
+
+    /**
+     * Widens linearly with window width.
+     */
+    static final Transform GROW_HEIGHT = new Transform(TransformType.LENGTHEN,
+            TransformSource.HEIGHT, TransformPath.LINEAR, 1);
+
     private static final int FIVE_PIXELS = 5;
     private static final int THREE_PIXELS = 5;
     private final List<ParaShape> paraShapes;
@@ -83,10 +95,20 @@ public final class Level {
         return paraShapes;
     }
 
+    /**
+     * Adds a shape into the level.
+     *
+     * @param paraShape the shape as a ParaShape Object
+     */
     public void addShape(final ParaShape paraShape) {
         this.paraShapes.add(paraShape);
     }
 
+    /**
+     * Fixes the level in a dimension.
+     *
+     * @param fixedLevelType the dimension being restricted as a FixedLevelType Enumeration
+     */
     public void addFixedLevelType(final FixedLevelType fixedLevelType) {
         this.fixedLevelTypes.add(fixedLevelType);
         if (fixedLevelType == FixedLevelType.WIDTH) {
@@ -100,61 +122,90 @@ public final class Level {
         }
     }
 
+    /**
+     * Adds line indicators when the width is fixed.
+     */
     private void fixWidth() {
         ParaRectangle leftRedLine = new ParaRectangle(0, initX,
-                -FIVE_PIXELS, THREE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.RED);
+                initY + FIVE_PIXELS, THREE_PIXELS,
+                initHeight - Levels.HEADER_HEIGHT - FIVE_PIXELS * 2, 0, Color.RED);
+        leftRedLine.addTransform(GROW_HEIGHT);
         leftRedLine.addTransform(Levels.WITH_X);
         leftRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftRedLine);
 
-        ParaRectangle rightRedLine = new ParaRectangle(0, initX + initWidth
-                - Levels.WIDTH_DIFFERENCE, -FIVE_PIXELS, THREE_PIXELS,
-                Driver.SCREEN_HEIGHT, 0, Color.RED);
+        ParaRectangle rightRedLine = new ParaRectangle(0, initX + initWidth - 2
+                - Levels.WIDTH_DIFFERENCE, initY + FIVE_PIXELS, THREE_PIXELS,
+                initHeight - Levels.HEADER_HEIGHT - FIVE_PIXELS * 2, 0, Color.RED);
+        rightRedLine.addTransform(GROW_HEIGHT);
         rightRedLine.addTransform(Levels.WITH_X);
         rightRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(rightRedLine);
     }
 
+    /**
+     * Adds line indicators when the height is fixed.
+     */
     private void fixHeight() {
-        ParaRectangle topRedLine = new ParaRectangle(0, initX - FIVE_PIXELS,
-                initY, Driver.SCREEN_WIDTH, THREE_PIXELS, 0, Color.RED);
+        ParaRectangle topRedLine = new ParaRectangle(0, initX + FIVE_PIXELS,
+                initY, initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2, THREE_PIXELS, 0, Color.RED);
+        topRedLine.addTransform(GROW_WIDTH);
         topRedLine.addTransform(Levels.WITH_X);
         topRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topRedLine);
 
-        ParaRectangle bottomRedLine = new ParaRectangle(0, initX - FIVE_PIXELS,
-                initY + initHeight - Levels.HEADER_HEIGHT,
-                Driver.SCREEN_WIDTH, THREE_PIXELS, 0, Color.RED);
+        ParaRectangle bottomRedLine = new ParaRectangle(0, initX + FIVE_PIXELS,
+                initY + initHeight - Levels.HEADER_HEIGHT - 2,
+                initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2,
+                THREE_PIXELS, 0, Color.RED);
+        bottomRedLine.addTransform(GROW_WIDTH);
         bottomRedLine.addTransform(Levels.WITH_X);
         bottomRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(bottomRedLine);
     }
 
+    /**
+     * Adds line indicator when the X is fixed.
+     */
     private void fixX() {
         ParaRectangle leftBlackLine = new ParaRectangle(0, initX + FIVE_PIXELS,
-                initY - FIVE_PIXELS, FIVE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.BLACK);
+                initY + FIVE_PIXELS, THREE_PIXELS,
+                initHeight - Levels.HEADER_HEIGHT - FIVE_PIXELS * 2, 0, Color.BLACK);
+        leftBlackLine.addTransform(GROW_HEIGHT);
         leftBlackLine.addTransform(Levels.WITH_X);
         leftBlackLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftBlackLine);
     }
 
+    /**
+     * Adds line indicator when the Y is fixed.
+     */
     private void fixY() {
-        ParaRectangle topBlackLine = new ParaRectangle(0, initX - FIVE_PIXELS, initY + FIVE_PIXELS,
-                Driver.SCREEN_WIDTH, FIVE_PIXELS, 0, Color.BLACK);
+        ParaRectangle topBlackLine = new ParaRectangle(0, initX + FIVE_PIXELS,
+                initY + FIVE_PIXELS, initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2,
+                THREE_PIXELS, 0, Color.BLACK);
+        topBlackLine.addTransform(GROW_WIDTH);
         topBlackLine.addTransform(Levels.WITH_X);
         topBlackLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topBlackLine);
     }
 
+    /**
+     * Initializes the transforms for each shape in level.
+     */
     void initTransforms() {
         for (ParaShape shape : paraShapes) {
             shape.implementTransforms(initHeight, initWidth, initX, initY);
         }
     }
 
+    /**
+     * Adds line indicator when the X is fixed.
+     */
     List<FixedLevelType> getFixedLevelTypes() {
         return fixedLevelTypes;
     }
+
 
     public void sortByZ() {
         paraShapes.sort(Comparator.comparing(ParaShape::getzIndex));
