@@ -12,18 +12,6 @@ import java.util.LinkedList;
 public final class Levels {
 
     /**
-     * Horizontally transforms linearly with window width.
-     */
-    static final Transform WITH_WIDEN = new Transform(TransformType.HORIZONTAL,
-            TransformSource.WIDTH, TransformPath.LINEAR, 1);
-
-    /**
-     * Horizontally transforms linearly against window width.
-     */
-    static final Transform AGAINST_WIDEN = new Transform(TransformType.HORIZONTAL,
-            TransformSource.WIDTH, TransformPath.LINEAR, -1);
-
-    /**
      * Horizontally transforms linearly with window X position.
      */
     static final Transform WITH_X = new Transform(TransformType.HORIZONTAL,
@@ -49,6 +37,7 @@ public final class Levels {
      * Defines the width to apply to ParaShapes to appear on the right side of the screen.
      */
     static final double WIDTH_DIFFERENCE = 17;
+
     private static final double TWO_LINE = 10;
     private static final double TEXT_OFFSET = 15;
     private static final double THREE = 3;
@@ -82,6 +71,10 @@ public final class Levels {
     private static final double BUTTON_Y_MAIN = INIT_Y_MAIN
             + 2 * (INIT_HEIGHT_MAIN - Y_CENTERING_HEIGHT) / THREE - BUTTON_DIMENSION / 2;
 
+    private static final Transform WITH_WIDEN = new Transform(TransformType.HORIZONTAL,
+            TransformSource.WIDTH, TransformPath.LINEAR, 1);
+    private static final Transform AGAINST_WIDEN = new Transform(TransformType.HORIZONTAL,
+            TransformSource.WIDTH, TransformPath.LINEAR, -1);
     private static final Transform WITH_LENGTHEN = new Transform(TransformType.VERTICAL,
             TransformSource.HEIGHT, TransformPath.LINEAR, 1);
     private static final Transform AGAINST_LENGTHEN = new Transform(TransformType.VERTICAL,
