@@ -56,6 +56,7 @@ public final class Levels {
     private static final double HALF = 0.5;
     private static final double BUTTON_DIMENSION = 50;
     private static final double TEXT_BUTTON_DIFFERENCE = 2.5;
+    private static final double FORTY_FIVE_DEGREES = 45;
 
     private static final double INIT_WIDTH = 300;
     private static final double INIT_HEIGHT = 300;
@@ -112,13 +113,13 @@ public final class Levels {
      */
     static LinkedList<Level> levels(final Pane root) {
         LinkedList<Level> levels = new LinkedList<>();
-//        levels.add(levelOne(root));
-//        levels.add(tutorialWiden(root));
-//        levels.add(tutorialLengthen(root));
-//        levels.add(levelTwo(root));
-//        levels.add(tutorialYFixed(root));
-//        levels.add(tutorialXFixed(root));
-//        levels.add(levelThree(root));
+        levels.add(levelOne(root));
+        levels.add(tutorialWiden(root));
+        levels.add(tutorialLengthen(root));
+        levels.add(levelTwo(root));
+        levels.add(tutorialYFixed(root));
+        levels.add(tutorialXFixed(root));
+        levels.add(levelThree(root));
         levels.add(levelFour(root));
         levels.add(levelFive(root));
         levels.add(levelSix(root));
@@ -328,10 +329,10 @@ public final class Levels {
         level.addShape(button);
 
         ParaText cold = new ParaText(Driver.SCREEN_WIDTH - TEXT_WIDTH, INIT_Y + BUTTON_DIMENSION,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 90, "Cold", Color.BLACK);
+                BUTTON_DIMENSION, BUTTON_DIMENSION, FORTY_FIVE_DEGREES * 2, "Cold", Color.DARKBLUE);
         ParaRectangle coldBG = new ParaRectangle(0, Driver.SCREEN_WIDTH - TEXT_WIDTH,
                 INIT_Y + BUTTON_DIMENSION / 2, BUTTON_DIMENSION, BUTTON_DIMENSION,
-                90, Color.WHITE);
+                0, Color.WHITE);
         Transform slowWithWidth = WITH_WIDEN;
         slowWithWidth.setMultiplier(1 / FOUR);
         cold.addTransform(slowWithWidth);
@@ -339,11 +340,18 @@ public final class Levels {
         level.addShape(coldBG);
         level.addShape(cold);
 
-        ParaText hot = new ParaText(Driver.SCREEN_WIDTH - TEXT_WIDTH, INIT_Y + BUTTON_DIMENSION,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 90, "Hotter", Color.BLACK);
-        ParaRectangle hotBG = new ParaRectangle(0, Driver.SCREEN_WIDTH - TEXT_WIDTH,
-                INIT_Y + BUTTON_DIMENSION / 2, BUTTON_DIMENSION, BUTTON_DIMENSION,
-                90, Color.WHITE);
+        ParaRectangle hotBG = new ParaRectangle(0, INIT_X + INIT_WIDTH,
+                Driver.SCREEN_HEIGHT - BUTTON_DIMENSION * FOUR - BUTTON_DIMENSION / 2,
+                BUTTON_DIMENSION, BUTTON_DIMENSION,
+                0, Color.WHITE);
+
+        ParaText hot = new ParaText(INIT_X + INIT_WIDTH,
+                Driver.SCREEN_HEIGHT - BUTTON_DIMENSION * FOUR, BUTTON_DIMENSION, BUTTON_DIMENSION,
+                0, "Hot", Color.DARKRED);
+        hot.addTransform(vertWithWiden);
+        hotBG.addTransform(vertWithWiden);
+        level.addShape(hotBG);
+        level.addShape(hot);
 
         ParaShape textBG = tutorialTextBox();
         textBG.addTransform(AGAINST_WIDEN);
