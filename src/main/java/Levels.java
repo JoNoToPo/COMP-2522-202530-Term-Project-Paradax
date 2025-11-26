@@ -102,6 +102,8 @@ public final class Levels {
             TransformSource.WIDTH, TransformPath.SINUSOIDAL, 1);
     private static final Transform COS_T = new Transform(TransformType.HORIZONTAL,
             TransformSource.WIDTH, TransformPath.COSINUSOIDAL, -1);
+    private static final Transform SLOW_HEIGHT = new Transform(TransformType.HORIZONTAL,
+            TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
 
     private Levels() {
     }
@@ -154,6 +156,47 @@ public final class Levels {
     private static ParaRectangle tutorialTextBox() {
         return new ParaRectangle(2, TEXT_BOX_X, TEXT_BOX_Y,
                 TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
+    }
+
+    private static ParaButton mainButton(final Pane root) {
+        return new ParaButton(BUTTON_X_MAIN, BUTTON_Y_MAIN,
+                BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
+                ParaButtonType.NEXT_LEVEL, root);
+    }
+
+    private static ParaText mainText(final String text) {
+        return new ParaText(0, TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE, TEXT_BOX_Y_MAIN + TEXT_OFFSET,
+                TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
+    }
+
+    private static ParaText mainTextTwoLine(final String text) {
+        return new ParaText(0, TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE,
+                TEXT_BOX_Y_MAIN + TEXT_OFFSET + TWO_LINE,
+                TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
+    }
+
+    private static ParaRectangle mainTextBox() {
+        return new ParaRectangle(2, TEXT_BOX_X_MAIN, TEXT_BOX_Y_MAIN,
+                TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
+    }
+
+    private static ParaRectangle newRedMain() {
+        return new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+    }
+
+    private static ParaRectangle newBlueMain() {
+        return new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+    }
+
+    private static ParaRectangle finalBlueBox(Transform transform) {
+        ParaRectangle blue = new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        blue.addTransform(transform);
+        return blue;
     }
 
     private static Level levelOne(final Pane root) {
@@ -274,28 +317,6 @@ public final class Levels {
         return level;
     }
 
-    private static ParaButton mainButton(final Pane root) {
-        return new ParaButton(BUTTON_X_MAIN, BUTTON_Y_MAIN,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, 0,
-                ParaButtonType.NEXT_LEVEL, root);
-    }
-
-    private static ParaText mainText(final String text) {
-        return new ParaText(0, TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE, TEXT_BOX_Y_MAIN + TEXT_OFFSET,
-                TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
-    }
-
-    private static ParaText mainTextTwoLine(final String text) {
-        return new ParaText(0, TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE,
-                TEXT_BOX_Y_MAIN + TEXT_OFFSET + TWO_LINE,
-                TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
-    }
-
-    private static ParaRectangle mainTextBox() {
-        return new ParaRectangle(2, TEXT_BOX_X_MAIN, TEXT_BOX_Y_MAIN,
-                TEXT_WIDTH, TEXT_HEIGHT, 0, Color.BLACK);
-    }
-
     private static Level levelThree(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -406,19 +427,14 @@ public final class Levels {
         level.addShape(mainTextBox());
         level.addShape(mainText("\nI wonder where it is."));
 
-        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
                 TransformSource.WIDTH, TransformPath.LINEAR, -HALF);
         red.addTransform(slowDescent);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
-        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
-                TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
-        blue.addTransform(slowHeight);
+        ParaRectangle blue = newBlueMain();
+        blue.addTransform(SLOW_HEIGHT);
         level.addShape(blue);
 
         level.initTransforms();
@@ -434,16 +450,13 @@ public final class Levels {
         level.addShape(mainTextBox());
         level.addShape(mainTextTwoLine("I can smell it now, it's 100% still behind those two boxes."));
 
-        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
                 TransformSource.X_POS, TransformPath.LINEAR, -HALF);
         red.addTransform(slowDescent);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        ParaRectangle blue = newBlueMain();
         Transform slowHeight = new Transform(TransformType.HORIZONTAL,
                 TransformSource.WIDTH, TransformPath.LINEAR, HALF / FOUR);
         blue.addTransform(slowHeight);
@@ -462,19 +475,14 @@ public final class Levels {
         level.addShape(mainTextBox());
         level.addShape(mainTextTwoLine("Can you believe it?\nAnother two boxes."));
 
-        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
                 TransformSource.Y_POS, TransformPath.LINEAR, -HALF);
         red.addTransform(slowDescent);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
-        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
-                TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
-        blue.addTransform(slowHeight);
+        ParaRectangle blue = newBlueMain();
+        blue.addTransform(SLOW_HEIGHT);
         level.addShape(blue);
 
         level.initTransforms();
@@ -525,14 +533,6 @@ public final class Levels {
         return level;
     }
 
-    private static ParaRectangle finalBlueBox(Transform transform) {
-        ParaRectangle blue = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
-        blue.addTransform(transform);
-        return blue;
-    }
-
     private static Level levelEleven(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -567,9 +567,7 @@ public final class Levels {
         red.addTransform(WITH_WIDEN);
         level.addShape(red);
 
-        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
-                TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
-        level.addShape(finalBlueBox(slowHeight));
+        level.addShape(finalBlueBox(SLOW_HEIGHT));
 
         ParaRectangle green = new ParaRectangle(0,
                 BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
