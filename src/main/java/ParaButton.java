@@ -3,6 +3,8 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 
+import java.awt.event.KeyEvent;
+
 /**
  * Represents a button in Paralax.
  *
@@ -20,7 +22,9 @@ public final class ParaButton extends ParaShape {
                       final ParaButtonType buttonType, final Pane root) {
         super(0, initX, initY, width, height, initAngle);
         button = new Button("Next\nLevel");
+        button.setFocusTraversable(false);
         button.setTextAlignment(TextAlignment.CENTER);
+        button.setStyle("-fx-border-color: lightblue; -fx-border-width: 3px; -fx-border-radius: 3px;");
         this.buttonType = buttonType;
         applyButtonType(root);
     }

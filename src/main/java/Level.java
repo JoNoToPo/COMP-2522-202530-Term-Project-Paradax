@@ -2,6 +2,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Represents a level in Paralax.
@@ -12,8 +13,8 @@ import java.util.Comparator;
 public final class Level {
     private static final int FIVE_PIXELS = 5;
     private static final int THREE_PIXELS = 5;
-    private final ArrayList<ParaShape> paraShapes;
-    private final ArrayList<FixedLevelType> fixedLevelTypes;
+    private final List<ParaShape> paraShapes;
+    private final List<FixedLevelType> fixedLevelTypes;
     private final double initX;
     private final double initY;
     private final double initWidth;
@@ -45,7 +46,7 @@ public final class Level {
         return initHeight;
     }
 
-    ArrayList<ParaShape> getShapes() {
+    List<ParaShape> getShapes() {
         return paraShapes;
     }
 
@@ -69,50 +70,56 @@ public final class Level {
     private void fixWidth() {
         ParaRectangle leftRedLine = new ParaRectangle(0, initX,
                 -FIVE_PIXELS, THREE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.RED);
-        leftRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_X);
-        leftRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_Y);
+        leftRedLine.addTransform(Levels.WITH_X);
+        leftRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftRedLine);
 
         ParaRectangle rightRedLine = new ParaRectangle(0, initX + initWidth
                 - Levels.WIDTH_DIFFERENCE, -FIVE_PIXELS, THREE_PIXELS,
                 Driver.SCREEN_HEIGHT, 0, Color.RED);
-        rightRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_X);
-        rightRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_Y);
+        rightRedLine.addTransform(Levels.WITH_X);
+        rightRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(rightRedLine);
     }
 
     private void fixHeight() {
         ParaRectangle topRedLine = new ParaRectangle(0, initX - FIVE_PIXELS,
                 initY, Driver.SCREEN_WIDTH, THREE_PIXELS, 0, Color.RED);
-        topRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_X);
-        topRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_Y);
+        topRedLine.addTransform(Levels.WITH_X);
+        topRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topRedLine);
 
         ParaRectangle bottomRedLine = new ParaRectangle(0, initX - FIVE_PIXELS,
                 initY + initHeight - Levels.HEADER_HEIGHT,
                 Driver.SCREEN_WIDTH, THREE_PIXELS, 0, Color.RED);
-        bottomRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_X);
-        bottomRedLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_Y);
+        bottomRedLine.addTransform(Levels.WITH_X);
+        bottomRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(bottomRedLine);
     }
 
     private void fixX() {
         ParaRectangle leftBlackLine = new ParaRectangle(0, initX + FIVE_PIXELS,
                 initY - FIVE_PIXELS, FIVE_PIXELS, Driver.SCREEN_HEIGHT, 0, Color.BLACK);
-        leftBlackLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_X);
-        leftBlackLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_Y);
+        leftBlackLine.addTransform(Levels.WITH_X);
+        leftBlackLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftBlackLine);
     }
 
     private void fixY() {
         ParaRectangle topBlackLine = new ParaRectangle(0, initX - FIVE_PIXELS, initY + FIVE_PIXELS,
                 Driver.SCREEN_WIDTH, FIVE_PIXELS, 0, Color.BLACK);
-        topBlackLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_X);
-        topBlackLine.addTransform(initHeight, initWidth, initX, initY, Levels.WITH_Y);
+        topBlackLine.addTransform(Levels.WITH_X);
+        topBlackLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topBlackLine);
     }
 
-    ArrayList<FixedLevelType> getFixedLevelTypes() {
+    void initTransforms() {
+        for (ParaShape shape : paraShapes) {
+            shape.implementTransforms(initHeight, initWidth, initX, initY);
+        }
+    }
+
+    List<FixedLevelType> getFixedLevelTypes() {
         return fixedLevelTypes;
     }
 

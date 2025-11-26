@@ -1,6 +1,8 @@
 import javafx.scene.Node;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * Represents a shape in Paradax.
@@ -18,7 +20,7 @@ public abstract class ParaShape {
     private double initHeight;
     private double initAngle;
 
-    private final ArrayList<Transform> transforms;
+    private final List<Transform> transforms;
     private final int zIndex;
 
     public ParaShape(final int zIndex, final double initX, final double initY,
@@ -121,22 +123,27 @@ public abstract class ParaShape {
         return zIndex;
     }
 
-    public final void addTransform(final double initHeight, final double initWidth,
-                                   final double initX, final double initY, final Transform transform) {
+    public final void addTransform(final Transform transform) {
         transforms.add(transform);
-        TransformType type = transform.getType();
-        double difference = calculateDifference(initHeight,
-                initWidth, initX, initY, transform);
-        if (type == TransformType.HORIZONTAL) {
-            this.initX -= difference;
-        } else if (type == TransformType.VERTICAL) {
-            this.initY -= difference;
-        } else if (type == TransformType.ROTATE) {
-            this.initAngle -= Math.floor(difference);
-        } else if (type == TransformType.WIDEN) {
-            this.initWidth -= difference;
-        } else if (type == TransformType.LENGTHEN) {
-            this.initHeight -= difference;
+    }
+
+    public final void implementTransforms(final double shapeInitHeight, final double shapeInitWidth,
+                                          final double shapeInitX, final double shapeInitY) {
+        for (Transform transform : transforms) {
+            TransformType type = transform.getType();
+            double difference = calculateDifference(shapeInitHeight,
+                    shapeInitWidth, shapeInitX, shapeInitY, transform);
+            if (type == TransformType.HORIZONTAL) {
+                this.initX -= difference;
+            } else if (type == TransformType.VERTICAL) {
+                this.initY -= difference;
+            } else if (type == TransformType.ROTATE) {
+                this.initAngle -= Math.floor(difference);
+            } else if (type == TransformType.WIDEN) {
+                this.initWidth -= difference;
+            } else if (type == TransformType.LENGTHEN) {
+                this.initHeight -= difference;
+            }
         }
     }
 

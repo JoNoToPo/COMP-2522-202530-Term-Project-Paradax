@@ -2,6 +2,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
@@ -15,6 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 /**
@@ -62,6 +64,8 @@ public final class Driver extends Application {
 
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
         stage.initStyle(StageStyle.UNIFIED);
+        diallowMaximize(stage);
+        scene.setCursor(new ImageCursor());
 
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
@@ -100,6 +104,14 @@ public final class Driver extends Application {
         stage.setTitle("Paradax");
         stage.setScene(scene);
         stage.show();
+    }
+
+    private static void diallowMaximize(Stage stage) {
+        stage.maximizedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                stage.setMaximized(false);
+            }
+        });
     }
 
     private void initializeStagePosition(final Stage stage) {
