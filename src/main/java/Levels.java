@@ -126,6 +126,8 @@ public final class Levels {
         levels.add(levelSeven(root));
         levels.add(levelEight(root));
         levels.add(levelNine(root));
+        levels.add(levelTen(root));
+        levels.add(levelEleven(root));
         levels.add(finalLevel(root));
         levels.add(finish());
         return levels;
@@ -425,12 +427,40 @@ public final class Levels {
 
     private static Level levelSeven(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+
+        level.addShape(mainButton(root));
+        level.addShape(mainTextBox());
+        level.addShape(mainTextTwoLine("I can smell it now, it's 100% still behind those two boxes."));
+
+        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        Transform slowDescent = new Transform(TransformType.HORIZONTAL,
+                TransformSource.X_POS, TransformPath.LINEAR, -HALF);
+        red.addTransform(slowDescent);
+        level.addShape(red);
+
+        ParaRectangle blue = new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        Transform slowHeight = new Transform(TransformType.HORIZONTAL,
+                TransformSource.WIDTH, TransformPath.LINEAR, HALF / FOUR);
+        blue.addTransform(slowHeight);
+        level.addShape(blue);
+
+        level.initTransforms();
+        return level;
+    }
+
+    private static Level levelEight(final Pane root) {
+        Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainTextTwoLine("I can smell it now, it's 100% still behind those two boxes."));
+        level.addShape(mainTextTwoLine("Can you believe it?\nAnother two boxes."));
 
         ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
                 Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
@@ -451,7 +481,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelEight(final Pane root) {
+    private static Level levelNine(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
@@ -473,7 +503,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelNine(final Pane root) {
+    private static Level levelTen(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.WIDTH);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
@@ -495,6 +525,34 @@ public final class Levels {
         return level;
     }
 
+    private static ParaRectangle finalBlueBox(Transform transform) {
+        ParaRectangle blue = new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        blue.addTransform(transform);
+        return blue;
+    }
+
+    private static Level levelEleven(final Pane root) {
+        Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
+        level.addFixedLevelType(FixedLevelType.HEIGHT);
+        level.addFixedLevelType(FixedLevelType.Y_POSITION);
+
+        level.addShape(mainButton(root));
+        level.addShape(mainTextBox());
+        level.addShape(mainText("\nHere's some breathing room"));
+
+        ParaRectangle red = new ParaRectangle(0, -Driver.SCREEN_WIDTH / 2 + BUTTON_DIMENSION,
+                BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
+                Driver.SCREEN_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        red.addTransform(WITH_X);
+        level.addShape(red);
+        level.addShape(finalBlueBox(AGAINST_WIDEN));
+
+        level.initTransforms();
+        return level;
+    }
+
     private static Level finalLevel(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
@@ -509,13 +567,9 @@ public final class Levels {
         red.addTransform(WITH_WIDEN);
         level.addShape(red);
 
-        ParaRectangle blue = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
         Transform slowHeight = new Transform(TransformType.HORIZONTAL,
                 TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
-        blue.addTransform(slowHeight);
-        level.addShape(blue);
+        level.addShape(finalBlueBox(slowHeight));
 
         ParaRectangle green = new ParaRectangle(0,
                 BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,

@@ -20,6 +20,14 @@ public final class Level {
     private final double initWidth;
     private final double initHeight;
 
+    /**
+     * Constructs a level.
+     *
+     * @param initX the initial X position of the top left of the window as a double
+     * @param initY  the initial Y position of the top left of the window as a double
+     * @param initWidth the initial width of the screen as a double
+     * @param initHeight the initial height of the screen as a double
+     */
     public Level(final double initX, final double initY,
                  final double initWidth, final double initHeight) {
         this.paraShapes = new ArrayList<>();
@@ -30,22 +38,47 @@ public final class Level {
         this.initHeight = initHeight;
     }
 
+    /**
+     * Gets the initial X position of the top left of the window.
+     *
+     * @return the initial X position of the top left of the window as a double
+     */
     public double getInitX() {
         return initX;
     }
 
+    /**
+     * Gets the initial Y position of the top left of the window.
+     *
+     * @return the initial Y position of the top left of the window as a double
+     */
     public double getInitY() {
         return initY;
     }
 
+    /**
+     * Gets the initial width of the window.
+     *
+     * @return the initial width of the window as a double
+     */
     public double getInitWidth() {
         return initWidth;
     }
 
+    /**
+     * Gets the initial height of the window.
+     *
+     * @return the initial height of the window as a double
+     */
     public double getInitHeight() {
         return initHeight;
     }
 
+    /**
+     * Gets all shapes in the level.
+     *
+     * @return all shapes as an ArrayList<ParaShape>
+     */
     List<ParaShape> getShapes() {
         return paraShapes;
     }
