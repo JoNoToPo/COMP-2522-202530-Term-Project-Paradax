@@ -25,6 +25,10 @@ public final class ParaRectangle extends ParaShape {
         rectangle.setStroke(Paint.valueOf("WHITE"));
     }
 
+    void setOpacity(double opacity) {
+        rectangle.setOpacity(opacity);
+    }
+
     @Override
     void transformHorizontal(final double windowX, final double delta) {
         rectangle.setX(super.getInitX() - windowX + delta);

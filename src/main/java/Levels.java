@@ -46,6 +46,7 @@ public final class Levels {
     private static final double BUTTON_DIMENSION = 50;
     private static final double TEXT_X_DIFFERENCE = 2.5;
     private static final double FORTY_FIVE_DEGREES = 45;
+    private static final double ELEMENT_OPACITY = 0.7;
 
     private static final double INIT_WIDTH = 300;
     private static final double INIT_HEIGHT = 300;
@@ -108,21 +109,21 @@ public final class Levels {
      */
     static LinkedList<Level> levels(final Pane root) {
         LinkedList<Level> levels = new LinkedList<>();
-//        levels.add(levelOne(root));
-//        levels.add(tutorialWiden(root));
-//        levels.add(tutorialLengthen(root));
-//        levels.add(levelTwo(root));
-//        levels.add(tutorialYFixed(root));
-//        levels.add(tutorialXFixed(root));
-//        levels.add(levelThree(root));
-//        levels.add(levelFour(root));
-//        levels.add(levelFive(root));
-//        levels.add(levelSix(root));
-//        levels.add(levelSeven(root));
-//        levels.add(levelEight(root));
-//        levels.add(levelNine(root));
-//        levels.add(levelTen(root));
-//        levels.add(levelEleven(root));
+        levels.add(levelOne(root));
+        levels.add(tutorialWiden(root));
+        levels.add(tutorialLengthen(root));
+        levels.add(levelTwo(root));
+        levels.add(tutorialYFixed(root));
+        levels.add(tutorialXFixed(root));
+        levels.add(levelThree(root));
+        levels.add(levelFour(root));
+        levels.add(levelFive(root));
+        levels.add(levelSix(root));
+        levels.add(levelSeven(root));
+        levels.add(levelEight(root));
+        levels.add(levelNine(root));
+        levels.add(levelTen(root));
+        levels.add(levelEleven(root));
         levels.add(finalLevel(root));
         levels.add(finish());
         return levels;
@@ -174,21 +175,26 @@ public final class Levels {
     }
 
     private static ParaRectangle newRedMain() {
-        return new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        ParaRectangle red = new ParaRectangle(0, BUTTON_DIMENSION, BUTTON_Y_MAIN,
+                Driver.SCREEN_WIDTH / 2, BUTTON_DIMENSION * 2, 0, Color.DARKRED);
+        red.setOpacity(ELEMENT_OPACITY);
+        return red;
     }
 
     private static ParaRectangle newBlueMain() {
-        return new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        ParaRectangle blue = new ParaRectangle(0,
+                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - BUTTON_DIMENSION,
+                Driver.SCREEN_WIDTH / 2, BUTTON_DIMENSION * 2, 0, Color.DARKBLUE);
+        blue.setOpacity(ELEMENT_OPACITY);
+        return blue;
     }
 
     private static ParaRectangle finalBlueBox(Transform transform) {
         ParaRectangle blue = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - TEXT_HEIGHT,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+                BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - BUTTON_DIMENSION,
+                Driver.SCREEN_WIDTH, BUTTON_DIMENSION * 2, 0, Color.DARKBLUE);
         blue.addTransform(transform);
+        blue.setOpacity(ELEMENT_OPACITY);
         return blue;
     }
 
@@ -400,12 +406,14 @@ public final class Levels {
 
         ParaRectangle red = new ParaRectangle(0, BUTTON_X_MAIN - TEXT_WIDTH / 2, BUTTON_Y_MAIN,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        red.setOpacity(ELEMENT_OPACITY);
         red.addTransform(WITH_WIDEN);
         level.addShape(red);
 
         ParaRectangle blue = new ParaRectangle(0, BUTTON_X_MAIN
                 - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKBLUE);
+        blue.setOpacity(ELEMENT_OPACITY);
         blue.addTransform(AGAINST_MOVE_X);
         level.addShape(blue);
         level.initTransforms();
@@ -494,7 +502,8 @@ public final class Levels {
 
         ParaRectangle red = new ParaRectangle(0, THREE * BUTTON_DIMENSION + TEXT_WIDTH / 2,
                 BUTTON_Y_MAIN - BUTTON_DIMENSION / 2,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+                Driver.SCREEN_WIDTH / 2, BUTTON_DIMENSION * 2, 0, Color.DARKRED);
+        red.setOpacity(ELEMENT_OPACITY);
         Transform width = new Transform(TransformType.HORIZONTAL,
                 TransformSource.WIDTH, TransformPath.LINEAR, HALF);
         red.addTransform(width);
@@ -516,7 +525,8 @@ public final class Levels {
         ParaRectangle red = new ParaRectangle(0,
                 TEXT_X_DIFFERENCE * BUTTON_DIMENSION + TEXT_WIDTH,
                 BUTTON_Y_MAIN - BUTTON_DIMENSION / 2,
-                Driver.SCREEN_WIDTH / 2, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+                Driver.SCREEN_WIDTH / 2, BUTTON_DIMENSION * 2, 0, Color.DARKRED);
+        red.setOpacity(ELEMENT_OPACITY);
         Transform width = new Transform(TransformType.HORIZONTAL,
                 TransformSource.HEIGHT, TransformPath.LINEAR, 1);
         red.addTransform(width);
@@ -537,7 +547,8 @@ public final class Levels {
 
         ParaRectangle red = new ParaRectangle(0, -Driver.SCREEN_WIDTH / 2 + BUTTON_DIMENSION,
                 BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
-                Driver.SCREEN_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+                Driver.SCREEN_WIDTH, BUTTON_DIMENSION * 2, 0, Color.DARKRED);
+        red.setOpacity(ELEMENT_OPACITY);
         red.addTransform(WITH_X);
         level.addShape(red);
         level.addShape(finalBlueBox(AGAINST_WIDEN));
@@ -557,6 +568,7 @@ public final class Levels {
         ParaRectangle red = new ParaRectangle(0, -Driver.SCREEN_WIDTH / 2 + BUTTON_DIMENSION / 2,
                 BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
                 Driver.SCREEN_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
+        red.setOpacity(ELEMENT_OPACITY);
         red.addTransform(WITH_WIDEN);
         level.addShape(red);
 
@@ -564,9 +576,10 @@ public final class Levels {
 
         ParaRectangle green = new ParaRectangle(0,
                 BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT + BUTTON_DIMENSION / 2,
-                TEXT_HEIGHT * 2, Driver.SCREEN_HEIGHT, 0, Color.GREEN);
+                BUTTON_DIMENSION * 2, Driver.SCREEN_HEIGHT, 0, Color.GREEN);
         Transform slow = new Transform(TransformType.VERTICAL,
                 TransformSource.X_POS, TransformPath.LINEAR, -HALF);
+        green.setOpacity(ELEMENT_OPACITY);
         green.addTransform(slow);
         level.addShape(green);
         level.initTransforms();
