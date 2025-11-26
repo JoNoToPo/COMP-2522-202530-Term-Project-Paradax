@@ -108,21 +108,21 @@ public final class Levels {
      */
     static LinkedList<Level> levels(final Pane root) {
         LinkedList<Level> levels = new LinkedList<>();
-        levels.add(levelOne(root));
-        levels.add(tutorialWiden(root));
-        levels.add(tutorialLengthen(root));
-        levels.add(levelTwo(root));
-        levels.add(tutorialYFixed(root));
-        levels.add(tutorialXFixed(root));
-        levels.add(levelThree(root));
-        levels.add(levelFour(root));
-        levels.add(levelFive(root));
-        levels.add(levelSix(root));
-        levels.add(levelSeven(root));
-        levels.add(levelEight(root));
-        levels.add(levelNine(root));
-        levels.add(levelTen(root));
-        levels.add(levelEleven(root));
+//        levels.add(levelOne(root));
+//        levels.add(tutorialWiden(root));
+//        levels.add(tutorialLengthen(root));
+//        levels.add(levelTwo(root));
+//        levels.add(tutorialYFixed(root));
+//        levels.add(tutorialXFixed(root));
+//        levels.add(levelThree(root));
+//        levels.add(levelFour(root));
+//        levels.add(levelFive(root));
+//        levels.add(levelSix(root));
+//        levels.add(levelSeven(root));
+//        levels.add(levelEight(root));
+//        levels.add(levelNine(root));
+//        levels.add(levelTen(root));
+//        levels.add(levelEleven(root));
         levels.add(finalLevel(root));
         levels.add(finish());
         return levels;
@@ -554,7 +554,7 @@ public final class Levels {
         level.addShape(mainTextBox());
         level.addShape(mainTextTwoLine("It's time for your final test... THREE BOXES."));
 
-        ParaRectangle red = new ParaRectangle(0, -Driver.SCREEN_WIDTH / 2,
+        ParaRectangle red = new ParaRectangle(0, -Driver.SCREEN_WIDTH / 2 + BUTTON_DIMENSION / 2,
                 BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
                 Driver.SCREEN_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
         red.addTransform(WITH_WIDEN);
@@ -563,7 +563,7 @@ public final class Levels {
         level.addShape(finalBlueBox(SLOW_HEIGHT));
 
         ParaRectangle green = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT,
+                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT + BUTTON_DIMENSION / 2,
                 TEXT_HEIGHT * 2, Driver.SCREEN_HEIGHT, 0, Color.GREEN);
         Transform slow = new Transform(TransformType.VERTICAL,
                 TransformSource.X_POS, TransformPath.LINEAR, -HALF);
