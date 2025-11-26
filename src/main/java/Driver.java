@@ -41,7 +41,7 @@ public final class Driver extends Application {
 
     private static final int RADIUS = 10;
     private static final BackgroundFill BACKGROUND_FILL = new BackgroundFill(
-            Color.LIGHTGRAY,
+            Color.DARKGRAY,
             new CornerRadii(RADIUS),
             new Insets(RADIUS)
     );

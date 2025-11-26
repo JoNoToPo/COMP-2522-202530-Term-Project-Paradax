@@ -1,5 +1,6 @@
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -18,8 +19,10 @@ public final class ParaRectangle extends ParaShape {
                          final double initAngle, final Color color) {
         super(zIndex, initX, initY, width, height, initAngle);
         rectangle = new Rectangle(width, height, color);
-        rectangle.setArcWidth(TEN_PIXELS);
         rectangle.setArcHeight(TEN_PIXELS);
+        rectangle.setArcWidth(TEN_PIXELS);
+        rectangle.setStrokeWidth(2);
+        rectangle.setStroke(Paint.valueOf("WHITE"));
     }
 
     @Override
