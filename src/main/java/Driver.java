@@ -16,7 +16,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 /**
@@ -64,7 +63,7 @@ public final class Driver extends Application {
 
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
         stage.initStyle(StageStyle.UNIFIED);
-        diallowMaximize(stage);
+        negateMaximize(stage);
         scene.setCursor(new ImageCursor());
 
         canvas.widthProperty().bind(root.widthProperty());
@@ -106,7 +105,7 @@ public final class Driver extends Application {
         stage.show();
     }
 
-    private static void diallowMaximize(Stage stage) {
+    private static void negateMaximize(Stage stage) {
         stage.maximizedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 stage.setMaximized(false);
