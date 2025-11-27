@@ -86,6 +86,8 @@ public final class Levels {
             TransformSource.X_POS, TransformPath.LINEAR, 1);
     private static final Transform SPIN_WIDTH = new Transform(TransformType.ROTATE,
             TransformSource.WIDTH, TransformPath.LINEAR, HALF);
+    private static final Transform SPIN_HEIGHT = new Transform(TransformType.ROTATE,
+            TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
     private static final Transform HORIZONTAL_HEIGHT = new Transform(TransformType.HORIZONTAL,
             TransformSource.HEIGHT, TransformPath.LINEAR, 1);
     private static final Transform AGAINST_MOVE_Y = new Transform(TransformType.VERTICAL,
@@ -206,11 +208,15 @@ public final class Levels {
         ParaShape textBG = tutorialTextBox();
         textBG.addTransform(SPIN_Y);
         textBG.addTransform(SPIN_X);
+        textBG.addTransform(SPIN_WIDTH);
+        textBG.addTransform(SPIN_HEIGHT);
         level.addShape(textBG);
 
         ParaText welcome = tutorialTextTwoLine("Think at the boundaries of the box to find the \"Next Level\" button.");
         welcome.addTransform(SPIN_Y);
         welcome.addTransform(SPIN_X);
+        welcome.addTransform(SPIN_WIDTH);
+        welcome.addTransform(SPIN_HEIGHT);
         level.addShape(welcome);
 
         level.initTransforms();
@@ -402,7 +408,8 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainText("\nIt's behind those two boxes."));
+        level.addShape(mainText("I wonder where the next level button is." +
+                " On an unrelated note, look at those slightly transparent boxes!"));
 
         ParaRectangle red = new ParaRectangle(0, BUTTON_X_MAIN - TEXT_WIDTH / 2, BUTTON_Y_MAIN,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
@@ -426,7 +433,7 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainText("\nI wonder where it is."));
+        level.addShape(mainTextTwoLine("Whaaaat it was behind the two slightly transparent boxes? no waaaaay"));
 
         ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
@@ -449,7 +456,7 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainTextTwoLine("I can smell it now, it's 100% still behind those two boxes."));
+        level.addShape(mainTextTwoLine("Can you believe it?\nAnother two boxes."));
 
         ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
@@ -474,7 +481,7 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainTextTwoLine("Can you believe it?\nAnother two boxes."));
+        level.addShape(mainText("I hope you're invested so far,\nbecause next level will use some unexpected emergent gameplay"));
 
         ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
@@ -520,7 +527,7 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainTextTwoLine("How did that happen? \nMaybe you can do it again"));
+        level.addShape(mainTextTwoLine("How did that happen? \nMaybe you can do it again?"));
 
         ParaRectangle red = new ParaRectangle(0,
                 TEXT_X_DIFFERENCE * BUTTON_DIMENSION + TEXT_WIDTH,
@@ -543,7 +550,7 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainText("\nHere's some breathing room"));
+        level.addShape(mainText("\nHere's some breathing room."));
 
         ParaRectangle red = new ParaRectangle(0, -Driver.SCREEN_WIDTH / 2 + BUTTON_DIMENSION,
                 BUTTON_Y_MAIN - TEXT_X_DIFFERENCE,
