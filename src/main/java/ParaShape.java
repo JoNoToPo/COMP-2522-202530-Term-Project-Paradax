@@ -20,9 +20,19 @@ public abstract class ParaShape {
     private double initHeight;
     private double initAngle;
 
-    private final List<Transform> transforms;
     private final int zIndex;
+    private final List<Transform> transforms;
 
+    /**
+     * Constructs a ParaShape.
+     *
+     * @param zIndex the z index of the shape as an int
+     * @param initX the x index of the top left of the shape as a double
+     * @param initY the y index of the top left of the shape as a double
+     * @param width the width of the shape as a double
+     * @param height the height of the shape as a double
+     * @param initAngle the angle of the shape in degrees as a double
+     */
     public ParaShape(final int zIndex, final double initX, final double initY,
                      final double width, final double height, final double initAngle) {
         this.zIndex = zIndex;
@@ -34,82 +44,124 @@ public abstract class ParaShape {
         this.initAngle = initAngle;
     }
 
-    public final void update(final double windowHeight, final double windowWidth,
-                             final double windowX, final double windowY) {
-        double xDifference = 0;
-        double yDifference = 0;
-        double angleDifference = 0;
-        double widthDifference = 0;
-        double heightDifference = 0;
+    /**
+     * Updates the shape using its transforms.
+     *
+     * @param currWindowHeight the current height of the screen as a double
+     * @param currWindowWidth the current width of the screen as a double
+     * @param currWindowX the current X position of the top left of the window as a double
+     * @param currWindowY  the current Y position of the top left of the window as a double
+     */
+    public final void update(final double currWindowHeight, final double currWindowWidth,
+                             final double currWindowX, final double currWindowY) {
+        double totalX = -currWindowX;
+        double totalY = -currWindowY;
+        double totalAngle = 0;
+        double totalWidth = 0;
+        double totalHeight = 0;
 
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
-            double difference = calculateDifference(windowHeight,
-                    windowWidth, windowX, windowY, transform);
+            double difference = calculateDelta(currWindowHeight,
+                    currWindowWidth, currWindowX, currWindowY, transform);
             if (type == TransformType.HORIZONTAL) {
-                xDifference += difference;
+                totalX += difference;
             } else if (type == TransformType.VERTICAL) {
-                yDifference += difference;
+                totalY += difference;
             } else if (type == TransformType.ROTATE) {
-                angleDifference += Math.floor(difference);
+                totalAngle += Math.floor(difference);
             } else if (type == TransformType.WIDEN) {
-                widthDifference += difference;
+                totalWidth += difference;
             } else if (type == TransformType.LENGTHEN) {
-                heightDifference += difference;
+                totalHeight += difference;
             }
         }
-        transform(windowX, windowY, xDifference, yDifference,
-                widthDifference, heightDifference, angleDifference);
+        transform(totalX, totalY, totalWidth, totalHeight, totalAngle);
     }
 
-    private double parseSource(final double windowHeight, final double windowWidth,
-                               final double windowX, final double windowY,
+    /**
+     * Parses the source of the transform.
+     *
+     * @param currWindowHeight the current height of the screen as a double
+     * @param currWindowWidth the current width of the screen as a double
+     * @param currWindowX the current X position of the top left of the window as a double
+     * @param currWindowY  the current Y position of the top left of the window as a double
+     * @param source the source of the transform as a TransformSource
+     * @return the source of the transform as a double
+     */
+    private double parseSource(final double currWindowHeight, final double currWindowWidth,
+                               final double currWindowX, final double currWindowY,
                                final TransformSource source) {
         if (source == TransformSource.X_POS) {
-            return windowX;
+            return currWindowX;
         } else if (source == TransformSource.Y_POS) {
-            return windowY;
+            return currWindowY;
         } else if (source == TransformSource.HEIGHT) {
-            return windowHeight;
+            return currWindowHeight;
         } else if (source == TransformSource.WIDTH) {
-            return windowWidth;
+            return currWindowWidth;
         }
         return 0;
     }
 
-    private double parsePath(final double source, final double multiplier,
+    /**
+     * Parse the path taken.
+     *
+     * @param source the source of the transform as a double
+     * @param path the path of the transform as a TransformPath
+     * @return the path of the transform as a double
+     */
+    private double parsePath(final double source,
                              final TransformPath path) {
         if (path == TransformPath.SINUSOIDAL) {
-            return Math.sin(source / Math.TAU / TEN_PIXELS) * multiplier * ONE_HUNDRED_PIXELS;
+            return Math.sin(source / Math.TAU / TEN_PIXELS) * ONE_HUNDRED_PIXELS;
         } else if (path == TransformPath.COSINUSOIDAL) {
-            return Math.cos(source / Math.TAU / TEN_PIXELS) * multiplier * ONE_HUNDRED_PIXELS;
+            return Math.cos(source / Math.TAU / TEN_PIXELS) * ONE_HUNDRED_PIXELS;
         } else if (path == TransformPath.EXPONENTIAL) {
-            return source * source * multiplier;
+            return source * source;
         }
-        return source * multiplier;
+        return source;
     }
 
-    private double calculateDifference(final double windowHeight, final double windowWidth,
-                                       final double windowX, final double windowY,
-                                       final Transform transform) {
-        double source = parseSource(windowHeight, windowWidth,
-                windowX, windowY, transform.getSource());
-        return parsePath(source, transform.getMultiplier(), transform.getPath());
+    /**
+     * Calculates the delta from the transform.
+     *
+     * @param passWindowHeight the passed value for the height of the screen as a double
+     * @param passWindowWidth the passed value for the width of the screen as a double
+     * @param passWindowX the passed value for the X position of the top left of the screen as a double
+     * @param passWindowY the passed value for the Y position of the top left of the screen as a double
+     * @param transform the transform being applied as a Transform
+     * @return the delta as a double
+     */
+    private double calculateDelta(final double passWindowHeight, final double passWindowWidth,
+                                  final double passWindowX, final double passWindowY,
+                                  final Transform transform) {
+        double source = parseSource(passWindowHeight, passWindowWidth,
+                passWindowX, passWindowY, transform.getSource());
+        return parsePath(source, transform.getPath()) * transform.getMultiplier();
     }
 
-    private void transform(final double windowX, final double windowY, final double xDifference,
-                           final double yDifference, final double widthDifference,
+    /**
+     * Transforms the shape.
+     *
+     * @param xDifference the difference in X position as a double
+     * @param yDifference the difference in Y position as a double
+     * @param widthDifference the difference in width as a double
+     * @param heightDifference the difference in height as a double
+     * @param angleDifference the difference in angle as a double
+     */
+    private void transform(final double xDifference, final double yDifference, final double widthDifference,
                            final double heightDifference, final double angleDifference) {
-        transformHorizontal(windowX, xDifference);
-        transformVertical(windowY, yDifference);
+        transformHorizontal(xDifference);
+        transformVertical(yDifference);
         rotate(angleDifference);
         widen(widthDifference);
         lengthen(heightDifference);
     }
 
-    abstract void transformHorizontal(double windowX, double delta);
+    abstract void transformHorizontal(final double delta);
 
-    abstract void transformVertical(double windowY, double delta);
+    abstract void transformVertical(final double delta);
 
     abstract void rotate(double delta);
 
@@ -131,7 +183,7 @@ public abstract class ParaShape {
                                           final double shapeInitX, final double shapeInitY) {
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
-            double difference = calculateDifference(shapeInitHeight,
+            double difference = calculateDelta(shapeInitHeight,
                     shapeInitWidth, shapeInitX, shapeInitY, transform);
             if (type == TransformType.HORIZONTAL) {
                 this.initX -= difference;

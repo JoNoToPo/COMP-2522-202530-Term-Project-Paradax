@@ -41,13 +41,13 @@ public final class ParaText extends ParaShape {
     }
 
     @Override
-    void transformHorizontal(final double windowX, final double delta) {
-        text.setX(super.getInitX() - windowX + delta);
+    void transformHorizontal(final double delta) {
+        text.setX(super.getInitX() + delta);
     }
 
     @Override
-    void transformVertical(final double windowY, final double delta) {
-        text.setY(super.getInitY() - windowY + delta);
+    void transformVertical(final double delta) {
+        text.setY(super.getInitY() + delta);
     }
 
     @Override
@@ -64,8 +64,8 @@ public final class ParaText extends ParaShape {
 
     @Override
     void lengthen(final double delta) {
-        text.maxWidth(super.getInitHeight() + delta);
-        text.minWidth(super.getInitHeight() + delta);
+        text.maxHeight(super.getInitHeight() + delta);
+        text.minHeight(super.getInitHeight() + delta);
     }
 
     @Override

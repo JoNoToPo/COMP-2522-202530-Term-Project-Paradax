@@ -30,13 +30,13 @@ public final class ParaButton extends ParaShape {
     }
 
     @Override
-    void transformHorizontal(final double windowX, final double delta) {
-        button.setTranslateX(super.getInitX() - windowX + delta);
+    void transformHorizontal(final double delta) {
+        button.setTranslateX(super.getInitX() + delta);
     }
 
     @Override
-    void transformVertical(final double windowY, final double delta) {
-        button.setTranslateY(super.getInitY() - windowY + delta);
+    void transformVertical(final double delta) {
+        button.setTranslateY(super.getInitY() + delta);
     }
 
     @Override
