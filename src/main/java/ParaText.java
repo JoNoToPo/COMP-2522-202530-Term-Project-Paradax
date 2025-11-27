@@ -5,6 +5,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Objects;
+
 /**
  * Represents text in Paradax.
  *
@@ -38,10 +40,6 @@ public final class ParaText extends ParaShape {
         text.setWrappingWidth(width);
     }
 
-    void changeMessage(final String message) {
-        text.setText(message);
-    }
-
     @Override
     void transformHorizontal(final double windowX, final double delta) {
         text.setX(super.getInitX() - windowX + delta);
@@ -73,5 +71,51 @@ public final class ParaText extends ParaShape {
     @Override
     Node getNode() {
         return text;
+    }
+
+    /**
+     * Returns a String representation of this ParaText.
+     *
+     * @return a String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder sb;
+        sb = new StringBuilder("ParaText{");
+        sb.append("text=").append(text);
+        sb.append(", ");
+        sb.append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
+
+    /**
+     * Compares this ParaText to another Object for equality.
+     *
+     * @param object an Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) return false;
+        if (!super.equals(object)) return false;
+        ParaText paraText = (ParaText) object;
+        return Objects.equals(text, paraText.text);
+    }
+
+    /**
+     * Returns a hash code for this ParaText.
+     *
+     * @return a hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                super.hashCode(),
+                text
+        );
     }
 }

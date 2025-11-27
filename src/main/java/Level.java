@@ -3,6 +3,7 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a level in Paralax.
@@ -226,5 +227,64 @@ public final class Level {
         for (ParaShape paraShape : paraShapes) {
             paraShape.update(currWindowHeight, currWindowWidth, currWindowX, currWindowY);
         }
+    }
+
+    /**
+     * Returns a String representation of this Level.
+     *
+     * @return a String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder sb;
+        sb = new StringBuilder("Level{");
+        sb.append("paraShapes=").append(paraShapes);
+        sb.append(", fixedLevelTypes=").append(fixedLevelTypes);
+        sb.append(", initX=").append(initX);
+        sb.append(", initY=").append(initY);
+        sb.append(", initWidth=").append(initWidth);
+        sb.append(", initHeight=").append(initHeight);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    /**
+     * Compares this Level to another Object for equality.
+     *
+     * @param object an Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        Level level = (Level) object;
+        return Double.compare(initX, level.initX) == 0
+                && Double.compare(initY, level.initY) == 0
+                && Double.compare(initWidth, level.initWidth) == 0
+                && Double.compare(initHeight, level.initHeight) == 0
+                && Objects.equals(paraShapes, level.paraShapes)
+                && Objects.equals(fixedLevelTypes, level.fixedLevelTypes);
+    }
+
+    /**
+     * Returns a hash code for this Level.
+     *
+     * @return a hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                paraShapes,
+                fixedLevelTypes,
+                initX,
+                initY,
+                initWidth,
+                initHeight
+        );
     }
 }

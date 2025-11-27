@@ -3,8 +3,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Objects;
+
 /**
- * Represents a rectangle in Paralax.
+ * Represents a rectangle in Paradax.
  *
  * @author JoNoToPo
  * @version 2025
@@ -57,5 +59,49 @@ public final class ParaRectangle extends ParaShape {
     @Override
     Node getNode() {
         return rectangle;
+    }
+
+    /**
+     * Returns a String representation of this ParaRectangle.
+     *
+     * @return a String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder sb;
+        sb = new StringBuilder("ParaRectangle{");
+        sb.append("rectangle=").append(rectangle);
+        sb.append(", ");
+        sb.append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
+
+    /**
+     * Compares this ParaRectangle to another Object for equality.
+     *
+     * @param object an Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        ParaRectangle that = (ParaRectangle) object;
+        return Objects.equals(rectangle, that.rectangle);
+    }
+
+    /**
+     * Returns a hash code for this ParaRectangle.
+     *
+     * @return a hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(rectangle);
     }
 }

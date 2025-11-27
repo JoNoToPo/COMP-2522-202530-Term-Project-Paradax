@@ -3,7 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 
-import java.awt.event.KeyEvent;
+import java.util.Objects;
 
 /**
  * Represents a button in Paralax.
@@ -68,5 +68,54 @@ public final class ParaButton extends ParaShape {
                 root.getChildren().clear();
             });
         }
+    }
+
+    /**
+     * Returns a String representation of this ParaButton.
+     *
+     * @return a String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder sb;
+        sb = new StringBuilder("ParaButton{");
+        sb.append("button=").append(button);
+        sb.append(", buttonType=").append(buttonType);
+        sb.append(", ");
+        sb.append(super.toString());
+        sb.append('}');
+        return sb.toString();
+    }
+
+    /**
+     * Compares this ParaButton to another Object for equality.
+     *
+     * @param object an Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        ParaButton that = (ParaButton) object;
+        return Objects.equals(button, that.button)
+                && buttonType == that.buttonType;
+    }
+
+    /**
+     * Returns a hash code for this ParaButton.
+     *
+     * @return a hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                button,
+                buttonType
+        );
     }
 }

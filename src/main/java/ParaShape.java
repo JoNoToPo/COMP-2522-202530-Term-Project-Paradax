@@ -1,8 +1,8 @@
 import javafx.scene.Node;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Represents a shape in Paradax.
@@ -170,5 +170,67 @@ public abstract class ParaShape {
 
     public final double getInitAngle() {
         return initAngle;
+    }
+
+    /**
+     * Returns a String representation of this ParaShape.
+     *
+     * @return a String
+     */
+    @Override
+    public String toString() {
+        final StringBuilder sb;
+        sb = new StringBuilder("ParaShape{");
+        sb.append("initX=").append(initX);
+        sb.append(", initY=").append(initY);
+        sb.append(", initWidth=").append(initWidth);
+        sb.append(", initHeight=").append(initHeight);
+        sb.append(", initAngle=").append(initAngle);
+        sb.append(", transforms=").append(transforms);
+        sb.append(", zIndex=").append(zIndex);
+        sb.append('}');
+        return sb.toString();
+    }
+
+    /**
+     * Compares this ParaShape to another Object for equality.
+     *
+     * @param object an Object
+     * @return true if equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
+        ParaShape paraShape = (ParaShape) object;
+        return Double.compare(initX, paraShape.initX) == 0
+                && Double.compare(initY, paraShape.initY) == 0
+                && Double.compare(initWidth, paraShape.initWidth) == 0
+                && Double.compare(initHeight, paraShape.initHeight) == 0
+                && Double.compare(initAngle, paraShape.initAngle) == 0
+                && zIndex == paraShape.zIndex
+                && Objects.equals(transforms, paraShape.transforms);
+    }
+
+    /**
+     * Returns a hash code for this ParaShape.
+     *
+     * @return a hash code
+     */
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                initX,
+                initY,
+                initWidth,
+                initHeight,
+                initAngle,
+                transforms,
+                zIndex
+        );
     }
 }
