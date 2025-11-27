@@ -140,12 +140,12 @@ public final class Levels {
     }
 
     private static ParaText tutorialText(final String text) {
-        return new ParaText(0, TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET,
+        return new ParaText( TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }
 
     private static ParaText tutorialTextTwoLine(final String text) {
-        return new ParaText(0, TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET + TWO_LINE,
+        return new ParaText( TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET + TWO_LINE,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }
 
@@ -161,12 +161,12 @@ public final class Levels {
     }
 
     private static ParaText mainText(final String text) {
-        return new ParaText(0, TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE, TEXT_BOX_Y_MAIN + TEXT_OFFSET,
+        return new ParaText( TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE, TEXT_BOX_Y_MAIN + TEXT_OFFSET,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }
 
     private static ParaText mainTextTwoLine(final String text) {
-        return new ParaText(0, TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE,
+        return new ParaText(TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE,
                 TEXT_BOX_Y_MAIN + TEXT_OFFSET + TWO_LINE,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }

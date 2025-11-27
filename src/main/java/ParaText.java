@@ -14,21 +14,43 @@ import java.util.Objects;
  * @version 2025
  */
 public final class ParaText extends ParaShape {
+    private static final int Z_INDEX = 10;
     private static final int FONT_SIZE = 14;
 
     private final Text text;
 
+    /**
+     * Constructs a text node.
+     *
+     * @param initX the x index of the top left of the text as a double
+     * @param initY the y index of the top left of the text as a double
+     * @param width the width of the text as a double
+     * @param height the height of the text as a double
+     * @param initAngle the angle of the text in degrees as a double
+     * @param message the message as a string
+     * @param color the color of the message as a Color
+     */
     public ParaText(final double initX, final double initY,
                     final double width, final double height,
                     final double initAngle, final String message, final Color color) {
-        this(0, initX, initY, width, height, initAngle, message);
+        this(initX, initY, width, height, initAngle, message);
         text.setFill(color);
     }
 
-    public ParaText(final int zIndex, final double initX, final double initY,
+    /**
+     * Constructs a text node.
+     *
+     * @param initX the x index of the top left of the text as a double
+     * @param initY the y index of the top left of the text as a double
+     * @param width the width of the text as a double
+     * @param height the height of the text as a double
+     * @param initAngle the angle of the text in degrees as a double
+     * @param message the message as a string
+     */
+    public ParaText(final double initX, final double initY,
                     final double width, final double height,
                     final double initAngle, final String message) {
-        super(zIndex, initX, initY, width, height, initAngle);
+        super(Z_INDEX, initX, initY, width, height, initAngle);
         if (message == null || message.isBlank()) {
             text = new Text(initX, initY, "Default message.");
         } else {
@@ -40,21 +62,41 @@ public final class ParaText extends ParaShape {
         text.setWrappingWidth(width);
     }
 
+    /**
+     * Transforms the horizontal position of the text.
+     *
+     * @param delta the change as a double
+     */
     @Override
     void transformHorizontal(final double delta) {
         text.setX(super.getInitX() + delta);
     }
 
+    /**
+     * Transforms the vertical position of the text.
+     *
+     * @param delta the change as a double
+     */
     @Override
     void transformVertical(final double delta) {
         text.setY(super.getInitY() + delta);
     }
 
+    /**
+     * Transforms the angle of the text.
+     *
+     * @param delta the change as a double
+     */
     @Override
     void rotate(final double delta) {
         text.setRotate(super.getInitAngle() + delta);
     }
 
+    /**
+     * Widens the text.
+     *
+     * @param delta the change as a double
+     */
     @Override
     void widen(final double delta) {
         text.maxWidth(super.getInitWidth() + delta);
@@ -62,12 +104,22 @@ public final class ParaText extends ParaShape {
         text.setWrappingWidth(super.getInitWidth() + delta);
     }
 
+    /**
+     * Lengthens the text.
+     *
+     * @param delta the change as a double
+     */
     @Override
     void lengthen(final double delta) {
         text.maxHeight(super.getInitHeight() + delta);
         text.minHeight(super.getInitHeight() + delta);
     }
 
+    /**
+     * Returns the node of the text.
+     *
+     * @return the text as a Node
+     */
     @Override
     Node getNode() {
         return text;
