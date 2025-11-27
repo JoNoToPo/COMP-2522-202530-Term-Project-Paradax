@@ -196,7 +196,7 @@ public final class Level {
      */
     void initTransforms() {
         for (ParaShape shape : paraShapes) {
-            shape.implementTransforms(initHeight, initWidth, initX, initY);
+            shape.initializeTransforms(initHeight, initWidth, initX, initY);
         }
     }
 

@@ -159,32 +159,60 @@ public abstract class ParaShape {
         lengthen(heightDifference);
     }
 
+    /**
+     * Transforms the horizontal position of the shape.
+     *
+     * @param delta the change as a double
+     */
     abstract void transformHorizontal(final double delta);
 
+    /**
+     * Transforms the vertical position of the shape.
+     *
+     * @param delta the change as a double
+     */
     abstract void transformVertical(final double delta);
 
+    /**
+     * Transforms the angle of the shape.
+     *
+     * @param delta the change as a double
+     */
     abstract void rotate(double delta);
 
+    /**
+     * Widens the shape.
+     *
+     * @param delta the change as a double
+     */
     abstract void widen(double delta);
 
+    /**
+     * Lengthens the shape.
+     *
+     * @param delta the change as a double
+     */
     abstract void lengthen(double delta);
 
+    /**
+     * Returns the node of the shape.
+     */
     abstract Node getNode();
 
-    public final int getzIndex() {
-        return zIndex;
-    }
-
-    public final void addTransform(final Transform transform) {
-        transforms.add(transform);
-    }
-
-    public final void implementTransforms(final double shapeInitHeight, final double shapeInitWidth,
-                                          final double shapeInitX, final double shapeInitY) {
+    /**
+     * Initializes the shape given its transforms
+     *
+     * @param windowInitHeight the initial X position of the top left of the window as a double
+     * @param windowInitWidth the initial Y position of the top left of the window as a double
+     * @param windowInitX the initial width of the screen as a double
+     * @param windowInitY the initial height of the screen as a double
+     */
+    public final void initializeTransforms(final double windowInitHeight, final double windowInitWidth,
+                                           final double windowInitX, final double windowInitY) {
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
-            double difference = calculateDelta(shapeInitHeight,
-                    shapeInitWidth, shapeInitX, shapeInitY, transform);
+            double difference = calculateDelta(windowInitHeight,
+                    windowInitWidth, windowInitX, windowInitY, transform);
             if (type == TransformType.HORIZONTAL) {
                 this.initX -= difference;
             } else if (type == TransformType.VERTICAL) {
@@ -199,29 +227,73 @@ public abstract class ParaShape {
         }
     }
 
+    public final int getzIndex() {
+        return zIndex;
+    }
+
+    /**
+     * Gets the initial X index of the top left of the shape.
+     *
+     * @return the initial X index of the top left of the shape as a double
+     */
     public final double getInitX() {
         return initX;
     }
 
+    /**
+     * Gets the initial Y index of the top left of the shape.
+     *
+     * @return the initial Y index of the top left of the shape as a double
+     */
     public final double getInitY() {
         return initY;
     }
 
-    public void changePosition(final double initX, final double initY) {
-        this.initY = initY;
-        this.initX = initX;
+    /**
+     * Changes the position of the top left of the shape.
+     *
+     * @param newX the X index of the top left of the shape as a double
+     * @param newY the Y index of the top left of the shape as a double
+     */
+    public void changePosition(final double newX, final double newY) {
+        this.initY = newY;
+        this.initX = newX;
     }
 
+    /**
+     * Gets the initial height the shape.
+     *
+     * @return the initial height as a double
+     */
     public final double getInitHeight() {
         return initHeight;
     }
 
+    /**
+     * Gets the initial width the shape.
+     *
+     * @return the initial width as a double
+     */
     public final double getInitWidth() {
         return initWidth;
     }
 
+    /**
+     * Gets the initial angle the shape.
+     *
+     * @return the initial angle as a double
+     */
     public final double getInitAngle() {
         return initAngle;
+    }
+
+    /**
+     * Adds a transform to the shape.
+     *
+     * @param transform a transform as a Transform
+     */
+    public final void addTransform(final Transform transform) {
+        transforms.add(transform);
     }
 
     /**
