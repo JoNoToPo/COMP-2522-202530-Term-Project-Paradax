@@ -35,7 +35,8 @@ public final class ParaButton extends ParaShape {
         button = new Button("");
         button.setFocusTraversable(false);
         button.setTextAlignment(TextAlignment.CENTER);
-        button.setStyle("-fx-border-color: lightblue; -fx-border-width: 3px; -fx-border-radius: 3px;");
+        button.setStyle("-fx-border-color: lightblue;"
+                + "-fx-border-width: 3px; -fx-border-radius: 3px;");
         this.buttonType = buttonType;
         applyButtonType(root);
     }
@@ -104,10 +105,7 @@ public final class ParaButton extends ParaShape {
 
     private void applyButtonType(final Pane root) {
         if (buttonType == ParaButtonType.NEXT_LEVEL) {
-            button.setOnAction(_ -> {
-                System.out.println("clicked");
-                root.getChildren().clear();
-            });
+            button.setOnAction(_ -> root.getChildren().clear());
             button.setText("Next\nLevel");
         }
     }
@@ -136,7 +134,7 @@ public final class ParaButton extends ParaShape {
      * @return true if equal, false otherwise
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }

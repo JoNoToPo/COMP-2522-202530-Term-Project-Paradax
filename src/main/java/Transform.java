@@ -88,11 +88,13 @@ public final class Transform {
      * @return true if equal, false otherwise
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
-        if (object == null || getClass() != object.getClass()) return false;
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
         Transform transform = (Transform) object;
         return Double.compare(multiplier, transform.multiplier) == 0
                 && type == transform.type

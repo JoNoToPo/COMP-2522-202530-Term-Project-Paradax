@@ -16,7 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.LinkedList;
+import java.util.Deque;
 
 /**
  * Drives Paradax the game.
@@ -45,8 +45,6 @@ public final class Driver extends Application {
             new Insets(RADIUS)
     );
     private static final Background BACKGROUND = new Background(BACKGROUND_FILL);
-    private static final ParaText DEBUG = new ParaText(50, 50,
-            50, 50, 0, "", Color.BLACK);
     private Level currLevel = new Level(0, 0, 0, 0);
 
     /**
@@ -69,7 +67,7 @@ public final class Driver extends Application {
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
 
-        LinkedList<Level> levels = Levels.levels(root);
+        Deque<Level> levels = Levels.levels(root);
         root.getChildren().clear();
 
         new AnimationTimer() {
@@ -81,7 +79,6 @@ public final class Driver extends Application {
                 double windowY = stage.getY();
 
                 if (root.getChildren().isEmpty()) {
-//                    root.getChildren().add(DEBUG.getNode());
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
                         initializeStagePosition(stage);
@@ -94,7 +91,6 @@ public final class Driver extends Application {
                     }
                 }
                 fixStage(stage);
-//                DEBUG.changeMessage(Double.toString(windowX));
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
                 currLevel.sortByZ();
             }
@@ -105,8 +101,8 @@ public final class Driver extends Application {
         stage.show();
     }
 
-    private static void negateMaximize(Stage stage) {
-        stage.maximizedProperty().addListener((observable, oldValue, newValue) -> {
+    private static void negateMaximize(final Stage stage) {
+        stage.maximizedProperty().addListener((_, _, newValue) -> {
             if (newValue) {
                 stage.setMaximized(false);
             }

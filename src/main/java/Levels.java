@@ -2,6 +2,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 
 import java.util.LinkedList;
+import java.util.Deque;
 
 /**
  * The levels of the game.
@@ -100,6 +101,8 @@ public final class Levels {
             TransformSource.WIDTH, TransformPath.COSINUSOIDAL, -1);
     private static final Transform SLOW_HEIGHT = new Transform(TransformType.HORIZONTAL,
             TransformSource.HEIGHT, TransformPath.LINEAR, HALF);
+    private static final Transform VERT_WITH_WIDEN = new Transform(TransformType.VERTICAL,
+            TransformSource.WIDTH, TransformPath.LINEAR, 1);
 
     private Levels() {
     }
@@ -109,8 +112,8 @@ public final class Levels {
      * @param root the root as a Pane Object
      * @return the levels as a Linked List containing Level
      */
-    static LinkedList<Level> levels(final Pane root) {
-        LinkedList<Level> levels = new LinkedList<>();
+    static Deque<Level> levels(final Pane root) {
+        Deque<Level> levels = new LinkedList<>();
         levels.add(levelOne(root));
         levels.add(tutorialWiden(root));
         levels.add(tutorialLengthen(root));
@@ -140,12 +143,12 @@ public final class Levels {
     }
 
     private static ParaText tutorialText(final String text) {
-        return new ParaText( TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET,
+        return new ParaText(TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }
 
     private static ParaText tutorialTextTwoLine(final String text) {
-        return new ParaText( TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET + TWO_LINE,
+        return new ParaText(TEXT_BOX_X + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_OFFSET + TWO_LINE,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }
 
@@ -161,7 +164,7 @@ public final class Levels {
     }
 
     private static ParaText mainText(final String text) {
-        return new ParaText( TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE, TEXT_BOX_Y_MAIN + TEXT_OFFSET,
+        return new ParaText(TEXT_BOX_X_MAIN + TEXT_X_DIFFERENCE, TEXT_BOX_Y_MAIN + TEXT_OFFSET,
                 TEXT_WIDTH - TEXT_X_DIFFERENCE * 2, TEXT_HEIGHT, 0, text);
     }
 
@@ -191,7 +194,7 @@ public final class Levels {
         return blue;
     }
 
-    private static ParaRectangle finalBlueBox(Transform transform) {
+    private static ParaRectangle finalBlueBox(final Transform transform) {
         ParaRectangle blue = new ParaRectangle(0,
                 BUTTON_X_MAIN - BUTTON_DIMENSION * 2, BUTTON_Y_MAIN - BUTTON_DIMENSION,
                 Driver.SCREEN_WIDTH, BUTTON_DIMENSION * 2, 0, Color.DARKBLUE);
@@ -212,7 +215,8 @@ public final class Levels {
         textBG.addTransform(SPIN_HEIGHT);
         level.addShape(textBG);
 
-        ParaText welcome = tutorialTextTwoLine("Think at the boundaries of the box to find the \"Next Level\" button.");
+        ParaText welcome = tutorialTextTwoLine("Think at the boundaries of the box to"
+                + "find the \"Next Level\" button.");
         welcome.addTransform(SPIN_Y);
         welcome.addTransform(SPIN_X);
         welcome.addTransform(SPIN_WIDTH);
@@ -233,7 +237,8 @@ public final class Levels {
         textBG.addTransform(WITH_LENGTHEN);
         level.addShape(textBG);
 
-        ParaText welcome = tutorialTextTwoLine("These Red lines indicate that you cannot WIDEN your window");
+        ParaText welcome = tutorialTextTwoLine("These Red lines indicate"
+                + "that you cannot WIDEN your window");
         welcome.addTransform(WITH_LENGTHEN);
         level.addShape(welcome);
 
@@ -251,7 +256,8 @@ public final class Levels {
         textBG.addTransform(AGAINST_MOVE_Y);
         level.addShape(textBG);
 
-        ParaText welcome = tutorialTextTwoLine("These Red lines indicate that you cannot LENGTHEN the HEIGHT your window");
+        ParaText welcome = tutorialTextTwoLine("These Red lines indicate that you"
+                + "cannot LENGTHEN the HEIGHT your window");
         welcome.addTransform(AGAINST_MOVE_Y);
         level.addShape(welcome);
         level.initTransforms();
@@ -297,7 +303,8 @@ public final class Levels {
         textBG.addTransform(WITH_X);
         level.addShape(textBG);
 
-        ParaText welcome = tutorialTextTwoLine("This black line fixes your window to the Y position of your screen");
+        ParaText welcome = tutorialTextTwoLine("This black line fixes"
+                + "your window to the Y position of your screen");
         welcome.addTransform(WITH_X);
         level.addShape(welcome);
         level.initTransforms();
@@ -329,8 +336,8 @@ public final class Levels {
         level.addFixedLevelType(FixedLevelType.X_POSITION);
 
         ParaButton button = mainButton(root);
-        button.changePosition(TEXT_BOX_X + TEXT_WIDTH / 2 - BUTTON_DIMENSION / 2 + TEXT_X_DIFFERENCE,
-                TEXT_BOX_Y + TEXT_X_DIFFERENCE);
+        button.changePosition(TEXT_BOX_X + TEXT_WIDTH / 2 - BUTTON_DIMENSION / 2
+                        + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_X_DIFFERENCE);
         level.addShape(button);
 
         ParaShape textBG = new ParaRectangle(2, TEXT_BOX_X, TEXT_BOX_Y,
@@ -357,35 +364,11 @@ public final class Levels {
 
         ParaButton button = tutorialButton(root);
         button.changePosition(INIT_X + INIT_WIDTH / 2, Driver.SCREEN_HEIGHT - BUTTON_DIMENSION / 2);
-        Transform vertWithWiden = new Transform(TransformType.VERTICAL, TransformSource.WIDTH,
-                TransformPath.LINEAR, 1);
-        button.addTransform(vertWithWiden);
+        button.addTransform(VERT_WITH_WIDEN);
         level.addShape(button);
 
-        ParaText cold = new ParaText(Driver.SCREEN_WIDTH - TEXT_WIDTH, INIT_Y + BUTTON_DIMENSION,
-                BUTTON_DIMENSION, BUTTON_DIMENSION, FORTY_FIVE_DEGREES * 2, "Cold", Color.DARKBLUE);
-        ParaRectangle coldBG = new ParaRectangle(0, Driver.SCREEN_WIDTH - TEXT_WIDTH,
-                INIT_Y + BUTTON_DIMENSION / 2, BUTTON_DIMENSION, BUTTON_DIMENSION,
-                0, Color.WHITE);
-        Transform slowWithWidth = new Transform(TransformType.HORIZONTAL,
-                TransformSource.WIDTH, TransformPath.LINEAR, 1 / FOUR);
-        cold.addTransform(slowWithWidth);
-        coldBG.addTransform(slowWithWidth);
-        level.addShape(coldBG);
-        level.addShape(cold);
-
-        ParaRectangle hotBG = new ParaRectangle(0, INIT_X + INIT_WIDTH,
-                Driver.SCREEN_HEIGHT - BUTTON_DIMENSION * FOUR - BUTTON_DIMENSION / 2,
-                BUTTON_DIMENSION, BUTTON_DIMENSION,
-                0, Color.WHITE);
-
-        ParaText hot = new ParaText(INIT_X + INIT_WIDTH,
-                Driver.SCREEN_HEIGHT - BUTTON_DIMENSION * FOUR, BUTTON_DIMENSION, BUTTON_DIMENSION,
-                0, "Hot", Color.DARKRED);
-        hot.addTransform(vertWithWiden);
-        hotBG.addTransform(vertWithWiden);
-        level.addShape(hotBG);
-        level.addShape(hot);
+        addColdBox(level);
+        addHotBox(level);
 
         ParaShape textBG = tutorialTextBox();
         textBG.addTransform(AGAINST_WIDEN);
@@ -400,6 +383,34 @@ public final class Levels {
         return level;
     }
 
+    private static void addHotBox(final Level level) {
+        ParaRectangle hotBG = new ParaRectangle(0, INIT_X + INIT_WIDTH,
+                Driver.SCREEN_HEIGHT - BUTTON_DIMENSION * FOUR - BUTTON_DIMENSION / 2,
+                BUTTON_DIMENSION, BUTTON_DIMENSION,
+                0, Color.WHITE);
+        ParaText hot = new ParaText(INIT_X + INIT_WIDTH,
+                Driver.SCREEN_HEIGHT - BUTTON_DIMENSION * FOUR, BUTTON_DIMENSION, BUTTON_DIMENSION,
+                0, "Hot", Color.DARKRED);
+        hot.addTransform(VERT_WITH_WIDEN);
+        hotBG.addTransform(VERT_WITH_WIDEN);
+        level.addShape(hotBG);
+        level.addShape(hot);
+    }
+
+    private static void addColdBox(final Level level) {
+        ParaText cold = new ParaText(Driver.SCREEN_WIDTH - TEXT_WIDTH, INIT_Y + BUTTON_DIMENSION,
+                BUTTON_DIMENSION, BUTTON_DIMENSION, FORTY_FIVE_DEGREES * 2, "Cold", Color.DARKBLUE);
+        ParaRectangle coldBG = new ParaRectangle(0, Driver.SCREEN_WIDTH - TEXT_WIDTH,
+                INIT_Y + BUTTON_DIMENSION / 2, BUTTON_DIMENSION, BUTTON_DIMENSION,
+                0, Color.WHITE);
+        Transform slowWithWidth = new Transform(TransformType.HORIZONTAL,
+                TransformSource.WIDTH, TransformPath.LINEAR, 1 / FOUR);
+        cold.addTransform(slowWithWidth);
+        coldBG.addTransform(slowWithWidth);
+        level.addShape(coldBG);
+        level.addShape(cold);
+    }
+
     private static Level levelFive(final Pane root) {
 
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
@@ -408,8 +419,8 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainText("I wonder where the next level button is." +
-                " On an unrelated note, look at those slightly transparent boxes!"));
+        level.addShape(mainText("I wonder where the next level button is."
+                + " On an unrelated note, look at those slightly transparent boxes!"));
 
         ParaRectangle red = new ParaRectangle(0, BUTTON_X_MAIN - TEXT_WIDTH / 2, BUTTON_Y_MAIN,
                 TEXT_WIDTH, TEXT_HEIGHT * 2, 0, Color.DARKRED);
@@ -433,7 +444,8 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainTextTwoLine("Whaaaat it was behind the two slightly transparent boxes? no waaaaay"));
+        level.addShape(mainTextTwoLine("Whaaaat it was behind the two"
+                + "slightly transparent boxes? no waaaaay"));
 
         ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
@@ -481,7 +493,8 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainText("I hope you're invested so far,\nbecause next level will use some unexpected emergent gameplay"));
+        level.addShape(mainText("I hope you're invested so far,"
+                + "\nbecause next level will use some unexpected emergent gameplay"));
 
         ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
@@ -582,7 +595,8 @@ public final class Levels {
         level.addShape(finalBlueBox(SLOW_HEIGHT));
 
         ParaRectangle green = new ParaRectangle(0,
-                BUTTON_X_MAIN - BUTTON_DIMENSION, BUTTON_Y_MAIN - TEXT_HEIGHT + BUTTON_DIMENSION / 2,
+                BUTTON_X_MAIN - BUTTON_DIMENSION,
+                BUTTON_Y_MAIN - TEXT_HEIGHT + BUTTON_DIMENSION / 2,
                 BUTTON_DIMENSION * 2, Driver.SCREEN_HEIGHT, 0, Color.GREEN);
         Transform slow = new Transform(TransformType.VERTICAL,
                 TransformSource.X_POS, TransformPath.LINEAR, -HALF);

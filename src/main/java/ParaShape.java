@@ -128,8 +128,10 @@ public abstract class ParaShape {
      *
      * @param passWindowHeight the passed value for the height of the screen as a double
      * @param passWindowWidth the passed value for the width of the screen as a double
-     * @param passWindowX the passed value for the X position of the top left of the screen as a double
-     * @param passWindowY the passed value for the Y position of the top left of the screen as a double
+     * @param passWindowX the passed value for the X position
+     *                    of the top left of the screen as a double
+     * @param passWindowY the passed value for the Y position
+     *                    of the top left of the screen as a double
      * @param transform the transform being applied as a Transform
      * @return the delta as a double
      */
@@ -150,8 +152,9 @@ public abstract class ParaShape {
      * @param heightDifference the difference in height as a double
      * @param angleDifference the difference in angle as a double
      */
-    private void transform(final double xDifference, final double yDifference, final double widthDifference,
-                           final double heightDifference, final double angleDifference) {
+    private void transform(final double xDifference, final double yDifference,
+                           final double widthDifference, final double heightDifference,
+                           final double angleDifference) {
         transformHorizontal(xDifference);
         transformVertical(yDifference);
         rotate(angleDifference);
@@ -164,14 +167,14 @@ public abstract class ParaShape {
      *
      * @param delta the change as a double
      */
-    abstract void transformHorizontal(final double delta);
+    abstract void transformHorizontal(double delta);
 
     /**
      * Transforms the vertical position of the shape.
      *
      * @param delta the change as a double
      */
-    abstract void transformVertical(final double delta);
+    abstract void transformVertical(double delta);
 
     /**
      * Transforms the angle of the shape.
@@ -196,19 +199,23 @@ public abstract class ParaShape {
 
     /**
      * Returns the node of the shape.
+     *
+     * @return the node of the shape as a Node
      */
     abstract Node getNode();
 
     /**
-     * Initializes the shape given its transforms
+     * Initializes the shape given its transforms.
      *
      * @param windowInitHeight the initial X position of the top left of the window as a double
      * @param windowInitWidth the initial Y position of the top left of the window as a double
      * @param windowInitX the initial width of the screen as a double
      * @param windowInitY the initial height of the screen as a double
      */
-    public final void initializeTransforms(final double windowInitHeight, final double windowInitWidth,
-                                           final double windowInitX, final double windowInitY) {
+    public final void initializeTransforms(final double windowInitHeight,
+                                           final double windowInitWidth,
+                                           final double windowInitX,
+                                           final double windowInitY) {
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
             double difference = calculateDelta(windowInitHeight,
@@ -227,6 +234,11 @@ public abstract class ParaShape {
         }
     }
 
+    /**
+     * Gets the z index of the shape.
+     *
+     * @return the z index as an integer
+     */
     public final int getzIndex() {
         return zIndex;
     }
@@ -323,7 +335,7 @@ public abstract class ParaShape {
      * @return true if equal, false otherwise
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }

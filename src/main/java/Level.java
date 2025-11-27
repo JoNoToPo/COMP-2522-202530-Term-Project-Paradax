@@ -149,7 +149,8 @@ public final class Level {
      */
     private void fixHeight() {
         ParaRectangle topRedLine = new ParaRectangle(0, initX + FIVE_PIXELS,
-                initY, initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2, THREE_PIXELS, 0, Color.RED);
+                initY, initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2,
+                THREE_PIXELS, 0, Color.RED);
         topRedLine.addTransform(GROW_WIDTH);
         topRedLine.addTransform(Levels.WITH_X);
         topRedLine.addTransform(Levels.WITH_Y);
@@ -202,6 +203,8 @@ public final class Level {
 
     /**
      * Adds line indicator when the X is fixed.
+     *
+     * @return the fixed level types as a List<FixedLevelType>
      */
     List<FixedLevelType> getFixedLevelTypes() {
         return fixedLevelTypes;
@@ -255,7 +258,7 @@ public final class Level {
      * @return true if equal, false otherwise
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }

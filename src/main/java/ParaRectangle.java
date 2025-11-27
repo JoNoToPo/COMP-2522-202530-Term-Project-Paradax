@@ -19,6 +19,7 @@ public final class ParaRectangle extends ParaShape {
     /**
      * Constructs a rectangle.
      *
+     * @param zIndex the z index of the rectangle as an integer
      * @param initX the x index of the top left of the rectangle as a double
      * @param initY the y index of the top left of the rectangle as a double
      * @param width the width of the rectangle as a double
@@ -38,11 +39,11 @@ public final class ParaRectangle extends ParaShape {
     }
 
     /**
-     * Sets the opacity of the Rectangle
+     * Sets the opacity of the Rectangle.
      *
      * @param opacity the percentage of the opacity as a double
      */
-    void setOpacity(double opacity) {
+    void setOpacity(final double opacity) {
         rectangle.setOpacity(opacity);
     }
 
@@ -129,7 +130,7 @@ public final class ParaRectangle extends ParaShape {
      * @return true if equal, false otherwise
      */
     @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (this == object) {
             return true;
         }
