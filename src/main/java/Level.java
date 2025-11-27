@@ -206,15 +206,25 @@ public final class Level {
         return fixedLevelTypes;
     }
 
-
+    /**
+     * Sorts shapes in level by Z index.
+     */
     public void sortByZ() {
         paraShapes.sort(Comparator.comparing(ParaShape::getzIndex));
     }
 
-    public void update(final double windowHeight, final double windowWidth,
-                       final double windowX, final double windowY) {
+    /**
+     * Updates shapes in level.
+     *
+     * @param currWindowHeight the current height of the screen as a double
+     * @param currWindowWidth the current width of the screen as a double
+     * @param currWindowX the current X position of the top left of the window as a double
+     * @param currWindowY  the current Y position of the top left of the window as a double
+     */
+    public void update(final double currWindowHeight, final double currWindowWidth,
+                       final double currWindowX, final double currWindowY) {
         for (ParaShape paraShape : paraShapes) {
-            paraShape.update(windowHeight, windowWidth, windowX, windowY);
+            paraShape.update(currWindowHeight, currWindowWidth, currWindowX, currWindowY);
         }
     }
 }
