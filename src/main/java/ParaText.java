@@ -29,13 +29,13 @@ public final class ParaText extends ParaShape {
                     final double width, final double height,
                     final double initAngle, final String message) {
         super(zIndex, initX, initY, width, height, initAngle);
-        text = new Text(initX, initY, message);
+        if (message == null || message.isBlank()) {
+            text = new Text(initX, initY, "Default message.");
+        } else {
+            text = new Text(initX, initY, message);
+        }
         text.setFont(Font.font("Calibri", FontWeight.BOLD, FONT_SIZE));
-        text.maxWidth(initX);
-        text.minWidth(initX);
-        text.minHeight(initY);
         text.setFill(Color.WHITE);
-        text.setRotate(initAngle);
         text.setTextAlignment(TextAlignment.CENTER);
         text.setWrappingWidth(width);
     }
