@@ -12,6 +12,14 @@ public final class Transform {
     private final double multiplier;
     private final TransformPath path;
 
+    /**
+     * Constructs a transform.
+     *
+     * @param transformType the type of transform as a TransformType
+     * @param transformSource the source of the transform as a TransformSource
+     * @param path the path the transform takes as a TransformPath
+     * @param multiplier the multiplier as a double
+     */
     public Transform(final TransformType transformType, final TransformSource transformSource,
                      final TransformPath path, final double multiplier) {
         this.type = transformType;
@@ -20,20 +28,40 @@ public final class Transform {
         this.multiplier = multiplier;
     }
 
+    /**
+     * Gets the type of transform.
+     *
+     * @return the type of transform as a TransformType
+     */
     public TransformType getType() {
         return type;
     }
 
+    /**
+     * Gets the source of transform.
+     *
+     * @return the source of transform as a TransformSource
+     */
     public TransformSource getSource() {
         return source;
     }
 
-    public double getMultiplier() {
-        return multiplier;
-    }
-
+    /**
+     * Gets the path of transform.
+     *
+     * @return the path of transform as a TransformPath
+     */
     public TransformPath getPath() {
         return path;
+    }
+
+    /**
+     * Gets the multiplier.
+     *
+     * @return the multiplier as a double
+     */
+    public double getMultiplier() {
+        return multiplier;
     }
 
     /**
