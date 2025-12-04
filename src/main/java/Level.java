@@ -1,6 +1,5 @@
 import javafx.scene.paint.Color;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;

@@ -3,7 +3,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**

@@ -46,7 +46,7 @@ public final class ParaButton extends ParaShape {
      *
      * @param newText the new text as a String
      */
-    public void changeText(String newText) {
+    public void changeText(final String newText) {
         button.setText(newText);
     }
 

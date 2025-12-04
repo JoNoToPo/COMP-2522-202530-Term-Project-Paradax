@@ -44,15 +44,15 @@ public final class Levels {
     private static final double THREE = 3;
     private static final double FOUR = 4;
     private static final double HALF = 0.5;
-    static final double BUTTON_DIMENSION = 50;
+    private static final double BUTTON_DIMENSION = 50;
     private static final double TEXT_X_DIFFERENCE = 2.5;
     private static final double FORTY_FIVE_DEGREES = 45;
     private static final double ELEMENT_OPACITY = 0.7;
 
-    static final double INIT_WIDTH = 300;
-    static final double INIT_HEIGHT = 300;
-    static final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-    static final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
+    private static final double INIT_WIDTH = 300;
+    private static final double INIT_HEIGHT = 300;
+    private static final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
+    private static final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
     private static final double TEXT_HEIGHT = 60;
     private static final double TEXT_WIDTH = 250;
     private static final double TEXT_BOX_X = INIT_X
@@ -640,8 +640,10 @@ public final class Levels {
         level.addFixedLevelType(FixedLevelType.WIDTH);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
 
-        ParaButton button = new ParaButton(INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION,
-                INIT_Y + INIT_HEIGHT / 2 + BUTTON_DIMENSION / 2, BUTTON_DIMENSION * 2, BUTTON_DIMENSION,
+        ParaButton button = new ParaButton(
+                INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION,
+                INIT_Y + INIT_HEIGHT / 2 + BUTTON_DIMENSION / 2,
+                BUTTON_DIMENSION * 2, BUTTON_DIMENSION,
                 0, ParaButtonType.NEXT_LEVEL, root);
         button.changeText("Play again?");
 
