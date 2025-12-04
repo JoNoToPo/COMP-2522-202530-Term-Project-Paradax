@@ -5,7 +5,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -72,16 +71,19 @@ public final class Driver extends Application implements Serializable {
         canvas.heightProperty().bind(root.heightProperty());
 
         Deque<Level> levels = Levels.levels(root);
-        root.getChildren().clear();
 
-//        Path path = Path.of("src", "main", "java", "data.json");
-//        if (!Files.exists(path)) {
-//            try {
-//                Files.createFile(path);
-//            } catch (IOException exception) {
-//                throw new RuntimeException(exception);
-//            }
-//        }
+        Path path = Path.of("src", "main", "java", "data.json");
+        if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException exception) {
+                throw new RuntimeException(exception);
+            }
+        } else {
+
+        }
+
+        root.getChildren().clear();
 
         new AnimationTimer() {
             @Override
@@ -114,15 +116,13 @@ public final class Driver extends Application implements Serializable {
         stage.show();
     }
 
-//    private static void writeFile() {
-//        var output = Path.of("src", "main", "java", "data.json");
-//
-//        try {
-//
-//        } catch (IOException somethingBroke) {
-//            throw new RuntimeException(somethingBroke);
-//        }
-//    }
+    private static void writeFile(Path file) {
+        try {
+
+        } catch (IOException somethingBroke) {
+            throw new RuntimeException(somethingBroke);
+        }
+    }
 
     private static void readFile() {
 
