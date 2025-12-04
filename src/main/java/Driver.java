@@ -16,7 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.*;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Deque;
@@ -28,7 +28,7 @@ import java.util.LinkedList;
  * @author jenge
  * @version 2025
  */
-public final class Driver extends Application implements Serializable {
+public final class Driver extends Application {
 
     private static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
 
@@ -42,15 +42,15 @@ public final class Driver extends Application implements Serializable {
      */
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
-    private static final Path DATA_PATH = Path.of("src", "main", "java", "data.bin");
+    private static final Path DATA_PATH = Path.of("src", "main", "java", "data.txt");
     private static final int RADIUS = 10;
+    private static final int OVERSHOOT = 3;
     private static final BackgroundFill BACKGROUND_FILL = new BackgroundFill(
             Color.DARKGRAY,
             new CornerRadii(RADIUS),
             new Insets(RADIUS)
     );
     private static final Background BACKGROUND = new Background(BACKGROUND_FILL);
-    public static final int OVERSHOOT = 2;
 
     private Level currLevel = new Level(0, 0, 0, 0);
     private Deque<Level> levels = new LinkedList<>();
@@ -88,7 +88,6 @@ public final class Driver extends Application implements Serializable {
             skip = 0;
         }
 
-
         Level intro = Levels.intro(root);
         ParaButton contBtn = Levels.continueButton(root);
         intro.addShape(contBtn);
@@ -115,7 +114,7 @@ public final class Driver extends Application implements Serializable {
                     } else {
                         levels = Levels.levels(root);
                         if (contd) {
-                            for (; skip > 1; skip--) {
+                            for (; skip > 0; skip--) {
                                 currLevel = levels.pop();
                                 index += 1;
                             }
@@ -136,7 +135,7 @@ public final class Driver extends Application implements Serializable {
         stage.show();
     }
 
-    private static void writeFile(Integer input) {
+    private static void writeFile(final Integer input) {
         try {
             Files.writeString(DATA_PATH, input.toString());
         } catch (IOException somethingBroke) {
