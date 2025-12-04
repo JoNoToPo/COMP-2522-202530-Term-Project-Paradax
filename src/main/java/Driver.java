@@ -5,8 +5,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -64,10 +62,9 @@ public final class Driver extends Application {
      */
     @Override
     public void start(final Stage stage) {
+        createSaveFile();
 
-        Label label = new Label("");
-        Canvas canvas = new Canvas();
-        Pane root = new Pane(canvas, label);
+        Pane root = new Pane();
         root.setBackground(BACKGROUND);
 
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
@@ -75,8 +72,54 @@ public final class Driver extends Application {
         negateMaximize(stage);
         scene.setCursor(new ImageCursor());
 
-        canvas.widthProperty().bind(root.widthProperty());
-        canvas.heightProperty().bind(root.heightProperty());
+        Level intro = Levels.intro(root);
+        ParaButton contBtn = Levels.continueButton(root);
+        intro.addShape(contBtn);
+        contBtn.getNode().addEventHandler(ActionEvent.ACTION, _ -> contd = true);
+        levels.addFirst(intro);
+
+        new AnimationTimer() {
+            @Override
+            public void handle(final long longParam) {
+
+                if (root.getChildren().isEmpty()) {
+                    nextLevel(stage, root);
+                }
+
+                fixStage(stage);
+                currLevel.update(stage.getHeight(), stage.getWidth(), stage.getX(), stage.getY());
+                currLevel.sortByZ();
+            }
+        }.start();
+
+        stage.setTitle("Paradax");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    private void nextLevel(final Stage stage, final Pane root) {
+        index += 1;
+        if (!levels.isEmpty()) {
+            currLevel = levels.pop();
+            initializeStagePosition(stage);
+            for (ParaShape shape : currLevel.getShapes()) {
+                root.getChildren().add(shape.getNode());
+            }
+        } else {
+            levels = Levels.levels(root);
+            if (contd) {
+                for (; skip > 0; skip--) {
+                    currLevel = levels.pop();
+                    index += 1;
+                }
+                initializeStagePosition(stage);
+                contd = false;
+            }
+        }
+        writeFile(index - OVERSHOOT);
+    }
+
+    private void createSaveFile() {
         if (Files.exists(DATA_PATH)) {
             skip = readFile();
         } else {
@@ -87,52 +130,6 @@ public final class Driver extends Application {
             }
             skip = 0;
         }
-
-        Level intro = Levels.intro(root);
-        ParaButton contBtn = Levels.continueButton(root);
-        intro.addShape(contBtn);
-        contBtn.getNode().addEventHandler(ActionEvent.ACTION, _ -> contd = true);
-        levels.addFirst(intro);
-        root.getChildren().clear();
-
-        new AnimationTimer() {
-            @Override
-            public void handle(final long longParam) {
-                double windowHeight = stage.getHeight();
-                double windowWidth = stage.getWidth();
-                double windowX = stage.getX();
-                double windowY = stage.getY();
-
-                if (root.getChildren().isEmpty()) {
-                    index += 1;
-                    if (!levels.isEmpty()) {
-                        currLevel = levels.pop();
-                        initializeStagePosition(stage);
-                        for (ParaShape shape : currLevel.getShapes()) {
-                            root.getChildren().add(shape.getNode());
-                        }
-                    } else {
-                        levels = Levels.levels(root);
-                        if (contd) {
-                            for (; skip > 0; skip--) {
-                                currLevel = levels.pop();
-                                index += 1;
-                            }
-                            initializeStagePosition(stage);
-                            contd = false;
-                        }
-                    }
-                    writeFile(index - OVERSHOOT);
-                }
-                fixStage(stage);
-                currLevel.update(windowHeight, windowWidth, windowX, windowY);
-                currLevel.sortByZ();
-            }
-        }.start();
-
-        stage.setTitle("Paradax");
-        stage.setScene(scene);
-        stage.show();
     }
 
     private static void writeFile(final Integer input) {
