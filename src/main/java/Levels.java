@@ -130,7 +130,7 @@ public final class Levels {
         levels.add(levelTen(root));
         levels.add(levelEleven(root));
         levels.add(finalLevel(root));
-        levels.add(finish());
+        levels.add(finish(root));
         return levels;
     }
 
@@ -216,7 +216,7 @@ public final class Levels {
         level.addShape(textBG);
 
         ParaText welcome = tutorialTextTwoLine("Think at the boundaries of the box to"
-                + "find the \"Next Level\" button.");
+                + " find the \"Next Level\" button.");
         welcome.addTransform(SPIN_Y);
         welcome.addTransform(SPIN_X);
         welcome.addTransform(SPIN_WIDTH);
@@ -238,7 +238,7 @@ public final class Levels {
         level.addShape(textBG);
 
         ParaText welcome = tutorialTextTwoLine("These Red lines indicate"
-                + "that you cannot WIDEN your window");
+                + " that you cannot WIDEN your window");
         welcome.addTransform(WITH_LENGTHEN);
         level.addShape(welcome);
 
@@ -257,7 +257,7 @@ public final class Levels {
         level.addShape(textBG);
 
         ParaText welcome = tutorialTextTwoLine("These Red lines indicate that you"
-                + "cannot LENGTHEN the HEIGHT your window");
+                + " cannot LENGTHEN the HEIGHT your window");
         welcome.addTransform(AGAINST_MOVE_Y);
         level.addShape(welcome);
         level.initTransforms();
@@ -304,7 +304,7 @@ public final class Levels {
         level.addShape(textBG);
 
         ParaText welcome = tutorialTextTwoLine("This black line fixes"
-                + "your window to the Y position of your screen");
+                + " your window to the Y position of your screen");
         welcome.addTransform(WITH_X);
         level.addShape(welcome);
         level.initTransforms();
@@ -337,7 +337,7 @@ public final class Levels {
 
         ParaButton button = mainButton(root);
         button.changePosition(TEXT_BOX_X + TEXT_WIDTH / 2 - BUTTON_DIMENSION / 2
-                        + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_X_DIFFERENCE);
+                + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_X_DIFFERENCE);
         level.addShape(button);
 
         ParaShape textBG = new ParaRectangle(2, TEXT_BOX_X, TEXT_BOX_Y,
@@ -445,7 +445,7 @@ public final class Levels {
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
         level.addShape(mainTextTwoLine("Whaaaat it was behind the two"
-                + "slightly transparent boxes? no waaaaay"));
+                + " slightly transparent boxes? no waaaaay"));
 
         ParaRectangle red = newRedMain();
         Transform slowDescent = new Transform(TransformType.HORIZONTAL,
@@ -540,7 +540,7 @@ public final class Levels {
 
         level.addShape(mainButton(root));
         level.addShape(mainTextBox());
-        level.addShape(mainTextTwoLine("How did that happen? \nMaybe you can do it again?"));
+        level.addShape(mainTextTwoLine("How did that happen?\nMaybe you can do it again?"));
 
         ParaRectangle red = new ParaRectangle(0,
                 TEXT_X_DIFFERENCE * BUTTON_DIMENSION + TEXT_WIDTH,
@@ -607,7 +607,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level finish() {
+    private static Level finish(final Pane root) {
 
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -615,6 +615,12 @@ public final class Levels {
         level.addFixedLevelType(FixedLevelType.WIDTH);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
 
+        ParaButton button = new ParaButton(INIT_X + (INIT_WIDTH - WIDTH_DIFFERENCE) / 2 - BUTTON_DIMENSION,
+                INIT_Y + INIT_HEIGHT / 2 + BUTTON_DIMENSION / 2, BUTTON_DIMENSION * 2, BUTTON_DIMENSION,
+                0, ParaButtonType.NEXT_LEVEL, root);
+        button.changeText("Play again?");
+
+        level.addShape(button);
         level.addShape(tutorialTextBox());
         level.addShape(tutorialTextTwoLine("You Win!\nThank you for playing!"));
         level.initTransforms();

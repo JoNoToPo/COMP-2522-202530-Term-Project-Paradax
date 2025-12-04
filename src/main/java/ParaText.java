@@ -5,6 +5,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class ParaText extends ParaShape {
+public final class ParaText extends ParaShape implements Serializable {
     private static final int Z_INDEX = 10;
     private static final int FONT_SIZE = 14;
 

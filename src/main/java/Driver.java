@@ -16,6 +16,10 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Deque;
 
 /**
@@ -24,7 +28,7 @@ import java.util.Deque;
  * @author jenge
  * @version 2025
  */
-public final class Driver extends Application {
+public final class Driver extends Application implements Serializable {
 
     private static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
 
@@ -70,6 +74,15 @@ public final class Driver extends Application {
         Deque<Level> levels = Levels.levels(root);
         root.getChildren().clear();
 
+//        Path path = Path.of("src", "main", "java", "data.json");
+//        if (!Files.exists(path)) {
+//            try {
+//                Files.createFile(path);
+//            } catch (IOException exception) {
+//                throw new RuntimeException(exception);
+//            }
+//        }
+
         new AnimationTimer() {
             @Override
             public void handle(final long longParam) {
@@ -86,9 +99,9 @@ public final class Driver extends Application {
                             root.getChildren().add(shape.getNode());
                         }
                     } else {
-                        Button contingency = new Button("You Win!");
-                        root.getChildren().add(contingency);
+                        levels.addAll(Levels.levels(root));
                     }
+//                    writeFile();
                 }
                 fixStage(stage);
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
@@ -100,6 +113,21 @@ public final class Driver extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
+//    private static void writeFile() {
+//        var output = Path.of("src", "main", "java", "data.json");
+//
+//        try {
+//
+//        } catch (IOException somethingBroke) {
+//            throw new RuntimeException(somethingBroke);
+//        }
+//    }
+
+    private static void readFile() {
+
+    }
+
 
     private static void negateMaximize(final Stage stage) {
         stage.maximizedProperty().addListener((_, _, newValue) -> {

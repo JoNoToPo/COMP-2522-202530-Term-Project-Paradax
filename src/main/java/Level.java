@@ -1,5 +1,6 @@
 import javafx.scene.paint.Color;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class Level {
+public final class Level implements Serializable {
     /**
      * Widens linearly with window width.
      */

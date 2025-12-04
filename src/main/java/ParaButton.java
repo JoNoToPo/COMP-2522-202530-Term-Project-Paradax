@@ -3,6 +3,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class ParaButton extends ParaShape {
+public final class ParaButton extends ParaShape implements Serializable {
 
     private final Button button;
     private final ParaButtonType buttonType;
@@ -39,6 +40,15 @@ public final class ParaButton extends ParaShape {
                 + "-fx-border-width: 3px; -fx-border-radius: 3px;");
         this.buttonType = buttonType;
         applyButtonType(root);
+    }
+
+    /**
+     * Changes the text of the button.
+     *
+     * @param newText the new text as a String
+     */
+    public void changeText(String newText) {
+        button.setText(newText);
     }
 
     /**

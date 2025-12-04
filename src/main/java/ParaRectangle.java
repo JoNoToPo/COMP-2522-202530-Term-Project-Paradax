@@ -3,6 +3,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class ParaRectangle extends ParaShape {
+public final class ParaRectangle extends ParaShape implements Serializable {
 
     private static final double TEN_PIXELS = 10;
     private final Rectangle rectangle;
