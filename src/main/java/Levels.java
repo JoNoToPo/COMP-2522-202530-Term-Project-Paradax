@@ -221,7 +221,7 @@ public final class Levels {
         ParaShape textBG = tutorialTextBox();
         level.addShape(textBG);
 
-        ParaText welcome = tutorialTextTwoLine("Welcome to Paradax");
+        ParaText welcome = tutorialText("\nWelcome to Paradax!");
         level.addShape(welcome);
 
         level.initTransforms();
