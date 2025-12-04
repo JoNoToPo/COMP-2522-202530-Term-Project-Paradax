@@ -1,5 +1,6 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.ImageCursor;
@@ -15,11 +16,11 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Deque;
+import java.util.LinkedList;
 
 /**
  * Drives Paradax the game.
@@ -41,6 +42,7 @@ public final class Driver extends Application implements Serializable {
      */
     static final double SCREEN_HEIGHT = BOUNDS.getHeight();
 
+    private static final Path DATA_PATH = Path.of("src", "main", "java", "data.bin");
     private static final int RADIUS = 10;
     private static final BackgroundFill BACKGROUND_FILL = new BackgroundFill(
             Color.DARKGRAY,
@@ -48,7 +50,13 @@ public final class Driver extends Application implements Serializable {
             new Insets(RADIUS)
     );
     private static final Background BACKGROUND = new Background(BACKGROUND_FILL);
+    public static final int OVERSHOOT = 2;
+
     private Level currLevel = new Level(0, 0, 0, 0);
+    private Deque<Level> levels = new LinkedList<>();
+    private int skip;
+    private int index = 0;
+    private boolean contd = false;
 
     /**
      * Starts the animation.
@@ -69,20 +77,23 @@ public final class Driver extends Application implements Serializable {
 
         canvas.widthProperty().bind(root.widthProperty());
         canvas.heightProperty().bind(root.heightProperty());
-
-        Deque<Level> levels = Levels.levels(root);
-
-        Path path = Path.of("src", "main", "java", "data.json");
-        if (!Files.exists(path)) {
+        if (Files.exists(DATA_PATH)) {
+            skip = readFile();
+        } else {
             try {
-                Files.createFile(path);
+                Files.createFile(DATA_PATH);
             } catch (IOException exception) {
                 throw new RuntimeException(exception);
             }
-        } else {
-
+            skip = 0;
         }
 
+
+        Level intro = Levels.intro(root);
+        ParaButton contBtn = Levels.continueButton(root);
+        intro.addShape(contBtn);
+        contBtn.getNode().addEventHandler(ActionEvent.ACTION, _ -> contd = true);
+        levels.addFirst(intro);
         root.getChildren().clear();
 
         new AnimationTimer() {
@@ -94,6 +105,7 @@ public final class Driver extends Application implements Serializable {
                 double windowY = stage.getY();
 
                 if (root.getChildren().isEmpty()) {
+                    index += 1;
                     if (!levels.isEmpty()) {
                         currLevel = levels.pop();
                         initializeStagePosition(stage);
@@ -101,9 +113,17 @@ public final class Driver extends Application implements Serializable {
                             root.getChildren().add(shape.getNode());
                         }
                     } else {
-                        levels.addAll(Levels.levels(root));
+                        levels = Levels.levels(root);
+                        if (contd) {
+                            for (; skip > 1; skip--) {
+                                currLevel = levels.pop();
+                                index += 1;
+                            }
+                            initializeStagePosition(stage);
+                            contd = false;
+                        }
                     }
-//                    writeFile();
+                    writeFile(index - OVERSHOOT);
                 }
                 fixStage(stage);
                 currLevel.update(windowHeight, windowWidth, windowX, windowY);
@@ -116,16 +136,20 @@ public final class Driver extends Application implements Serializable {
         stage.show();
     }
 
-    private static void writeFile(Path file) {
+    private static void writeFile(Integer input) {
         try {
-
+            Files.writeString(DATA_PATH, input.toString());
         } catch (IOException somethingBroke) {
             throw new RuntimeException(somethingBroke);
         }
     }
 
-    private static void readFile() {
-
+    private static int readFile() {
+        try {
+            return Integer.parseInt(Files.readString(DATA_PATH));
+        } catch (IOException somethingBroke) {
+            throw new RuntimeException(somethingBroke);
+        }
     }
 
 

@@ -6,5 +6,6 @@
  */
 public enum ParaButtonType {
     NEXT_LEVEL,
+    BOOL_SWITCH,
     CHANGE_TRANSFORM_TYPE
 }

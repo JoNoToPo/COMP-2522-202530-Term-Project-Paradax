@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class Level implements Serializable {
+public final class Level {
     /**
      * Widens linearly with window width.
      */

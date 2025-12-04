@@ -3,7 +3,6 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class ParaButton extends ParaShape implements Serializable {
+public final class ParaButton extends ParaShape {
 
     private final Button button;
     private final ParaButtonType buttonType;
@@ -117,6 +116,9 @@ public final class ParaButton extends ParaShape implements Serializable {
         if (buttonType == ParaButtonType.NEXT_LEVEL) {
             button.setOnAction(_ -> root.getChildren().clear());
             button.setText("Next\nLevel");
+        } else if (buttonType == ParaButtonType.BOOL_SWITCH) {
+            button.setOnAction(_ -> root.getChildren().clear());
+            button.setText("Continue");
         }
     }
 

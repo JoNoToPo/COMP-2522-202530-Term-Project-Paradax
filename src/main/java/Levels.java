@@ -44,15 +44,15 @@ public final class Levels {
     private static final double THREE = 3;
     private static final double FOUR = 4;
     private static final double HALF = 0.5;
-    private static final double BUTTON_DIMENSION = 50;
+    static final double BUTTON_DIMENSION = 50;
     private static final double TEXT_X_DIFFERENCE = 2.5;
     private static final double FORTY_FIVE_DEGREES = 45;
     private static final double ELEMENT_OPACITY = 0.7;
 
-    private static final double INIT_WIDTH = 300;
-    private static final double INIT_HEIGHT = 300;
-    private static final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
-    private static final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
+    static final double INIT_WIDTH = 300;
+    static final double INIT_HEIGHT = 300;
+    static final double INIT_Y = Driver.SCREEN_HEIGHT / 2 - INIT_HEIGHT / 2;
+    static final double INIT_X = Driver.SCREEN_WIDTH / 2 - INIT_WIDTH / 2;
     private static final double TEXT_HEIGHT = 60;
     private static final double TEXT_WIDTH = 250;
     private static final double TEXT_BOX_X = INIT_X
@@ -134,6 +134,12 @@ public final class Levels {
         return levels;
     }
 
+    static ParaButton continueButton(final Pane root) {
+        return new ParaButton(INIT_X + INIT_WIDTH - WIDTH_DIFFERENCE - BUTTON_DIMENSION * 2,
+                INIT_Y + INIT_HEIGHT - HEADER_HEIGHT - BUTTON_DIMENSION,
+                BUTTON_DIMENSION * 2, BUTTON_DIMENSION, 0, ParaButtonType.BOOL_SWITCH, root);
+    }
+
     private static ParaButton tutorialButton(final Pane root) {
         return new ParaButton(INIT_X + INIT_WIDTH / 2 - TEXT_WIDTH / 2 + TEXT_X_DIFFERENCE,
                 INIT_Y + (INIT_HEIGHT - Y_CENTERING_HEIGHT) / 2
@@ -201,6 +207,25 @@ public final class Levels {
         blue.addTransform(transform);
         blue.setOpacity(ELEMENT_OPACITY);
         return blue;
+    }
+
+    static Level intro(final Pane root) {
+        Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
+
+        ParaButton newGame = new ParaButton(INIT_X,
+                INIT_Y + INIT_HEIGHT - HEADER_HEIGHT - BUTTON_DIMENSION,
+                BUTTON_DIMENSION * 2, BUTTON_DIMENSION, 0, ParaButtonType.NEXT_LEVEL, root);
+        newGame.changeText("Start Game");
+        level.addShape(newGame);
+
+        ParaShape textBG = tutorialTextBox();
+        level.addShape(textBG);
+
+        ParaText welcome = tutorialTextTwoLine("Welcome to Paradax");
+        level.addShape(welcome);
+
+        level.initTransforms();
+        return level;
     }
 
     private static Level levelOne(final Pane root) {

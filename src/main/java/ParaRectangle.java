@@ -12,7 +12,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class ParaRectangle extends ParaShape implements Serializable {
+public final class ParaRectangle extends ParaShape {
 
     private static final double TEN_PIXELS = 10;
     private final Rectangle rectangle;
