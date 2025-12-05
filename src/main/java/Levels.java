@@ -109,28 +109,28 @@ public final class Levels {
 
     /**
      * Initializes the levels as a linked list.
-     * @param root the root as a Pane Object
+     * @param pane the pane as a Pane Object
      * @return the levels as a Linked List containing Level
      */
-    static Deque<Level> levels(final Pane root) {
+    static Deque<Level> levels(final Pane pane) {
         Deque<Level> levels = new LinkedList<>();
-        levels.add(levelOne(root));
-        levels.add(tutorialWiden(root));
-        levels.add(tutorialLengthen(root));
-        levels.add(levelTwo(root));
-        levels.add(tutorialYFixed(root));
-        levels.add(tutorialXFixed(root));
-        levels.add(levelThree(root));
-        levels.add(levelFour(root));
-        levels.add(levelFive(root));
-        levels.add(levelSix(root));
-        levels.add(levelSeven(root));
-        levels.add(levelEight(root));
-        levels.add(levelNine(root));
-        levels.add(levelTen(root));
-        levels.add(levelEleven(root));
-        levels.add(finalLevel(root));
-        levels.add(finish(root));
+        levels.add(levelOne(pane));
+        levels.add(tutorialWiden(pane));
+        levels.add(tutorialLengthen(pane));
+        levels.add(levelTwo(pane));
+        levels.add(tutorialYFixed(pane));
+        levels.add(tutorialXFixed(pane));
+        levels.add(levelThree(pane));
+        levels.add(levelFour(pane));
+        levels.add(levelFive(pane));
+        levels.add(levelSix(pane));
+        levels.add(levelSeven(pane));
+        levels.add(levelEight(pane));
+        levels.add(levelNine(pane));
+        levels.add(levelTen(pane));
+        levels.add(levelEleven(pane));
+        levels.add(finalLevel(pane));
+        levels.add(finish(pane));
         return levels;
     }
 
