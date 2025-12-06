@@ -7,6 +7,10 @@ A01459353
 ## Your GitHub name:
 JoNoToPo
 
+## A few notes for Chris:
+I was unable to test the game on Mac, so I do not know if everything works as intended. however you will be able to
+see the full playthrough in the video if it does not work.
+
 ## Hints for Chris:
 
 Level 1:            Use the actual game window
