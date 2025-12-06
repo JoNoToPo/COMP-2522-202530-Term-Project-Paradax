@@ -50,51 +50,51 @@ public final class ParaRectangle extends ParaShape {
     /**
      * Transforms the horizontal position of the rectangle.
      *
-     * @param delta the change as a double
+     * @param newX the X position as a double
      */
     @Override
-    void transformHorizontal(final double delta) {
-        rectangle.setX(super.getInitX() + delta);
+    void transformHorizontal(final double newX) {
+        rectangle.setX(newX);
     }
 
     /**
      * Transforms the vertical position of the rectangle.
      *
-     * @param delta the change as a double
+     * @param newY the Y position as a double
      */
     @Override
-    void transformVertical(final double delta) {
-        rectangle.setY(super.getInitY() + delta);
+    void transformVertical(final double newY) {
+        rectangle.setY(newY);
     }
 
     /**
      * Transforms the angle of the rectangle.
      *
-     * @param delta the change as a double
+     * @param newAngle the angle as a double
      */
     @Override
-    void rotate(final double delta) {
-        rectangle.setRotate(super.getInitAngle() + delta);
+    void rotate(final double newAngle) {
+        rectangle.setRotate(newAngle);
     }
 
     /**
      * Widens the rectangle.
      *
-     * @param delta the change as a double
+     * @param newWidth the width as a double
      */
     @Override
-    void widen(final double delta) {
-        rectangle.setWidth(super.getInitWidth() + delta);
+    void widen(final double newWidth) {
+        rectangle.setWidth(newWidth);
     }
 
     /**
      * Lengthens the rectangle.
      *
-     * @param delta the change as a double
+     * @param newLength the length as a double
      */
     @Override
-    void lengthen(final double delta) {
-        rectangle.setHeight(super.getInitHeight() + delta);
+    void lengthen(final double newLength) {
+        rectangle.setHeight(newLength);
     }
 
     /**

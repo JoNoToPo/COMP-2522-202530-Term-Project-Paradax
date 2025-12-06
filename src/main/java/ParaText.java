@@ -65,54 +65,54 @@ public final class ParaText extends ParaShape {
     /**
      * Transforms the horizontal position of the text.
      *
-     * @param delta the change as a double
+     * @param newX the X position as a double
      */
     @Override
-    void transformHorizontal(final double delta) {
-        text.setX(super.getInitX() + delta);
+    void transformHorizontal(final double newX) {
+        text.setX(newX);
     }
 
     /**
      * Transforms the vertical position of the text.
      *
-     * @param delta the change as a double
+     * @param newY the Y position as a double
      */
     @Override
-    void transformVertical(final double delta) {
-        text.setY(super.getInitY() + delta);
+    void transformVertical(final double newY) {
+        text.setY(newY);
     }
 
     /**
      * Transforms the angle of the text.
      *
-     * @param delta the change as a double
+     * @param newAngle the angle as a double
      */
     @Override
-    void rotate(final double delta) {
-        text.setRotate(super.getInitAngle() + delta);
+    void rotate(final double newAngle) {
+        text.setRotate(newAngle);
     }
 
     /**
      * Widens the text.
      *
-     * @param delta the change as a double
+     * @param newWidth the width as a double
      */
     @Override
-    void widen(final double delta) {
-        text.maxWidth(super.getInitWidth() + delta);
-        text.minWidth(super.getInitWidth() + delta);
-        text.setWrappingWidth(super.getInitWidth() + delta);
+    void widen(final double newWidth) {
+        text.maxWidth(newWidth);
+        text.minWidth(newWidth);
+        text.setWrappingWidth(newWidth);
     }
 
     /**
      * Lengthens the text.
      *
-     * @param delta the change as a double
+     * @param newLength the length as a double
      */
     @Override
-    void lengthen(final double delta) {
-        text.maxHeight(super.getInitHeight() + delta);
-        text.minHeight(super.getInitHeight() + delta);
+    void lengthen(final double newLength) {
+        text.maxHeight(newLength);
+        text.minHeight(newLength);
     }
 
     /**

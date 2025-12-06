@@ -53,53 +53,53 @@ public final class ParaButton extends ParaShape {
     /**
      * Transforms the horizontal position of the button.
      *
-     * @param delta the change as a double
+     * @param newX the X position as a double
      */
     @Override
-    void transformHorizontal(final double delta) {
-        button.setTranslateX(super.getInitX() + delta);
+    void transformHorizontal(final double newX) {
+        button.setTranslateX(newX);
     }
 
     /**
      * Transforms the vertical position of the button.
      *
-     * @param delta the change as a double
+     * @param newY the Y position as a double
      */
     @Override
-    void transformVertical(final double delta) {
-        button.setTranslateY(super.getInitY() + delta);
+    void transformVertical(final double newY) {
+        button.setTranslateY(newY);
     }
 
     /**
      * Transforms the angle of the button.
      *
-     * @param delta the change as a double
+     * @param newAngle the angle as a double
      */
     @Override
-    void rotate(final double delta) {
-        button.setRotate(super.getInitAngle() + delta);
+    void rotate(final double newAngle) {
+        button.setRotate(newAngle);
     }
 
     /**
      * Widens the button.
      *
-     * @param delta the change as a double
+     * @param newWidth the width as a double
      */
     @Override
-    void widen(final double delta) {
-        button.setMaxWidth(super.getInitWidth() + delta);
-        button.setMinWidth(super.getInitWidth() + delta);
+    void widen(final double newWidth) {
+        button.setMaxWidth(newWidth);
+        button.setMinWidth(newWidth);
     }
 
     /**
      * Lengthens the button.
      *
-     * @param delta the change as a double
+     * @param newLength the length as a double
      */
     @Override
-    void lengthen(final double delta) {
-        button.setMaxHeight(super.getInitHeight() + delta);
-        button.setMinHeight(super.getInitHeight() + delta);
+    void lengthen(final double newLength) {
+        button.setMaxHeight(newLength);
+        button.setMinHeight(newLength);
     }
 
     /**

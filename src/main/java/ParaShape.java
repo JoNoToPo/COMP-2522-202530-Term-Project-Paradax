@@ -54,11 +54,11 @@ public abstract class ParaShape {
      */
     public final void update(final double currWindowHeight, final double currWindowWidth,
                              final double currWindowX, final double currWindowY) {
-        double totalX = -currWindowX;
-        double totalY = -currWindowY;
-        double totalAngle = 0;
-        double totalWidth = 0;
-        double totalHeight = 0;
+        double totalX = initX - currWindowX;
+        double totalY = initY - currWindowY;
+        double totalAngle = initAngle;
+        double totalWidth = initWidth;
+        double totalHeight = initHeight;
 
         for (Transform transform : transforms) {
             TransformType type = transform.getType();
@@ -165,37 +165,37 @@ public abstract class ParaShape {
     /**
      * Transforms the horizontal position of the shape.
      *
-     * @param delta the change as a double
+     * @param newX the X position as a double
      */
-    abstract void transformHorizontal(double delta);
+    abstract void transformHorizontal(double newX);
 
     /**
      * Transforms the vertical position of the shape.
      *
-     * @param delta the change as a double
+     * @param newY the Y position as a double
      */
-    abstract void transformVertical(double delta);
+    abstract void transformVertical(double newY);
 
     /**
      * Transforms the angle of the shape.
      *
-     * @param delta the change as a double
+     * @param newAngle the angle as a double
      */
-    abstract void rotate(double delta);
+    abstract void rotate(double newAngle);
 
     /**
      * Widens the shape.
      *
-     * @param delta the change as a double
+     * @param newWidth the width as a double
      */
-    abstract void widen(double delta);
+    abstract void widen(double newWidth);
 
     /**
      * Lengthens the shape.
      *
-     * @param delta the change as a double
+     * @param newLength the length as a double
      */
-    abstract void lengthen(double delta);
+    abstract void lengthen(double newLength);
 
     /**
      * Returns the node of the shape.
@@ -244,24 +244,6 @@ public abstract class ParaShape {
     }
 
     /**
-     * Gets the initial X index of the top left of the shape.
-     *
-     * @return the initial X index of the top left of the shape as a double
-     */
-    public final double getInitX() {
-        return initX;
-    }
-
-    /**
-     * Gets the initial Y index of the top left of the shape.
-     *
-     * @return the initial Y index of the top left of the shape as a double
-     */
-    public final double getInitY() {
-        return initY;
-    }
-
-    /**
      * Changes the position of the top left of the shape.
      *
      * @param newX the X index of the top left of the shape as a double
@@ -270,33 +252,6 @@ public abstract class ParaShape {
     public void changePosition(final double newX, final double newY) {
         this.initY = newY;
         this.initX = newX;
-    }
-
-    /**
-     * Gets the initial height the shape.
-     *
-     * @return the initial height as a double
-     */
-    public final double getInitHeight() {
-        return initHeight;
-    }
-
-    /**
-     * Gets the initial width the shape.
-     *
-     * @return the initial width as a double
-     */
-    public final double getInitWidth() {
-        return initWidth;
-    }
-
-    /**
-     * Gets the initial angle the shape.
-     *
-     * @return the initial angle as a double
-     */
-    public final double getInitAngle() {
-        return initAngle;
     }
 
     /**
