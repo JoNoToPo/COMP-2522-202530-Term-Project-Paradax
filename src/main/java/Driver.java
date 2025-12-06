@@ -50,8 +50,8 @@ public final class Driver extends Application {
     );
     private static final Background BACKGROUND = new Background(BACKGROUND_FILL);
 
-    private Level currLevel = new Level(0, 0, 0, 0);
-    private Deque<Level> levels = new LinkedList<>();
+    private LevelInterface currLevel = new Level(0, 0, 0, 0);
+    private Deque<LevelInterface> levels = new LinkedList<>();
     private int skip;
     private int index = 0;
     private boolean contd = false;

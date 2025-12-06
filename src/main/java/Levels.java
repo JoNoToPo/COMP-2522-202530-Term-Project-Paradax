@@ -112,8 +112,8 @@ public final class Levels {
      * @param pane the pane as a Pane Object
      * @return the levels as a Linked List containing Level
      */
-    static Deque<Level> levels(final Pane pane) {
-        Deque<Level> levels = new LinkedList<>();
+    static Deque<LevelInterface> levels(final Pane pane) {
+        Deque<LevelInterface> levels = new LinkedList<>();
         levels.add(levelOne(pane));
         levels.add(tutorialWiden(pane));
         levels.add(tutorialLengthen(pane));
@@ -228,7 +228,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelOne(final Pane root) {
+    private static LevelInterface levelOne(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
 
         level.addShape(tutorialButton(root));
@@ -252,7 +252,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level tutorialWiden(final Pane root) {
+    private static LevelInterface tutorialWiden(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.WIDTH);
 
@@ -271,7 +271,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level tutorialLengthen(final Pane root) {
+    private static LevelInterface tutorialLengthen(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
 
@@ -289,7 +289,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelTwo(final Pane root) {
+    private static LevelInterface levelTwo(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.WIDTH);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -316,7 +316,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level tutorialYFixed(final Pane root) {
+    private static LevelInterface tutorialYFixed(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -336,7 +336,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level tutorialXFixed(final Pane root) {
+    private static LevelInterface tutorialXFixed(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
@@ -354,7 +354,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelThree(final Pane root) {
+    private static LevelInterface levelThree(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
@@ -382,7 +382,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelFour(final Pane root) {
+    private static LevelInterface levelFour(final Pane root) {
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
@@ -436,7 +436,7 @@ public final class Levels {
         level.addShape(cold);
     }
 
-    private static Level levelFive(final Pane root) {
+    private static LevelInterface levelFive(final Pane root) {
 
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -463,7 +463,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelSix(final Pane root) {
+    private static LevelInterface levelSix(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
 
@@ -486,7 +486,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelSeven(final Pane root) {
+    private static LevelInterface levelSeven(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
@@ -511,7 +511,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelEight(final Pane root) {
+    private static LevelInterface levelEight(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
         level.addFixedLevelType(FixedLevelType.WIDTH);
@@ -535,7 +535,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelNine(final Pane root) {
+    private static LevelInterface levelNine(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.X_POSITION);
@@ -558,7 +558,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelTen(final Pane root) {
+    private static LevelInterface levelTen(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.WIDTH);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
@@ -581,7 +581,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level levelEleven(final Pane root) {
+    private static LevelInterface levelEleven(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.HEIGHT);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
@@ -602,7 +602,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level finalLevel(final Pane root) {
+    private static LevelInterface finalLevel(final Pane root) {
         Level level = new Level(INIT_X_MAIN, INIT_Y_MAIN, INIT_WIDTH_MAIN, INIT_HEIGHT_MAIN);
         level.addFixedLevelType(FixedLevelType.Y_POSITION);
 
@@ -632,7 +632,7 @@ public final class Levels {
         return level;
     }
 
-    private static Level finish(final Pane root) {
+    private static LevelInterface finish(final Pane root) {
 
         Level level = new Level(INIT_X, INIT_Y, INIT_WIDTH, INIT_HEIGHT);
         level.addFixedLevelType(FixedLevelType.HEIGHT);

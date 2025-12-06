@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author JoNoToPo
  * @version 2025
  */
-public final class Level {
+public final class Level implements LevelInterface {
     /**
      * Widens linearly with window width.
      */
@@ -92,7 +92,7 @@ public final class Level {
      *
      * @return all shapes as an ArrayList<ParaShape>
      */
-    List<ParaShape> getShapes() {
+    public List<ParaShape> getShapes() {
         return paraShapes;
     }
 
@@ -206,7 +206,7 @@ public final class Level {
      *
      * @return the fixed level types as a List<FixedLevelType>
      */
-    List<FixedLevelType> getFixedLevelTypes() {
+    public List<FixedLevelType> getFixedLevelTypes() {
         return fixedLevelTypes;
     }
 
