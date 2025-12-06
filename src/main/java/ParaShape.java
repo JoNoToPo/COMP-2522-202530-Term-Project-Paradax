@@ -249,7 +249,7 @@ public abstract class ParaShape {
      * @param newX the X index of the top left of the shape as a double
      * @param newY the Y index of the top left of the shape as a double
      */
-    public void changePosition(final double newX, final double newY) {
+    public void changeInitPosition(final double newX, final double newY) {
         this.initY = newY;
         this.initX = newX;
     }

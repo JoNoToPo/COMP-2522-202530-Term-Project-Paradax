@@ -295,7 +295,7 @@ public final class Levels {
         level.addFixedLevelType(FixedLevelType.HEIGHT);
 
         ParaButton button = tutorialButton(root);
-        button.changePosition(INIT_X_MAIN + INIT_WIDTH_MAIN, INIT_Y_MAIN + INIT_Y_MAIN);
+        button.changeInitPosition(INIT_X_MAIN + INIT_WIDTH_MAIN, INIT_Y_MAIN + INIT_Y_MAIN);
         Transform buttonExpoSpin = new Transform(TransformType.ROTATE, TransformSource.X_POS,
                 TransformPath.EXPONENTIAL, 1);
         button.addTransform(buttonExpoSpin);
@@ -361,7 +361,7 @@ public final class Levels {
         level.addFixedLevelType(FixedLevelType.X_POSITION);
 
         ParaButton button = mainButton(root);
-        button.changePosition(TEXT_BOX_X + TEXT_WIDTH / 2 - BUTTON_DIMENSION / 2
+        button.changeInitPosition(TEXT_BOX_X + TEXT_WIDTH / 2 - BUTTON_DIMENSION / 2
                 + TEXT_X_DIFFERENCE, TEXT_BOX_Y + TEXT_X_DIFFERENCE);
         level.addShape(button);
 
@@ -388,7 +388,7 @@ public final class Levels {
         level.addFixedLevelType(FixedLevelType.X_POSITION);
 
         ParaButton button = tutorialButton(root);
-        button.changePosition(INIT_X + INIT_WIDTH / 2, Driver.SCREEN_HEIGHT - BUTTON_DIMENSION / 2);
+        button.changeInitPosition(INIT_X + INIT_WIDTH / 2, Driver.SCREEN_HEIGHT - BUTTON_DIMENSION / 2);
         button.addTransform(VERT_WITH_WIDEN);
         level.addShape(button);
 
