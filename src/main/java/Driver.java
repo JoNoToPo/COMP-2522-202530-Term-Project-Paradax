@@ -42,7 +42,7 @@ public final class Driver extends Application {
 
     private static final Path DATA_PATH = Path.of("src", "main", "java", "data.txt");
     private static final int RADIUS = 10;
-    private static final int OVERSHOOT = 3;
+    private static final int OVERSHOOT = 2;
     private static final BackgroundFill BACKGROUND_FILL = new BackgroundFill(
             Color.DARKGRAY,
             new CornerRadii(RADIUS),
@@ -76,6 +76,7 @@ public final class Driver extends Application {
         intro.addShape(contBtn);
         contBtn.getNode().addEventHandler(ActionEvent.ACTION, _ -> contd = true);
         levels.addFirst(intro);
+        populateStage(stage, root);
 
         new AnimationTimer() {
             @Override
@@ -96,26 +97,30 @@ public final class Driver extends Application {
         stage.show();
     }
 
-    private void nextLevel(final Stage stage, final Pane root) {
+    private void populateStage(final Stage unpopulatedStage, final Pane childlessRoot) {
+        currLevel = levels.pop();
+        initializeStagePosition(unpopulatedStage);
+        for (ParaShape shape : currLevel.getShapes()) {
+            childlessRoot.getChildren().add(shape.getNode());
+        }
+    }
+
+    private void nextLevel(final Stage emptyStage, final Pane pane) {
         index += 1;
         if (!levels.isEmpty()) {
-            currLevel = levels.pop();
-            initializeStagePosition(stage);
-            for (ParaShape shape : currLevel.getShapes()) {
-                root.getChildren().add(shape.getNode());
-            }
+            populateStage(emptyStage, pane);
+            writeFile(index - OVERSHOOT);
         } else {
-            levels = Levels.levels(root);
+            levels = Levels.levels(pane);
             if (contd) {
                 for (; skip > 0; skip--) {
                     currLevel = levels.pop();
                     index += 1;
                 }
-                initializeStagePosition(stage);
+                initializeStagePosition(emptyStage);
                 contd = false;
             }
         }
-        writeFile(index - OVERSHOOT);
     }
 
     private void createSaveFile() {
@@ -149,7 +154,6 @@ public final class Driver extends Application {
 
     private static void limitStage(final Stage stage) {
         stage.initStyle(StageStyle.UNIFIED);
-        stage.setMaxHeight(SCREEN_HEIGHT);
         stage.setMaxWidth(SCREEN_WIDTH);
         negateMaximize(stage);
     }
