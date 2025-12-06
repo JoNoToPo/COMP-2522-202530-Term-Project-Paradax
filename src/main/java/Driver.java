@@ -68,8 +68,7 @@ public final class Driver extends Application {
         root.setBackground(BACKGROUND);
 
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
-        stage.initStyle(StageStyle.UNIFIED);
-        negateMaximize(stage);
+        limitStage(stage);
         scene.setCursor(new ImageCursor());
 
         Level intro = Levels.intro(root);
@@ -148,6 +147,12 @@ public final class Driver extends Application {
         }
     }
 
+    private static void limitStage(final Stage stage) {
+        stage.initStyle(StageStyle.UNIFIED);
+        stage.setMaxHeight(SCREEN_HEIGHT);
+        stage.setMaxWidth(SCREEN_WIDTH);
+        negateMaximize(stage);
+    }
 
     private static void negateMaximize(final Stage stage) {
         stage.maximizedProperty().addListener((_, _, newValue) -> {
