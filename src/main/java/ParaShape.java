@@ -11,8 +11,10 @@ import java.util.Objects;
  * @version 2025
  */
 public abstract class ParaShape {
-    private static final int ONE_HUNDRED_PIXELS = 100;
-    private static final int TEN_PIXELS = 10;
+    /**
+     * How many percent of the screen the source has to move for a wave to advance one radian.
+     */
+    private static final double WAVE_LENGTH_PERCENT = 4.09;
 
     private double initX;
     private double initY;
@@ -80,26 +82,26 @@ public abstract class ParaShape {
     }
 
     /**
-     * Parses the source of the transform.
+     * Parses the source of the transform as a percentage of the screen.
      *
      * @param currWindowHeight the current height of the screen as a double
      * @param currWindowWidth the current width of the screen as a double
      * @param currWindowX the current X position of the top left of the window as a double
      * @param currWindowY  the current Y position of the top left of the window as a double
      * @param source the source of the transform as a TransformSource
-     * @return the source of the transform as a double
+     * @return the source of the transform as a percentage of the screen as a double
      */
     private double parseSource(final double currWindowHeight, final double currWindowWidth,
                                final double currWindowX, final double currWindowY,
                                final TransformSource source) {
         if (source == TransformSource.X_POS) {
-            return currWindowX;
+            return Scale.toWidthPercent(currWindowX);
         } else if (source == TransformSource.Y_POS) {
-            return currWindowY;
+            return Scale.toHeightPercent(currWindowY);
         } else if (source == TransformSource.HEIGHT) {
-            return currWindowHeight;
+            return Scale.toHeightPercent(currWindowHeight);
         } else if (source == TransformSource.WIDTH) {
-            return currWindowWidth;
+            return Scale.toWidthPercent(currWindowWidth);
         }
         return 0;
     }
@@ -107,16 +109,16 @@ public abstract class ParaShape {
     /**
      * Parse the path taken.
      *
-     * @param source the source of the transform as a double
+     * @param source the source of the transform as a percentage of the screen as a double
      * @param path the path of the transform as a TransformPath
-     * @return the path of the transform as a double
+     * @return the path of the transform as a percentage of the screen as a double
      */
     private double parsePath(final double source,
                              final TransformPath path) {
         if (path == TransformPath.SINUSOIDAL) {
-            return Math.sin(source / Math.TAU / TEN_PIXELS) * ONE_HUNDRED_PIXELS;
+            return Math.sin(source / WAVE_LENGTH_PERCENT);
         } else if (path == TransformPath.COSINUSOIDAL) {
-            return Math.cos(source / Math.TAU / TEN_PIXELS) * ONE_HUNDRED_PIXELS;
+            return Math.cos(source / WAVE_LENGTH_PERCENT);
         } else if (path == TransformPath.EXPONENTIAL) {
             return source * source;
         }
@@ -124,7 +126,8 @@ public abstract class ParaShape {
     }
 
     /**
-     * Calculates the delta from the transform.
+     * Calculates the delta from the transform. Positions and sizes are converted from a
+     * percentage of the screen back into pixels, while rotations stay in degrees.
      *
      * @param passWindowHeight the passed value for the height of the screen as a double
      * @param passWindowWidth the passed value for the width of the screen as a double
@@ -133,14 +136,21 @@ public abstract class ParaShape {
      * @param passWindowY the passed value for the Y position
      *                    of the top left of the screen as a double
      * @param transform the transform being applied as a Transform
-     * @return the delta as a double
+     * @return the delta in pixels or degrees as a double
      */
     private double calculateDelta(final double passWindowHeight, final double passWindowWidth,
                                   final double passWindowX, final double passWindowY,
                                   final Transform transform) {
         double source = parseSource(passWindowHeight, passWindowWidth,
                 passWindowX, passWindowY, transform.getSource());
-        return parsePath(source, transform.getPath()) * transform.getMultiplier();
+        double percent = parsePath(source, transform.getPath()) * transform.getMultiplier();
+        TransformType type = transform.getType();
+        if (type == TransformType.HORIZONTAL || type == TransformType.WIDEN) {
+            return Scale.width(percent);
+        } else if (type == TransformType.VERTICAL || type == TransformType.LENGTHEN) {
+            return Scale.height(percent);
+        }
+        return percent;
     }
 
     /**

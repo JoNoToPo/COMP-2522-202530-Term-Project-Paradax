@@ -1,0 +1,45 @@
+# Builds a download of Paradax for Windows, Mac and Linux.
+# Push a tag like "v1.0" to publish the zips on the GitHub Releases page,
+# or run it by hand from the Actions tab to just get the zips as build artifacts.
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "24"
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build the game
+        run: |
+          chmod +x gradlew
+          ./gradlew packageGame
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Paradax-${{ runner.os }}
+          path: build/distributions/Paradax-*.zip
+
+      - name: Attach to the release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/distributions/Paradax-*.zip

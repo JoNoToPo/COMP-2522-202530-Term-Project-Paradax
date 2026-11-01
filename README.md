@@ -7,6 +7,20 @@ A01459353
 ## Your GitHub name:
 JoNoToPo
 
+## How to play
+Download the zip for your computer from the Releases page of this repository, unzip it, and open
+`Paradax.exe` (Windows) or `Paradax.app` (Mac). Java does not need to be installed.
+
+Windows may show a "Windows protected your PC" warning because the game is not signed. Click
+"More info" and then "Run anyway". On Mac, right-click `Paradax.app` and choose "Open" the first time.
+
+Your progress is saved in a `.paradax` folder in your user folder.
+
+## Building the download yourself
+Run `gradlew packageGame`. The zip appears in `build/distributions`. It only runs on the kind of
+computer it was built on, so pushing a tag like `v1.0` makes GitHub build all three versions and
+put them on the Releases page.
+
 ## A few notes for Chris:
 I was unable to test the game on Mac, so I do not know if everything works as intended. however you will be able to
 see the full playthrough in the video if it does not work.

@@ -13,7 +13,8 @@ import java.util.Objects;
  */
 public final class ParaRectangle extends ParaShape {
 
-    private static final double TEN_PIXELS = 10;
+    private static final double CORNER_SIZE = Scale.height(1.10);
+    private static final double BORDER_WIDTH = Scale.height(0.22);
     private final Rectangle rectangle;
 
     /**
@@ -32,9 +33,9 @@ public final class ParaRectangle extends ParaShape {
                          final double initAngle, final Color color) {
         super(zIndex, initX, initY, width, height, initAngle);
         rectangle = new Rectangle(width, height, color);
-        rectangle.setArcHeight(TEN_PIXELS);
-        rectangle.setArcWidth(TEN_PIXELS);
-        rectangle.setStrokeWidth(2);
+        rectangle.setArcHeight(CORNER_SIZE);
+        rectangle.setArcWidth(CORNER_SIZE);
+        rectangle.setStrokeWidth(BORDER_WIDTH);
         rectangle.setStroke(Paint.valueOf("WHITE"));
     }
 

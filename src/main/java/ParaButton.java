@@ -12,6 +12,8 @@ import java.util.Objects;
  * @version 2025
  */
 public final class ParaButton extends ParaShape {
+    private static final double BORDER_SIZE = Scale.height(0.33);
+    private static final double FONT_SIZE = Scale.height(1.32);
 
     private final Button button;
     private final ParaButtonType buttonType;
@@ -36,7 +38,8 @@ public final class ParaButton extends ParaShape {
         button.setFocusTraversable(false);
         button.setTextAlignment(TextAlignment.CENTER);
         button.setStyle("-fx-border-color: lightblue;"
-                + "-fx-border-width: 3px; -fx-border-radius: 3px;");
+                + "-fx-border-width: " + BORDER_SIZE + "px; -fx-border-radius: " + BORDER_SIZE
+                + "px; -fx-font-size: " + FONT_SIZE + "px;");
         this.buttonType = buttonType;
         applyButtonType(root);
     }

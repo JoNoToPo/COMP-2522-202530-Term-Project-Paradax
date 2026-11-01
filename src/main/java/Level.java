@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a level in Paralax.
+ * Represents a level in Paradax.
  *
  * @author JoNoToPo
  * @version 2025
@@ -24,8 +24,13 @@ public final class Level implements LevelInterface {
     static final Transform GROW_HEIGHT = new Transform(TransformType.LENGTHEN,
             TransformSource.HEIGHT, TransformPath.LINEAR, 1);
 
-    private static final int FIVE_PIXELS = 5;
-    private static final int THREE_PIXELS = 5;
+    private static final double LINE_MARGIN_X = Scale.width(0.33);
+    private static final double LINE_MARGIN_Y = Scale.height(0.55);
+    private static final double LINE_THICKNESS_X = Scale.width(0.33);
+    private static final double LINE_THICKNESS_Y = Scale.height(0.55);
+
+    // Pixels the right and bottom lines poke into the window border, which never changes size.
+    private static final double BORDER_OVERLAP = 3;
     private final List<ParaShape> paraShapes;
     private final List<FixedLevelType> fixedLevelTypes;
     private final double initX;
@@ -128,16 +133,17 @@ public final class Level implements LevelInterface {
      */
     private void fixWidth() {
         ParaRectangle leftRedLine = new ParaRectangle(0, initX,
-                initY + FIVE_PIXELS, THREE_PIXELS,
-                initHeight - Levels.HEADER_HEIGHT - FIVE_PIXELS * 2, 0, Color.RED);
+                initY + LINE_MARGIN_Y, LINE_THICKNESS_X,
+                initHeight - Levels.HEADER_HEIGHT - LINE_MARGIN_Y * 2, 0, Color.RED);
         leftRedLine.addTransform(GROW_HEIGHT);
         leftRedLine.addTransform(Levels.WITH_X);
         leftRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(leftRedLine);
 
-        ParaRectangle rightRedLine = new ParaRectangle(0, initX + initWidth - 2
-                - Levels.WIDTH_DIFFERENCE, initY + FIVE_PIXELS, THREE_PIXELS,
-                initHeight - Levels.HEADER_HEIGHT - FIVE_PIXELS * 2, 0, Color.RED);
+        ParaRectangle rightRedLine = new ParaRectangle(0, initX + initWidth
+                - Levels.WIDTH_DIFFERENCE + BORDER_OVERLAP - LINE_THICKNESS_X,
+                initY + LINE_MARGIN_Y, LINE_THICKNESS_X,
+                initHeight - Levels.HEADER_HEIGHT - LINE_MARGIN_Y * 2, 0, Color.RED);
         rightRedLine.addTransform(GROW_HEIGHT);
         rightRedLine.addTransform(Levels.WITH_X);
         rightRedLine.addTransform(Levels.WITH_Y);
@@ -148,18 +154,18 @@ public final class Level implements LevelInterface {
      * Adds line indicators when the height is fixed.
      */
     private void fixHeight() {
-        ParaRectangle topRedLine = new ParaRectangle(0, initX + FIVE_PIXELS,
-                initY, initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2,
-                THREE_PIXELS, 0, Color.RED);
+        ParaRectangle topRedLine = new ParaRectangle(0, initX + LINE_MARGIN_X,
+                initY, initWidth - Levels.WIDTH_DIFFERENCE - LINE_MARGIN_X * 2,
+                LINE_THICKNESS_Y, 0, Color.RED);
         topRedLine.addTransform(GROW_WIDTH);
         topRedLine.addTransform(Levels.WITH_X);
         topRedLine.addTransform(Levels.WITH_Y);
         paraShapes.add(topRedLine);
 
-        ParaRectangle bottomRedLine = new ParaRectangle(0, initX + FIVE_PIXELS,
-                initY + initHeight - Levels.HEADER_HEIGHT - 2,
-                initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2,
-                THREE_PIXELS, 0, Color.RED);
+        ParaRectangle bottomRedLine = new ParaRectangle(0, initX + LINE_MARGIN_X,
+                initY + initHeight - Levels.HEADER_HEIGHT + BORDER_OVERLAP - LINE_THICKNESS_Y,
+                initWidth - Levels.WIDTH_DIFFERENCE - LINE_MARGIN_X * 2,
+                LINE_THICKNESS_Y, 0, Color.RED);
         bottomRedLine.addTransform(GROW_WIDTH);
         bottomRedLine.addTransform(Levels.WITH_X);
         bottomRedLine.addTransform(Levels.WITH_Y);
@@ -170,9 +176,9 @@ public final class Level implements LevelInterface {
      * Adds line indicator when the X is fixed.
      */
     private void fixX() {
-        ParaRectangle leftBlackLine = new ParaRectangle(0, initX + FIVE_PIXELS,
-                initY + FIVE_PIXELS, THREE_PIXELS,
-                initHeight - Levels.HEADER_HEIGHT - FIVE_PIXELS * 2, 0, Color.BLACK);
+        ParaRectangle leftBlackLine = new ParaRectangle(0, initX + LINE_MARGIN_X,
+                initY + LINE_MARGIN_Y, LINE_THICKNESS_X,
+                initHeight - Levels.HEADER_HEIGHT - LINE_MARGIN_Y * 2, 0, Color.BLACK);
         leftBlackLine.addTransform(GROW_HEIGHT);
         leftBlackLine.addTransform(Levels.WITH_X);
         leftBlackLine.addTransform(Levels.WITH_Y);
@@ -183,9 +189,9 @@ public final class Level implements LevelInterface {
      * Adds line indicator when the Y is fixed.
      */
     private void fixY() {
-        ParaRectangle topBlackLine = new ParaRectangle(0, initX + FIVE_PIXELS,
-                initY + FIVE_PIXELS, initWidth - Levels.WIDTH_DIFFERENCE - FIVE_PIXELS * 2,
-                THREE_PIXELS, 0, Color.BLACK);
+        ParaRectangle topBlackLine = new ParaRectangle(0, initX + LINE_MARGIN_X,
+                initY + LINE_MARGIN_Y, initWidth - Levels.WIDTH_DIFFERENCE - LINE_MARGIN_X * 2,
+                LINE_THICKNESS_Y, 0, Color.BLACK);
         topBlackLine.addTransform(GROW_WIDTH);
         topBlackLine.addTransform(Levels.WITH_X);
         topBlackLine.addTransform(Levels.WITH_Y);
@@ -202,7 +208,7 @@ public final class Level implements LevelInterface {
     }
 
     /**
-     * Adds line indicator when the X is fixed.
+     * Gets the Fixed level types of the level as a list.
      *
      * @return the fixed level types as a List<FixedLevelType>
      */

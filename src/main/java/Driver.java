@@ -2,7 +2,6 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -10,7 +9,6 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -28,20 +26,9 @@ import java.util.LinkedList;
  */
 public final class Driver extends Application {
 
-    private static final Rectangle2D BOUNDS = Screen.getPrimary().getVisualBounds();
-
-    /**
-     * The width of the screen as a double.
-     */
-    static final double SCREEN_WIDTH = BOUNDS.getWidth();
-
-    /**
-     * The height of the screen as a double.
-     */
-    static final double SCREEN_HEIGHT = BOUNDS.getHeight();
-
-    private static final Path DATA_PATH = Path.of("src", "main", "java", "data.txt");
-    private static final int RADIUS = 10;
+    private static final Path DATA_PATH = Path.of(System.getProperty("user.home"),
+            ".paradax", "save.txt");
+    private static final double RADIUS = Scale.height(1.10);
     private static final int OVERSHOOT = 2;
     private static final BackgroundFill BACKGROUND_FILL = new BackgroundFill(
             Color.DARKGRAY,
@@ -128,6 +115,7 @@ public final class Driver extends Application {
             skip = readFile();
         } else {
             try {
+                Files.createDirectories(DATA_PATH.getParent());
                 Files.createFile(DATA_PATH);
             } catch (IOException exception) {
                 throw new RuntimeException(exception);
@@ -146,7 +134,9 @@ public final class Driver extends Application {
 
     private static int readFile() {
         try {
-            return Integer.parseInt(Files.readString(DATA_PATH));
+            return Integer.parseInt(Files.readString(DATA_PATH).strip());
+        } catch (NumberFormatException emptySave) {
+            return 0;
         } catch (IOException somethingBroke) {
             throw new RuntimeException(somethingBroke);
         }
@@ -154,7 +144,7 @@ public final class Driver extends Application {
 
     private static void limitStage(final Stage stage) {
         stage.initStyle(StageStyle.UNIFIED);
-        stage.setMaxWidth(SCREEN_WIDTH);
+        stage.setMaxWidth(Scale.SCREEN_WIDTH);
         negateMaximize(stage);
     }
 

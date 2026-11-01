@@ -15,7 +15,7 @@ import java.util.Objects;
  */
 public final class ParaText extends ParaShape {
     private static final int Z_INDEX = 10;
-    private static final int FONT_SIZE = 14;
+    private static final double FONT_SIZE = Scale.height(1.54);
 
     private final Text text;
 
