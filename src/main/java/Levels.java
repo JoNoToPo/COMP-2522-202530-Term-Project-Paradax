@@ -24,23 +24,20 @@ public final class Levels {
     static final Transform WITH_Y = new Transform(TransformType.VERTICAL,
             TransformSource.Y_POS, TransformPath.LINEAR, 1);
 
-    // The next three lengths stay in pixels because they measure the window's title bar and
-    // borders, which the operating system draws the same size on every monitor.
-
-    /**
-     * Defines the centering height to apply to ParaShapes to be centered to the screen.
-     */
-    static final double Y_CENTERING_HEIGHT = 60;
-
     /**
      * Defines the height to apply to ParaShapes to appear at the bottom of the screen.
      */
-    static final double HEADER_HEIGHT = 40;
+    static final double HEADER_HEIGHT = WindowFrame.getHeight() + Scale.height(0.26);
 
     /**
      * Defines the width to apply to ParaShapes to appear on the right side of the screen.
      */
-    static final double WIDTH_DIFFERENCE = 17;
+    static final double WIDTH_DIFFERENCE = WindowFrame.getWidth() + Scale.width(0.17);
+
+    /**
+     * Defines the centering height to apply to ParaShapes to be centered to the screen.
+     */
+    static final double Y_CENTERING_HEIGHT = HEADER_HEIGHT + Scale.height(2.19);
 
     private static final double THREE = 3;
     private static final double FOUR = 4;

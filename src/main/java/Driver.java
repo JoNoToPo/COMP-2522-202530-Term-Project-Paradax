@@ -57,6 +57,7 @@ public final class Driver extends Application {
         Scene scene = new Scene(root, stage.getWidth(), stage.getHeight(), Color.GRAY);
         limitStage(stage);
         scene.setCursor(new ImageCursor());
+        showAndMeasure(stage, scene);
 
         Level intro = Levels.intro(root);
         ParaButton contBtn = Levels.continueButton(root);
@@ -79,9 +80,22 @@ public final class Driver extends Application {
             }
         }.start();
 
+        stage.setOpacity(1);
+    }
+
+    /**
+     * Shows the window invisibly so its title bar and borders can be measured before the
+     * levels are laid out around them.
+     *
+     * @param stage the stage being shown as a Stage
+     * @param scene the scene inside the stage as a Scene
+     */
+    private static void showAndMeasure(final Stage stage, final Scene scene) {
         stage.setTitle("Paradax");
         stage.setScene(scene);
+        stage.setOpacity(0);
         stage.show();
+        WindowFrame.measure(stage, scene);
     }
 
     private void populateStage(final Stage unpopulatedStage, final Pane childlessRoot) {
